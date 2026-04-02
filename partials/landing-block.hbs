@@ -1,0 +1,351 @@
+<div id="{{slug}}"
+    tabindex="-1"
+    data-sx-landing="{{@number}}"
+    class="landing landing-{{@number}} relative outer xl:outer-xl outline-hidden 
+        {{#has tag="#landing-no-space"}} 
+            last:pb-16 sm:last:pb-20 scroll-m-16 
+        {{else has tag="#landing-space-sm"}} 
+            py-4 sm:py-6 scroll-m-12 sm:scroll-m-10
+        {{else has tag="#landing-space-md"}} 
+            py-8 sm:py-14 scroll-m-8 sm:scroll-m-2
+        {{else}} 
+            py-16 sm:py-20 {{#if isHero}} md:py-28 {{/if}}
+        {{/has}}          
+
+        {{#has tag="#landing-no-space-top"}} pt-0! scroll-m-16! {{/has}}
+        {{#has tag="#landing-no-space-bottom"}} pb-0! {{/has}}
+
+        {{#if isHero}} landing-hero {{/if}}
+        {{#if isCenter}} landing-center {{/if}}
+
+        {{post_class}}
+    "
+>
+    {{!-- Backgrounds --}}
+    {{#has tag="#landing-bg-accent" }} 
+        <div class="absolute inset-0 -z-10 bg-primary opacity-5 dark:opacity-8 pointer-events-none"></div> 
+    {{else has tag="#landing-bg-alt"}}
+        <div class="absolute inset-0 -z-10 bg-gray-100/80 dark:bg-gray-900 pointer-events-none"></div> 
+    {{/has}}    
+
+    {{^if isHero}}
+        {{!-- CTA pattern and bg --}}
+        {{#has tag="#landing-cta"}}
+            <div class="landing-cta-effects pointer-events-none">
+                <div class="landing-cta-light relative z-10 min-w-full py-8 sm:py-10 -mx-outer xl:-mx-outer-xl pointer-events-none"> {{!-- <- controls the padding --}}
+                    <div class="absolute top-0 start-0 w-full -translate-y-1/2 overflow-hidden pointer-events-none" style="height: 500px;"> {{!-- <- controls the overflow: needs to be shifted vertically --}}
+                        <div class="relative w-full h-full"> 
+                            <div class="relative w-full h-full">
+                                <div data-sal="scale-x" class="absolute top-1/2 start-1/2 -translate-x-1/2 translate-y-0" {{!-- <- makes sure the animation is triggered at the correct position --}}
+                                    style="
+                                        width: 1000px;
+                                        height: 500px;
+                                        --sx-cta-light-radius: 60px;
+                                    "
+                                >
+                                    <div  class="absolute z-10 -top-1/2 start-0 w-full h-full mask-radial mask-radial-x-size-40% mask-radial-y-size-50%"> {{!-- <- controls the mask --}}
+                                        <div class="absolute top-0 start-1/2 w-1/2 h-full -translate-x-full -scale-x-100 opacity-30" 
+                                            style="
+                                                background: conic-gradient(from -90deg at var(--sx-cta-light-radius) 50%, rgba(0, 0, 0, 0) 25%, hsl(var(--c-primary-hsl) / 0.3), hsl(var(--c-primary-hsl)));
+                                            "
+                                        ></div>
+                                        <div class="absolute top-0 start-1/2 w-1/2 h-full opacity-30" 
+                                            style="
+                                                background: conic-gradient(from -90deg at var(--sx-cta-light-radius) 50%, rgba(0, 0, 0, 0) 25%, hsl(var(--c-primary-hsl) / 0.3), hsl(var(--c-primary-hsl)));
+                                            "
+                                        ></div>
+
+                                        <div class="absolute top-1/2 start-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full" 
+                                            style="
+                                                width: calc(var(--sx-cta-light-radius) * 2 - 2px);
+                                            "
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- CTA grid pattern + mask --}}
+                <div class="landing-cta-grid absolute -z-10 bottom-0 start-1/2 -translate-x-1/2 w-full h-60 {{#if isCenter}} sm:w-2/3 max-w-5xl {{else}} max-w-6xl {{/if}} mask-radial-to-t overflow-hidden opacity-40 text-gray-950 dark:text-gray-50">
+                    {{> icons/grid class="absolute -z-10 bottom-0 start-1/2 -translate-x-1/2 h-auto w-5xl" }}
+                </div>         
+
+                {{!-- CTA shiny border --}}
+                <div class="landing-cta-border absolute -z-10 -bottom-px start-1/2 -translate-x-1/2 w-full max-w-6xl {{#if isCenter}} xl:w-2/5 {{/if}} h-px bg-linear-to-r from-black/0 via-primary to-black/0 opacity-30 pointer-events-none">
+                </div>
+
+                {{!-- CTA blured background --}}
+                <div class="landing-cta-bg absolute -z-10 bottom-0 start-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none"></div>            
+            </div>
+
+        {{!-- Divider --}}  
+        {{else has tag="#landing-divider"}}
+            <div class="landing-divider pointer-events-none py-5">
+                {{!-- Divider grid + mask  --}}
+                <div class="absolute -z-10 top-5 start-1/2 -translate-x-1/2 w-full h-60 {{#if isCenter}} sm:w-2/3 max-w-5xl {{else}} max-w-6xl {{/if}} mask-radial-to-b overflow-hidden opacity-50 text-gray-950 dark:text-gray-50">
+                    {{> icons/grid class="absolute -z-10 top-0 start-1/2 -translate-x-1/2 h-auto w-5xl" }}
+                </div>
+
+                {{!-- Divider border --}}
+                <div class="absolute -z-10 top-5 start-1/2 -translate-x-1/2 w-full max-w-6xl {{#if isCenter}} xl:w-2/5 {{/if}} h-px bg-linear-to-r from-black/0 via-gray-300 dark:via-gray-700 to-black/0 pointer-events-none"></div>
+
+                {{!-- Divider background --}}
+                <div class="landing-divider-bg absolute -z-10 top-5 start-1/2 -translate-x-1/2 h-full w-full max-w-6xl pointer-events-none"></div>
+                    
+            </div>        
+        {{/has}} 
+    {{/if}}   
+
+    <div class="inner max-w-6xl grid gap-10 xl:gap-16 items-center
+            {{#has tag="#landing-media-end, #landing-media-start"}} lg:grid-cols-2 {{/has}}
+            {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} sm:text-center {{/has}}
+        "
+    >    
+        {{!-- Text block --}}
+        <div>
+            {{!-- Kicker --}}
+            {{#foreach tags visibility="internal"}}
+                {{#match slug "~^" "hash-landing-kicker" }}
+                    <{{#if canonical_url}}a href="{{canonical_url}}"{{else}}span {{/if}} 
+                        class="landing-kicker animate-fade hidden first:inline-flex relative z-10 flex-wrap items-center gap-1 mb-3 
+                            hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200
+                        "
+                    >
+                        {{#with ..}}
+                            {{#if isHero}} 
+                                <span class="badge-sm inline flex-none me-0.5" data-sx-text="{{t "New"}}">{{t "New"}}</span>
+                            {{/if}}
+                        {{/with}}
+
+                        <span class="{{#with ..}}{{#if isHero}} inline leading-none {{else}} inline-flex {{/if}}{{/with}}">
+                            <span data-sx-text="{{description}}" class="{{#with ..}}{{#if isHero}} text-xs sm:text-sm leading-5 {{else}} badge {{/if}}{{/with}}">                        
+                                {{description}}
+                            </span>
+
+                            {{#if canonical_url}}
+                                {{#with ..}}
+                                    {{#if isHero}}
+                                        {{> icons/chevron-right-micro class="inline flex-none relative align-top top-0.5 mt-px w-4 h-4 [:hover>&]:translate-x-1 transition-transform duration-200" }}
+                                    {{/if}}
+                                {{/with}}
+                            {{/if}}
+                        </span>
+                    </{{#if canonical_url}}a{{else}}span{{/if}}>   
+                {{/match}}
+            {{/foreach}}
+
+            {{!-- Heading --}}
+            {{^has tag="#landing-no-title"}}
+                {{#if isHero}}
+                    <h1 class="animate-fade -my-3 max-w-4xl text-balance text-4xl md:text-5xl lg:text-6xl tracking-tighter leading-tighter font-extrabold                             
+                            {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} mx-auto {{/has}}
+                        "
+                    >  
+                        <span class="relative inline-flex py-3 px-2 -mx-2">
+                            {{!-- Placeholder title --}}
+                            <span aria-hidden="true" class="invisible">{{title}}</span>
+                            {{!-- Visible title --}}
+                            <span class="absolute py-3 px-2 inset-0 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                                {{title}}
+                            </span>                            
+                            {{!-- Shine effect --}}
+                            <span aria-hidden="true" class="animate-bg hidden dark:block absolute py-3 px-2 inset-0 text-transparent bg-clip-text">{{title}}</span>                
+                        </span>
+                    </h1>   
+                {{else}}
+                    <h2 data-sal="fade"
+                        class="relative max-w-3xl text-balance text-4xl xl:text-5xl font-bold tracking-tight leading-tighter text-gray-950 dark:text-gray-100
+                            {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} mx-auto {{/has}}
+                        "
+                    >
+                        <span class="text-gray-950 dark:text-gray-50/50 dark:bg-clip-text dark:bg-linear-to-b from-white to-background-dark">
+                            {{title}}
+                        </span>
+                    </h2>
+                    {{!-- Fix: Product cards use h4 headings which creates out of orders headings error --}}
+                    <h3 class="sr-only">&nbsp;<span class="hidden">{{title}}</span></h3>
+                {{/if}}
+            {{/has}}
+
+            {{!-- Content --}}
+            <div {{^if isHero}} data-sal="slide-up" {{/if}} 
+                class="landing-content content max-w-2xl 
+                    {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} mx-auto {{/has}}
+                    {{^has tag="#landing-no-title"}} mt-4 {{/has}} 
+                    {{#if isHero}} animate-slide-up {{/if}}                    
+                "
+            >
+                {{{html}}}
+
+                {{!-- Fix: Ghost beta editor adds empty text nodes that break inline-flex --}}
+                {{#has tag="#landing-brands"}}
+                    <script>
+                        (function() {
+                            const contentElement = document.currentScript.parentElement;
+                            Array.from(contentElement.childNodes)
+                                .filter(child => child.nodeType === Node.TEXT_NODE && child.nodeValue && !child.nodeValue.trim())
+                                .forEach(child => child.remove());
+                        })();
+                    </script>
+                {{/has}}
+
+            </div>
+            {{^if isHero}}
+                <script>
+                    (function() {                        
+                        const postClass = "{{post_class}}";
+                        const tags = ["tag-hash-landing-testimonials", "tag-hash-landing-features", "tag-hash-landing-stats"];
+                        if (!tags.some(t => postClass.includes(t))) {
+                            return;
+                        }
+
+                        const parentElement = document.currentScript.parentElement;
+                        const contentElement = document.currentScript.previousElementSibling;
+                        const cards = contentElement.querySelectorAll('.kg-product-card');
+                        const first = cards[0];
+                        const fragment = document.createDocumentFragment();
+                        const div = document.createElement('div');
+                        div.className = "landing-cards content";
+
+                        first && cards.forEach(card => {
+                            const img = card.querySelector('.kg-product-card-image');
+                            const div = document.createElement('div');
+                            div.className = "kg-product-card-image-container";  
+                            const span = document.createElement('span');
+                            span.className = "hidden";
+                            div.appendChild(span);
+                            img && img.src && div.style.setProperty('--sx-img-url', `url(${img.src})`);
+                            img && img.parentElement.insertBefore(div, img);                             
+                            img && div.appendChild(img);
+
+                            if (img && !img.hasAttribute('alt')) {
+                                img.alt = " ";
+                            }
+
+                            fragment.append(card);
+                        });    
+
+                        if (contentElement.innerHTML.trim().length === 0) {
+                            contentElement.classList.add('landing-content-empty');
+                        }
+
+                        if (postClass.includes('tag-hash-landing-animate')) {
+                            div.setAttribute('data-sal', 'slide-up');
+                        }
+
+                        div.appendChild(fragment);                        
+                        first && parentElement.appendChild(div);
+                    })();
+                </script>
+            {{/if}}
+
+            {{!-- Blog posts --}}
+            {{#has tag="#landing-blog"}}
+                {{#get "posts" filter="tags:hash-blog-col" include="tags,authors" order="featured DESC, published_at DESC" limit="6" as |posts| }}
+                    {{#if posts}}
+                        <div data-sal="slide-up" class="landing-cards">                
+                            {{#foreach posts}}
+                                {{> card-blog page=../.. class="landing-card"}}
+                            {{/foreach}}
+                        </div>
+                    {{/if}}
+                {{/get}}
+            {{/has}}
+
+            {{!-- Courses --}}
+            {{#has tag="#landing-courses"}}
+                {{#get "posts" filter="tags:hash-courses-col" include="tags,authors" order="featured DESC, published_at DESC" limit="6" as |posts| }}
+                    {{#if posts}}
+                        <div data-sal="slide-up" class="landing-cards pt-6">                
+                            {{#foreach posts}}
+                                {{> card-course page=../.. class="landing-card"}}
+                            {{/foreach}}
+                        </div>
+                    {{/if}}
+                {{/get}}        
+            {{/has}}
+        </div>
+
+
+        {{!-- Media block --}}
+        <figure 
+            {{^if isHero}} data-sal="slide-up" {{/if}} 
+            class="landing-figure w-full max-w-6xl mx-auto hidden
+                {{#if isHero}} animate-slide-up {{/if}}  
+                {{#has tag="#landing-media-start"}} lg:order-first {{/has}}
+                {{#if feature_image}} !block {{/if}}
+                {{#has tag="#landing-video"}} !block {{/has}}
+            "
+        >
+            <div class="relative rounded-md lg:rounded-xl overflow-hidden 
+                    {{#has tag="#landing-media-1-1"}} 
+                        aspect-1/1
+                    {{else has tag="#landing-media-3-4"}} 
+                        aspect-3/4
+                    {{else has tag="#landing-media-4-3"}} 
+                        aspect-4/3
+                    {{else has tag="#landing-media-4-5"}} 
+                        aspect-4/5
+                    {{else has tag="#landing-media-5-4"}}
+                        aspect-5/4
+                    {{else has tag="#landing-media-9-16"}}
+                        aspect-9/16
+                    {{else}}
+                        aspect-16/9
+                    {{/has}}
+                "
+            >
+                {{#has tag="#landing-video"}}
+                    <script>
+                        (function() {
+                            const wrapperElement = document.currentScript.parentElement;
+                            const figureElement = wrapperElement.parentElement;
+                            const contentElement = figureElement.previousElementSibling;
+                            const videoElement = contentElement.querySelector('.kg-video-card');
+                            videoElement && wrapperElement.insertBefore(videoElement, document.currentScript);
+                        })();
+                    </script>
+                {{else}}
+                    {{#if feature_image}}
+                        <picture>
+                            <source
+                                type="image/avif"                                
+                                data-sizes="auto"
+                                data-srcset="{{> srcset format="avif"}}"
+                                srcset="{{img_url feature_image size="xxs" format="avif"}}"
+                                data-src="{{img_url feature_image size="2xl" format="avif"}}"
+                            />
+                            <source
+                                type="image/webp"                                
+                                data-sizes="auto"
+                                data-srcset="{{> srcset format="webp"}}"
+                                srcset="{{img_url feature_image size="xxs" format="webp"}}"
+                                data-src="{{img_url feature_image size="2xl" format="webp"}}"
+                            />
+                            <img
+                                class="lazyload absolute inset-0 w-full h-full object-cover bg-gray-100 dark:bg-gray-900 [&.lazyloaded]:bg-transparent!"
+                                data-sizes="auto"
+                                data-srcset="{{> srcset}}"
+                                srcset="{{img_url feature_image size="xxs"}}"
+                                src="{{img_url feature_image size="2xl"}}"
+                                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                loading="{{#if isHero}}eager{{else}}lazy{{/if}}"
+                            />    
+                        </picture>
+                    {{/if}}                    
+                {{/has}}
+            </div>
+        </figure>             
+    </div>
+
+    {{!-- Patterns --}}
+    {{#if isHero}}
+        <div class="landing-pattern -mx-outer sm:mx-0 animate-fade overflow-hidden pointer-events-none">
+            <div class="relative sm:start-0.5 -z-10 mx-auto w-full sm:scale-x-125">
+                {{> icons/grid-perspective class="relative start-1/2 -translate-x-1/2 w-auto h-32 sm:w-full sm:h-auto text-gray-950/50 dark:text-gray-50/50 mask-radial mask-radial-x-size-40% mask-radial-y-size-50%" }}
+            </div>
+        </div>
+    {{/if}}
+</div>

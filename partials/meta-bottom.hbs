@@ -1,0 +1,77 @@
+<div class="mt-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-5 js-toc-ignore">
+    {{^if hideDateMeta}}
+        <div data-sx-updated-on class="flex-none max-w-full text-xs text-gray-500 dark:text-gray-400">
+            {{{t "Updated on {date}" date=(date updated_at) }}}
+        </div>
+    {{/if}}
+
+    {{#if showAuthorMeta}}
+        <div class="flex-none max-w-full text-xs text-gray-500 dark:text-gray-400 [&_a]:hover:text-gray-900 dark:[&_a]:hover:text-gray-100 [&_a]:transition-colors duration-200">
+            {{#match authors.length ">" 2}}
+                {{{t "By {twoOrMoreAuthors}, and {lastAuthor}" twoOrMoreAuthors=(authors to=-1) lastAuthor=(authors from=authors.length) }}}
+            {{else match authors.length "=" 2}}
+                {{{t "By {firstAuthor} and {secondAuthor}" firstAuthor=(authors to=-1) secondAuthor=(authors from=authors.length) }}}
+            {{else}}
+                {{{t "By {author}" author=(authors) }}}
+            {{/match}}
+        </div>
+    {{/if}}
+
+    <div class="flex flex-none gap-2">
+        {{#if comments}}
+            <button data-sx-comments-toggle="{{id}}" class="relative flex-none px-2 py-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-400 font-medium flex items-center rounded-full bg-white shadow-pretty dark:bg-transparent dark:shadow-none transition-colors duration-200">
+                <div class="absolute -inset-px -z-10 dark:bg-white/5 dark:[:hover>&]:bg-white/10 rounded-full border border-gray-950/5 dark:border-gray-50/5 transition-colors duration-200"></div>
+                {{> icons/chat-bubble-oval-left class="w-4 h-4 me-1 opacity-70" }}
+                {{t "Comments"}}
+                <div data-sx-comments-count hidden class="absolute top-1/2 end-1 -translate-y-5.75 flex flex-none items-center justify-center min-w-4 rounded-full bg-primary text-primary-contrast text-3xs leading-3 px-1 py-0.5 drop-shadow-primary-sm pointer-events-none">
+                    {{comment_count singular="" plural="" autowrap="false" }}
+                </div>
+            </button>
+        {{/if}}
+
+        <div class="flex-none relative">
+            <button data-sx-share class="peer relative flex-none px-2 py-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-400 font-medium flex items-center rounded-full bg-white shadow-pretty dark:bg-transparent dark:shadow-none transition-colors duration-200">
+                <div class="absolute -inset-px -z-10 dark:bg-white/5 dark:[:hover>&]:bg-white/10 rounded-full border border-gray-950/5 dark:border-gray-50/5 transition-colors duration-200"></div>
+                {{> icons/share class="w-3.5 h-3.5 me-1 opacity-80" }}
+                {{t "Share"}}
+            </button>
+            <div data-sx-share-dropdown class="hidden peer-[.open]:grid absolute z-50 top-14 -end-4 w-60
+                    gap-2 p-2 backdrop-blur-sm bg-white/90 ring-1 ring-gray-900/5 shadow-pretty rounded-xl 
+                    dark:bg-background-dark/80 dark:ring-white/5 dark:ring-inset dark:shadow-lg
+                "
+            >
+                <div class="absolute inset-0 -z-10 dark:bg-white/5 rounded-xl pointer-events-none"></div>
+
+                <button data-sx-share-copy="{{url absolute='true'}}" class="p-2 w-full flex items-center text-sm font-medium leading-6 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors duration-200">
+                    <span class="flex items-center">{{> icons/link class="w-5 h-5 me-3"}} {{t "Copy link"}}</span>
+                </button>
+                <a href="https://x.com/intent/tweet?url={{encode (url absolute='true')}}&text={{encode title}}"
+                    class="p-2 w-full flex items-center text-sm font-medium leading-6 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors duration-200"
+                    target="_blank"
+                >                                            
+                    {{> icons/twitter-x class="w-5 h-5 me-3"}} {{t "Share to X"}}
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{encode (url absolute='true')}}" 
+                    class="p-2 w-full flex items-center text-sm font-medium leading-6 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors duration-200"
+                    target="_blank"
+                >
+                    {{> icons/facebook class="w-5 h-5 me-3"}} {{t "Share to Facebook"}}
+                </a>                                            
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{encode (url absolute='true')}}"
+                    class="p-2 w-full flex items-center text-sm font-medium leading-6 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors duration-200"
+                    target="_blank"
+                >
+                    {{> icons/linkedin class="w-5 h-5 me-3"}} {{t "Share to Linkedin"}}
+                </a>                                            
+            </div>
+            <div data-sx-share-success class="hidden absolute z-50
+                    ps-1 pe-1.5 py-0.5 text-3xs text-gray-50 dark:text-gray-950 font-medium [&.open]:flex items-center rounded-full shadow-pretty transition-colors duration-200
+                    backdrop-blur-sm bg-background-dark/80
+                    dark:bg-gray-300 dark:shadow-lg
+                "
+            >
+                {{> icons/check-micro class="w-3.5 h-3.5 me-0.5 opacity-80"}} {{t "Copied"}}
+            </div>                                        
+        </div>
+    </div>
+</div>

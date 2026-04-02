@@ -1,0 +1,146 @@
+/* ---------------------------------------------------------------------------
+* Style adjustments for some Ghost components (annoucements bar, video card,  ...)                                                   
+*/
+
+/* Announcement Bar */
+
+#announcement-bar-root {
+    position: fixed;
+    inset-inline-start: 0;
+    top: --spacing(17.5);
+    width: 100%;
+    z-index: 100;
+    pointer-events: none;
+    padding-inline: var(--spacing-outer);    
+}
+
+.gh-announcement-bar {
+    width: max-content !important;
+    min-width: 200px !important;
+    max-width: 100% !important;
+    min-height: --spacing(10) !important;
+    margin-inline: auto !important;
+    border-radius: --spacing(5) !important;
+    padding-block: --spacing(2) !important;
+    pointer-events: auto !important;    
+    font-size: var(--text-sm) !important;
+    animation: slide-down 400ms ease-out;
+}
+
+@media (max-width: theme(--breakpoint-sm)) {
+    .gh-announcement-bar {
+        padding-inline-end: --spacing(9) !important;
+        padding-inline-start: --spacing(4) !important;
+        justify-content: flex-start !important;
+    }
+}
+
+.gh-announcement-bar-content * {
+    font-weight: var(--font-weight-medium) !important;
+}
+
+.gh-announcement-bar-content strong,
+.gh-announcement-bar-content a,
+.gh-announcement-bar-content a * {
+    font-weight: var(--font-weight-bold) !important;
+    color: inherit !important;
+}
+
+.gh-announcement-bar button {
+    transform: translateY(1px) !important;
+    opacity: 70% !important;
+    transition: opacity 200ms linear !important;
+    /* right: auto !important; */
+    inset-inline-end: --spacing(2) !important;
+}
+
+.gh-announcement-bar button:hover {
+    opacity: 100% !important;
+}
+
+.gh-announcement-bar button svg path {
+    stroke: currentColor !important;
+}
+
+@media (max-width: theme(--breakpoint-sm)) {
+    .gh-announcement-bar button {
+        inset-inline-end: --spacing(1) !important;
+    }
+}
+
+
+/* Announcement Bar - light */
+
+.gh-announcement-bar.light {
+    color: var(--color-gray-900) !important;
+    background-color: var(--color-white) !important;
+    @apply shadow-2xl shadow-blue-950/50 ring-1 ring-inset ring-blue-950/10;
+}
+
+#announcement-bar-root .gh-announcement-bar.light a {
+    color: inherit !important;
+}
+
+.dark .gh-announcement-bar.light {
+    background-color: var(--color-gray-100) !important;
+    @apply shadow-xl shadow-black/60;
+}
+
+
+/* Announcement Bar - dark */
+
+.gh-announcement-bar.dark {
+    color: var(--color-gray-100) !important;
+    background-color: var(--color-gray-950) !important;
+    @apply shadow-2xl shadow-blue-950/50 ring-1 ring-inset ring-blue-950/10;
+}
+
+.dark .gh-announcement-bar.dark {
+    color: var(--color-gray-100) !important;
+    background-color: --alpha(var(--color-background-dark) / 70%)  !important;
+    @apply shadow-xl shadow-black/60;
+}
+
+.dark .gh-announcement-bar.dark::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    background-color: rgb(255 255 255 / 10%);
+    border-radius: inherit;
+    backdrop-filter: blur(var(--blur-sm));
+    @apply ring-1 ring-inset ring-gray-50/10;
+}
+
+
+/* Announcement Bar - accent */
+
+.gh-announcement-bar.accent {
+    box-shadow: 
+        0 25px 50px -12px hsl(var(--c-primary-hsl) / 30%),
+        0 25px 50px -12px --alpha(var(--color-blue-950) / 50%);
+}
+
+.dark .gh-announcement-bar.accent  {
+    filter: drop-shadow(var(--drop-shadow-primary-sm));
+}
+
+.gh-announcement-bar.accent,
+.gh-announcement-bar.accent a,
+.gh-announcement-bar.accent button {
+    color: var(--color-contrast, #fff) !important;
+}
+
+
+/* Video player */
+
+.kg-video-overlay,
+.kg-video-player-container {
+    z-index: 10 !important;
+}
+
+.kg-video-overlay.kg-video-hide-animated,
+.kg-video-player-container.kg-video-hide-animated {
+    z-index: -1 !important;
+}  

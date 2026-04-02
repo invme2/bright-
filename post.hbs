@@ -1,0 +1,24 @@
+{{!< default}}
+
+{{#post}}
+    {{#match (post_class) "~" "tag-hash-courses-col"}}
+        {{> post-course }}
+    {{else match (post_class) "~" "tag-hash-lessons-col" }}
+        {{> post-lesson }}
+    {{else match (post_class) "~" "tag-hash-folders-col" }}
+        {{> post-docs }}
+    {{else match (post_class) "~" "tag-hash-docs-col" }}
+        {{> post-docs }}
+    {{else match (post_class) "~" "tag-hash-newsletter-col" }}
+        {{> post-newsletter }}
+    {{else match (post_class) "~" "tag-hash-showcase-col" }}
+        {{> post-showcase }}    
+    {{else match (post_class) "~" "tag-hash-feed-col" }}
+        {{> post-feed }}    
+    {{else}}
+        {{> post-default }}
+    {{/match}}
+
+    {{!-- Comments --}}
+    {{> comments-sidebar }}
+{{/post}}

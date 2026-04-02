@@ -1,0 +1,52 @@
+<li data-sx-sidebar-group 
+    class="relative 
+        {{#with ./indexPage}} 
+            {{#has tag="#groups-disabled"}} open {{/has}} 
+            {{^has tag="#groups-collapsed"}} open {{/has}} 
+        {{/with}} 
+        {{#if posts}}{{#foreach posts}} {{link_class for=(url absolute="true") class="" activeClass="open"}} {{/foreach}}{{/if}}
+    "
+>
+    {{#if tag}}
+        <h3 data-sx-sidebar-group-toggle class="relative w-full font-medium text-xs text-gray-800 dark:text-gray-200 group-[.no-groups]:hidden pe-1 cursor-pointer">
+            {{#if tag.feature_image}}
+                <span class="inline-flex w-4.5 h-4.5 mask-size-4.5 -ms-px me-1 bg-gray-500 dark:bg-gray-400 align-top" style="-webkit-mask-image: url({{tag.feature_image}}); mask-image: url({{tag.feature_image}});"></span>
+            {{/if}}
+
+            {{tag.description}}
+
+
+            <button class="absolute -top-px end-0 w-5 h-5 inline-flex flex-none items-center justify-center rounded-sm translate-x-full [:hover>&]:bg-gray-900/5 dark:[:hover>&]:bg-gray-50/10 transition-colors duration-200" aria-label="{{t "Toggle menu"}}">
+                {{> icons/chevron-right class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 [.open>*>*>&]:rotate-90"}}
+            </button>
+        </h3>
+    {{/if}}
+
+    {{#if posts}}
+        <ul class="[.open>&]:block [.open>&]:overflow-visible hidden mt-3.5 group-[.no-groups]:mt-0 overflow-hidden" role="list">
+            {{#foreach posts}}
+                <li class="relative">
+                    <a href="{{url absolute="true" }}" 
+                        class="relative flex scroll-m-10 ps-4 pe-3 py-2 transition-colors duration-200
+                            font-medium leading-5 text-xs text-gray-500 hover:text-gray-900 [&.current]:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:[&.current]:text-gray-100 dark:[&.current]:hover:text-gray-100
+                            {{link_class for=(url absolute="true") class="" activeClass="current"}}
+                        " 
+                        data-sx-group="{{#if ../tag}}{{../tag.description}}{{/if}}" 
+                        data-sx-slug="{{slug}}"
+                        data-sx-title="{{title}}"
+                        data-sx-sidebar-link
+                    >
+                        <div class="absolute -z-10 top-0 start-0 h-full w-px bg-gray-950/10 dark:bg-gray-50/10"></div>
+                        <div class="hidden [:hover>&]:block absolute -z-10 top-1.5 bottom-1.5 start-0 w-px bg-gray-400 dark:bg-gray-600"></div>
+                        <div class="hidden [.current>&]:block absolute -z-10 top-1.5 bottom-1.5 start-0 w-px bg-primary"></div>
+                        <div class="hidden [.current>&]:block absolute ms-px top-1.5 bottom-1.5 -start-1 w-2 bg-primary opacity-15 dark:opacity-30 blur-xs pointer-events-none"></div>
+
+                        <span class="">
+                            {{title}}
+                        </span>
+                    </a>
+                </li>
+            {{/foreach}}
+        </ul>
+    {{/if}}
+</li>   

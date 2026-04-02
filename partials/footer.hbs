@@ -1,0 +1,102 @@
+<footer id="sx-footer" class="{{{block "extra-footer-class"}}} flex-none mt-auto">
+    <div class="outer xl:outer-xl pb-28 pt-20 mt-20 border-t border-gray-950/5 dark:border-gray-50/5 [.no-space-top>&]:mt-0">
+        <div class="inner">
+            <div class="grid gap-10 {{#if @site.members_enabled}}{{^if @member}} lg:grid-cols-[1fr_auto] {{/if}}{{/if}}">
+                <div class="mb-6 {{#if @site.members_enabled}}{{^if @member}} lg:[:has([data-sx-slug])>&]:col-span-2 {{/if}}{{/if}}">
+                    <a id="sx-footer-brand" class="flex-none inline-flex font-bold text-xl text-gray-950 dark:text-gray-50" href="{{@site.url}}" aria-label="{{@site.title}}">
+                        {{#if @site.logo}}
+                            {{#if @custom.dark_theme_logo}}
+                                <img class="max-h-9 w-auto hidden dark:block" src="{{@custom.dark_theme_logo}}" alt="{{@site.title}}" loading="lazy" />
+                                <img class="max-h-9 w-auto block dark:hidden" src="{{@site.logo}}" alt="{{@site.title}}" loading="lazy" />
+                            {{else}}
+                                <img class="max-h-9 w-auto" src="{{@site.logo}}" alt="{{@site.title}}" loading="lazy" />
+                            {{/if}}
+                        {{else}}
+                            {{@site.title}}
+                        {{/if}}
+                    </a>
+
+                    {{#if @custom.footer_description}}
+                        <div id="sx-footer-description" class="mt-2 text-base max-w-md text-pretty">
+                            {{@custom.footer_description}}
+                        </div>
+                    {{else if @site.description}}
+                        <div id="sx-footer-description" class="mt-2 text-base max-w-md text-pretty">
+                            {{@site.description}}
+                        </div>
+                    {{/if}}
+                </div>
+
+                {{navigation type="secondary"}}   
+
+                {{#if @site.members_enabled}}
+                    {{^if @member}}
+                        <div id="sx-footer-subscription" class="flex-none lg:max-w-sm lg:ms-auto pt-10 lg:pt-0 border-t lg:border-none border-gray-900/5 dark:border-gray-50/5">
+                            {{#if @custom.footer_signup_title}}
+                                <h2 class="mb-4 text-sm font-medium text-pretty text-gray-950 dark:text-gray-50">
+                                    {{@custom.footer_signup_title}}
+                                </h2>
+                            {{/if}}
+                            {{#if @custom.footer_signup_description}}
+                                <p class="mb-4 text-sm text-pretty">
+                                    {{{@custom.footer_signup_description}}}
+                                </p>
+                            {{/if}}
+                            <button data-portal="signup" class="flex items-center ps-5 pe-1 rounded-full h-12 w-full max-w-md lg:min-w-80 text-sm text-gray-500 bg-white shadow-xs ring-1 ring-inset ring-gray-950/10 dark:text-gray-400 dark:bg-white/5 dark:ring-white/10 dark:shadow-none">
+                                <span aria-hidden="true" class="text-start truncate pe-2">{{t "Enter your email"}}</span>
+                                <span class="[:hover>&]:opacity-80 dark:[:hover>&]:opacity-100 relative flex items-center ms-auto h-10 px-6 rounded-full bg-primary shadow-primary ring-inset ring-gray-950/10 dark:ring-1 dark:ring-white/10 dark:bg-white/5 dark:shadow-none transition-opacity duration-200">
+                                    <span class="hidden dark:block [:hover>*>&]:opacity-10 absolute inset-0 rounded-full bg-radial-[50%_100%_at_50%_100%] from-white/20 transition-opacity duration-1000"></span>
+
+                                    <span class="text-primary-contrast font-medium dark:bg-linear-to-br from-gray-50 from-50% dark:bg-clip-text dark:text-transparent">
+                                        {{t "Subscribe"}}
+                                    </span>
+                                </span>
+                            </button>                          
+                        </div>
+                    {{/if}}
+                {{/if}}                   
+            </div>
+
+
+            <div class="mt-10 pt-10 lg:pt-0 border-t lg:border-0 border-gray-900/5 dark:border-gray-50/5 lg:has-data-sx-slug:pt-10">
+                <div class="has-data-sx-slug:-my-1.5">
+                    {{navigation type="secondary" flat=true}}  
+                </div>
+
+                <div class="grid sm:grid-cols-[1fr_auto] gap-4 lg:flex lg:gap-5 mt-3.5 max-sm:mt-6">
+                    <div class="max-sm:order-last text-xs sm:leading-6 me-auto">
+                        {{#if @custom.footer_copyright}}
+                            <span id="sx-footer-copy">{{{@custom.footer_copyright}}}</span>
+                        {{else}}
+                            <span id="sx-footer-copy">
+                                <a href="{{@site.url}}" class="hover:text-gray-950 dark:hover:text-gray-50 transition-colors">{{@site.title}}</a> 
+                                &copy; {{date format="YYYY"}}
+                            </span>
+                        {{/if}}
+                        <span id="sx-footer-published-with">
+                            <span class="mx-1">·</span>
+                            {{{t "Published with {ghost-link} and {theme-link}" ghost-link="<a class='font-medium hover:text-gray-950 dark:hover:text-gray-50 transition-colors' href='https://ghost.org/' target='_blank' rel='noopener'>Ghost</a>" theme-link="<a class='font-medium hover:text-gray-950 dark:hover:text-gray-50 transition-colors' href='https://spiritix.co/themes/bright' target='_blank' rel='noopener'>Spiritix</a>" }}}
+                        </span>
+                    </div>
+
+                    <span class="sm:max-lg:row-start-1 sm:max-lg:col-start-1 sm:max-lg:col-span-2 inline-flex flex-wrap items-center gap-2 md:gap-4 -ms-1 -my-1 md:ms-0 md:my-0 md:py-1 md:pe-4 lg:ms-auto lg:border-e border-gray-950/10 dark:border-white/10 text-gray-400 not-has-[a]:hidden">
+                        {{> social-links 
+                            linkClass="p-1 md:p-0" 
+                            iconClass="w-4 h-4 hover:text-gray-950 dark:hover:text-gray-50 transition-colors duration-200" 
+                            remoteIconClass="w-4 h-4 mask-size-4 bg-gray-400 dark:bg-gray-400 hover:bg-gray-950 dark:hover:bg-gray-50 transition-colors duration-200" 
+                        }}                        
+                    </span>
+
+                    <button data-sx-theme-toggle class="max-sm:order-first sm:max-lg:col-start-2 me-auto sm:ms-auto sm:me-0 lg:-ms-0.5 inline-flex flex-none items-center h-6 max-w-fit rounded-full text-gray-400 ring-1 ring-gray-950/10 dark:ring-white/10 bg-gray-100 hover:bg-gray-950/5 dark:bg-transparent dark:hover:bg-white/5 transition-colors duration-200" title="{{t "Change theme"}}" aria-label="{{t "Change theme"}}">
+                        <span class="inline-flex flex-none items-center justify-center w-6 h-6 rounded-full ring-1 ring-gray-950/10 dark:ring-transparent bg-white dark:bg-transparent shadow-xs dark:shadow-none">
+                            {{> icons/sun class="w-4 h-4 text-gray-950 dark:text-gray-400" }}
+                        </span>
+                        <span class="inline-flex flex-none items-center justify-center w-6 h-6 rounded-full ring-1 ring-transparent dark:ring-white/10 dark:bg-white/10">
+                            {{> icons/moon class="w-4 h-4 dark:text-gray-50" }}
+                        </span>
+                    </button>                    
+                </div>        
+            </div>
+        </div>
+    </div>
+</footer>

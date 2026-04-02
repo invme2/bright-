@@ -1,0 +1,44 @@
+
+/* Badge */
+
+.badge, 
+.badge::after,
+.badge-sm,
+.badge-sm::after  {
+    position: relative;
+    border-color: hsl(var(--c-primary-hsl) / 20%) ;
+    background-color: hsl(var(--c-primary-hsl) / 10%);
+    box-shadow: 0 4px 4px -2px hsl(var(--c-primary-hsl)/.1), 0 8px 8px -4px hsl(var(--c-primary-hsl)/.1);
+    transform: translateZ(0);
+    @apply px-2 py-0.5 text-xs font-medium rounded-3xl border text-primary;
+}
+
+.badge-sm,
+.badge-sm[data-sx-text]::after {
+    @apply px-1.5 text-2xs;
+}
+
+.dark .badge,
+.dark .badge[data-sx-text]::after,
+.dark .badge-sm,
+.dark .badge-sm[data-sx-text]::after  {
+    border-color: hsl(var(--c-primary-hsl) / 10%) ;
+    filter: drop-shadow(var(--drop-shadow-primary));
+    box-shadow: none;
+}
+
+.dark .badge[data-sx-text]::after,
+.dark .badge-sm[data-sx-text]::after  {
+    content: attr(data-sx-text);
+    position: absolute;
+    inset: -1px;
+    filter: none;
+    mix-blend-mode: plus-lighter;
+    opacity: 40%;
+}
+
+
+/* Zoom */
+img.sx-has-zoom {
+    cursor: zoom-in;
+}

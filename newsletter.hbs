@@ -1,0 +1,126 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Ghost doesn't do code injection for pages used as data in routes.yaml --}}
+{{#contentFor "head-after"}} 
+    {{#page}} {{#if codeinjection_head}} {{{codeinjection_head}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+{{#contentFor "foot-after"}}
+    {{#page}} {{#if codeinjection_foot}} {{{codeinjection_foot}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+
+{{!-- Hero section --}}
+{{#page}}
+    {{> hero-newsletter showContent=true }}
+{{/page}}
+
+<div class="outer xl:outer-xl">
+    <div class="inner">
+
+        {{!-- Featured Posts --}}
+        {{#match pagination.page "=" 1 }}
+            {{#foreach posts limit="1" }}
+                {{#foreach tags visibility="internal"}}
+                    {{#match slug "~^" "hash-newsletter-col" }}
+                        {{#get "posts" filter="featured:true+tags:{{slug}}" include="tags" limit="3" as |posts| }}
+                            {{#if posts}}
+                                <div class="hidden first:block max-w-3xl mx-auto pt-16 sm:pt-20 -mb-16 sm:-mb-20">
+                                    {{#foreach posts}}
+                                        <div class="{{post_class}} flex flex-wrap mb-7 sm:mb-10 {{#if @last}} after:block after:w-full after:pt-20 after:mb-10 after:border-b dark:after:border-gray-50/5 {{/if}}">
+                                            {{#if @first}}
+                                                <div class="w-full sm:w-1/2 flex-none pe-4 mb-10 sm:mb-0 text-gray-600 dark:text-gray-400">
+                                                    {{t "Featured"}}
+                                                </div>
+                                            {{/if}}
+
+                                            <a href="{{url absolute="true"}}" class="w-full sm:w-1/2 flex-none ms-auto hover:opacity-80 transition-opacity duration-200">
+                                                <h2 class="font-medium leading-snug tracking-tight text-lg text-gray-950 dark:text-gray-100">
+                                                    {{title}}
+                                                </h2>
+
+                                                <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                                    <time class="capitalize" datetime="{{date format="YYYY-MM-DD"}}">
+                                                        {{date}}
+                                                    </time>
+
+                                                    {{#foreach tags limit="1"}}
+                                                        <span class="mx-1.5 opacity-85">·</span>
+                                                        <span class="">
+                                                            {{name}}
+                                                        </span>
+                                                    {{/foreach}}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {{/foreach}}
+                                </div>        
+                            {{/if}}
+                        {{/get}}
+                    {{/match}}
+                {{/foreach}}
+            {{/foreach}}
+        {{/match}}
+
+
+        {{!-- Feed / Timeline --}}
+        <div data-sx-pagination-feed data-sx-timeline class="max-w-3xl mx-auto py-16 sm:py-20">
+            {{#foreach posts}}
+                <div data-sx-pagination-post 
+                    class="{{post_class}} flex flex-wrap mb-7 sm:mb-10 last:mb-0 before:block before:w-full before:pb-20 before:mt-10 before:border-t dark:before:border-gray-50/5" 
+                    data-sx-timeline-post
+                    data-sx-timeline-month="{{date format="MM"}}" 
+                    data-sx-timeline-year="{{date format="YYYY"}}"
+                >
+                    <div data-sx-timeline-meta class="w-full sm:w-1/2 flex-none capitalize pe-4 mb-10 sm:mb-0 text-gray-600 dark:text-gray-400">
+                        {{date format="MMMM YYYY"}}                    
+                    </div>
+
+                    <a href="{{url absolute="true"}}" class="w-full sm:w-1/2 flex-none ms-auto hover:opacity-80 transition-opacity duration-200">  
+                        <h2 class="font-medium leading-snug tracking-tight text-lg text-gray-950 dark:text-gray-100 ">
+                            {{title}}
+                        </h2>
+
+                        <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                            <time class="capitalize" datetime="{{date format="YYYY-MM-DD"}}">
+                                {{date}}
+                            </time>
+
+                            {{^is "tag"}}
+                                {{#foreach tags limit="1"}}
+                                    <span class="mx-1.5 opacity-85">·</span>
+                                    <span class="">
+                                        {{name}}
+                                    </span>
+                                {{/foreach}}
+                            {{/is}}
+                        </div>
+                    </a>
+                </div>
+            {{/foreach}}
+        </div>
+
+        {{#if pagination}}
+            <div class="flex flex-wrap justify-center">
+                <div class="w-full sm:w-1/2 flex-none"></div>
+                <div class="w-full sm:w-1/2 flex-none">
+                    <button 
+                        hidden="true"
+                        data-sx-pagination-btn
+                        data-sx-pagination-total="{{pagination.pages}}"
+                        class="flex items-center py-4 mb-16 sm:mb-20 text-sm font-medium leading-none text-gray-800 dark:text-gray-200 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    >
+                        {{t "Load more"}}
+
+                        {{> icons/arrow-sm-down class="w-4 h-4 ms-0.5 [.loading>&]:hidden"}}
+                        {{> icons/loader class="w-4 h-4 ms-0.5 hidden [.loading>&]:inline"}}
+                    </button>
+                </div>
+            </div>
+        {{/if}}        
+    </div>
+</div>

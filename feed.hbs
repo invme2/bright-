@@ -1,0 +1,71 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Ghost doesn't do code injection for pages used as data in routes.yaml --}}
+{{#contentFor "head-after"}} 
+    {{#page}} {{#if codeinjection_head}} {{{codeinjection_head}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+{{#contentFor "foot-after"}}
+    {{#page}} {{#if codeinjection_foot}} {{{codeinjection_foot}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+
+{{!-- Hero section --}}
+{{#page}}
+    {{> hero showContent=true }}
+{{/page}}
+
+
+
+{{!-- Feed --}}
+<div class="outer xl:outer-xl">
+    <div class="inner">
+
+        {{!-- Feed / Timeline --}}
+        <div class="max-w-5xl mx-auto py-16 lg:py-20">
+            <div data-sx-pagination-feed="">
+                {{!-- Featured/Pinned post --}}
+                {{#match pagination.page "=" 1 }}
+                    {{#foreach posts limit="1" }}
+                        {{#foreach tags visibility="internal"}}
+                            {{#match slug "~^" "hash-feed-col" }}
+                                {{#get "posts" filter="tags:{{slug}}+featured:true" include="tags,authors" limit="1" as |posts| }}
+                                    {{#if posts}}
+                                        {{#foreach posts limit="1"}}                                            
+                                            {{> card-feed isPinned=true page=../../../../page }}
+                                        {{/foreach}}
+                                    {{/if}}
+                                {{/get}}
+                            {{/match}}
+                        {{/foreach}}
+                    {{/foreach}}
+                {{/match}}
+
+                {{#foreach posts}}                    
+                    {{> card-feed page=../page }}
+                {{/foreach}}
+            </div>
+        </div>
+
+        {{!-- Load more / Pagination --}}
+        {{#if pagination}}
+            <div class="flex justify-center">
+                <button 
+                    hidden="true"
+                    data-sx-pagination-btn
+                    data-sx-pagination-total="{{pagination.pages}}"
+                    class="flex items-center py-4 mb-16 sm:mb-20 scroll-m-16 text-sm font-medium leading-none text-gray-800 dark:text-gray-200 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                >
+                    {{t "Load more"}}
+
+                    {{> icons/arrow-sm-down class="w-4 h-4 ms-0.5 [.loading>&]:hidden"}}
+                    {{> icons/loader class="w-4 h-4 ms-0.5 hidden [.loading>&]:inline"}}
+                </button>
+            </div>
+        {{/if}}
+    </div>
+</div>

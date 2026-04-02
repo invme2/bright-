@@ -1,0 +1,136 @@
+<a href="{{url absolute="true"}}" 
+    class="{{class}} {{post_class}} relative p-6 flex flex-col text-start rounded-2xl border border-transparent"
+    {{#if isPaginated }} data-sx-pagination-post {{/if}}
+>
+    {{!-- Stack effect --}}
+    <div class="dark:hidden absolute -z-10 -top-3 start-8 end-8 h-3 -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-0 bg-white border border-b-0 border-blue-950/10 rounded-inherit rounded-b-none pointer-events-none" 
+        style="
+            box-shadow: inset 0 -2px 4px 1px hsl(214 80% 27% / 4%), 
+                0 8px 40px 4px hsl(221 25% 22% / 8%);                
+        "
+    >        
+    </div>
+    <div class="dark:hidden absolute -z-10 top-0 start-4 end-4 h-3 -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-1/2 bg-white border border-b-0 border-blue-950/10 rounded-inherit rounded-b-none pointer-events-none" 
+        style="
+            box-shadow: inset 0 -2px 4px 1px hsl(214 80% 27% / 4%), 
+                0 8px 40px 4px hsl(221 25% 22% / 8%);
+        "
+    >
+    </div>
+
+    <div class="hidden dark:block absolute -z-10 -top-3 start-8 end-8 h-3 -mt-px -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-0 bg-white/1 border border-b-0 border-gray-50/10 rounded-inherit rounded-b-none inset-shadow-md inset-shadow-white/5 pointer-events-none"></div>
+    <div class="hidden dark:block absolute -z-10 top-0 start-4 end-4 h-3 -mt-px -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-1/2 bg-white/1 border border-b-0 border-gray-50/15 rounded-inherit rounded-b-none inset-shadow-md inset-shadow-white/10 pointer-events-none"></div>   
+
+    {{!-- Background --}}
+    <div class="dark:hidden absolute -inset-px -z-10 rounded-inherit bg-white shadow-pretty [:hover>&]:shadow-pretty-sm transition-shadow duration-200"></div>
+    <div class="hidden dark:block absolute -inset-px z-10 rounded-inherit bg-linear-to-br from-gray-400/10 to-50% pointer-events-none"></div>
+    <div class="hidden dark:block absolute -inset-px -z-10 rounded-inherit bg-white/1 [:hover>&]:bg-white/5 transition-colors duration-500 inset-shadow-md inset-shadow-white/2"></div>
+
+    {{!-- Border --}}
+    <div class="hidden dark:block absolute -z-10 -inset-0.5 mask-to-b mask-position-to-70% mask-opacity-to-20%">
+        <div class="hidden dark:block absolute -z-10 inset-px rounded-2xl border border-gray-50/10"></div>
+    </div>
+    <div class="hidden dark:block absolute -z-10 -inset-px rounded-inherit border border-gray-50/5 [:hover>&]:opacity-80 {{#if isAnimated}} opacity-50 {{else}} opacity-0 {{/if}}"></div>
+
+    {{!-- Shiny border --}}
+    <div class="hidden dark:block absolute -z-10 -top-px start-5 w-1/3 h-px bg-linear-to-r from-white/0 to-white/0 via-gray-400/50"></div>
+
+    {{!-- Animated border --}}
+    {{#if isAnimated}}
+        <div class="hidden md:block absolute -inset-px -z-10 rounded-inherit">
+            <div class="absolute inset-0 rounded-inherit overflow-hidden">
+                <div class="absolute -inset-px -z-10 p-[3px] rounded-inherit mask-content">
+                    <div class="absolute -z-10 aspect-square top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        style="height: 10%; padding-left: 10%; padding-top: 10%;"                      
+                    >
+                        <div class="absolute inset-0 -z-10 dark:[--cg-color:rgba(255,255,255,40%)]"
+                            style="
+                                backface-visibility: hidden;
+                                perspective: 1000;
+                                background: conic-gradient(from calc(280deg + var(--angle, 0deg)) at 50% 50%, transparent 0deg, var(--cg-color, rgba(0,0,0, 40%)) 20%, transparent 22%);
+                                animation: rotate-full 10s infinite linear;
+                                transform: scale(15);                                                        
+                            "                      
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/if}} 
+
+    {{!-- Shiny hover animation --}}
+    <div class="hidden dark:block absolute -inset-px z-10 rounded-inherit overflow-hidden pointer-events-none">
+        <div 
+            class="hidden md:block absolute inset-0 z-10 w-full h-full rounded-inherit opacity-0 bg-linear-to-r from-white/0 from-40% to-white/0 to-60% via-white/20 [:hover>*>&]:animate-shine pointer-events-none" 
+            style="background-size: 200% auto; background-position: 50%;">
+        </div>
+    </div>
+
+    {{#if feature_image}}
+        <figure class="mb-4 w-full">
+            <div class="relative rounded-md lg:rounded-xl overflow-hidden
+                    {{#with ./page}}
+                        {{#has tag="#temp-cards-media-1-1"}} 
+                            aspect-1/1
+                        {{else has tag="#temp-cards-media-3-4"}} 
+                            aspect-3/4
+                        {{else has tag="#temp-cards-media-4-3"}} 
+                            aspect-4/3
+                        {{else has tag="#temp-cards-media-4-5"}} 
+                            aspect-4/5
+                        {{else has tag="#temp-cards-media-5-4"}}
+                            aspect-5/4
+                        {{else has tag="#temp-cards-media-9-16"}}
+                            aspect-9/16
+                        {{else}}
+                            aspect-16/9
+                        {{/has}}  
+                    {{else}}
+                        aspect-16/9
+                    {{/with}}                  
+                "
+            >
+                <picture>
+                    <source
+                        type="image/avif"                                
+                        data-sizes="auto"
+                        data-srcset="{{> srcset format="avif"}}"
+                        srcset="{{img_url feature_image size="xxs" format="avif"}}"
+                        data-src="{{img_url feature_image size="xl" format="avif"}}"
+                    />
+                    <source
+                        type="image/webp"                                
+                        data-sizes="auto"
+                        data-srcset="{{> srcset format="webp"}}"
+                        srcset="{{img_url feature_image size="xxs" format="webp"}}"
+                        data-src="{{img_url feature_image size="xl" format="webp"}}"
+                    />
+                    <img
+                        class="lazyload absolute inset-0 w-full h-full object-cover bg-gray-100 dark:bg-gray-900 [&.lazyloaded]:bg-transparent!"
+                        data-sizes="auto"
+                        data-srcset="{{> srcset }}"
+                        srcset="{{img_url feature_image size="xxs"}}"
+                        src="{{img_url feature_image size="xl"}}"
+                        alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                        loading="lazy"
+                    />                   
+                </picture>
+            </div>
+        </figure>     
+    {{/if}}     
+
+    <h2 class="font-medium leading-snug tracking-tight text-lg text-gray-950 dark:text-gray-100">
+        {{name}}
+    </h2>    
+
+    {{#if description}}
+        <p class="mt-2 pb-4.5 text-sm text-gray-600 dark:text-gray-400">
+            {{description}}
+        </p>
+    {{/if}}    
+
+    <p class="mt-auto pt-1.5 text-xs text-gray-500 dark:text-gray-500">
+        <span>{{plural count.posts empty=(t 'No posts yet') singular=(t 'A collection of % post') plural=(t 'A collection of % posts')}}</span>
+    </p>    
+</a>

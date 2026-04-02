@@ -1,0 +1,154 @@
+{{{html}}}
+
+<aside data-sx-content-cta class="relative p-0.5 js-toc-ignore">
+    {{#if html}}
+        <div data-sx-content-cta-blur class="absolute w-full start-0 -top-0.5 -translate-y-full bg-linear-to-b to-70% from-black/0 to-background dark:to-background-dark pointer-events-none">
+            &nbsp; <br> &nbsp; <br> &nbsp;
+        </div>
+    {{/if}}
+
+    <div class="relative flex flex-col items-center text-center w-full px-4 py-10 lg:px-10 text-base rounded-xl sm:rounded-2xl">
+        {{!-- Background --}}
+        <div class="dark:hidden absolute -inset-px -z-10 rounded-xl bg-white shadow-pretty-sm transition-shadow duration-200"></div>
+        {{!-- <div class="hidden dark:block absolute -inset-px z-10 rounded-xl bg-linear-to-br from-gray-400/10 to-50% pointer-events-none"></div> --}}
+        <span class="hidden dark:block absolute -z-10 -inset-px rounded-inherit bg-radial-[50%_100%_at_50%_0%] from-white/10"></span>        
+        <div class="hidden dark:block absolute -inset-px -z-10 rounded-xl bg-white/1 transition-colors duration-500 inset-shadow-md inset-shadow-white/2"></div>
+        
+        {{!-- Border --}}
+        <div class="hidden dark:block absolute -z-10 -inset-0.5 mask-to-b mask-position-to-70% mask-opacity-to-50%">
+            <div class="hidden dark:block absolute -z-10 inset-px rounded-xl border border-gray-50/10"></div>
+        </div>                                                
+        <div class="hidden dark:block absolute -z-10 -inset-px rounded-xl border border-gray-50/5 opacity-0"></div>
+
+        {{!-- Shiny border --}}
+        <div class="hidden dark:block absolute -top-px start-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-white/0 to-white/0 via-gray-400/50"></div>
+
+        <h2 class="text-gray-900 dark:text-gray-100 text-pretty text-xl sm:text-2xl leading-snug tracking-tight">
+
+            {{#*inline "page-text"}}
+                {{#has visibility="paid"}}
+                    <span class="hidden first:inline">
+                        {{t "This page is for paying subscribers only"}}
+                    </span>
+                {{else has visibility="members"}}
+                    <span class="hidden first:inline">
+                        {{t "This page is for subscribers only"}}
+                    </span>
+                {{else has visibility="tiers"}}
+                    {{#match tiers.length 1 }}
+                        <span class="hidden first:inline">
+                            {{{t "This page is for subscribers on the {tiers} tier only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                        </span>                    
+                    {{else}}
+                        <span class="hidden first:inline">
+                            {{{t "This page is for subscribers on the {tiers} tiers only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                        </span>                    
+                    {{/match}}
+                {{/has}}            
+            {{/inline}}
+
+
+            {{#*inline "post-text"}}
+                {{#has visibility="paid"}}
+                    {{#foreach tags visibility="internal"}}
+                        {{#match slug "~^" "hash-courses-col" }}    
+                            <span class="hidden first:inline">
+                                {{t "This course is for paying subscribers only"}}
+                            </span>                           
+                        {{/match}}
+                        {{#match slug "~^" "hash-lessons-col" }}    
+                            <span class="hidden first:inline">
+                                {{t "This lesson is for paying subscribers only"}}
+                            </span>                           
+                        {{/match}}
+                    {{/foreach}}
+                    <span class="hidden first:inline">
+                        {{t "This post is for paying subscribers only"}}
+                    </span>  
+                {{else has visibility="members"}}
+                    {{#foreach tags visibility="internal"}}
+                        {{#match slug "~^" "hash-courses-col" }}  
+                            <span class="hidden first:inline">
+                                {{t "This course is for subscribers only"}}
+                            </span>                          
+                        {{/match}}
+                        {{#match slug "~^" "hash-lessons-col" }}  
+                            <span class="hidden first:inline">
+                                {{t "This lesson is for subscribers only"}}
+                            </span>                          
+                        {{/match}}
+                    {{/foreach}}                                                                
+                    <span class="hidden first:inline">
+                        {{t "This post is for subscribers only"}}
+                    </span>                
+                {{else has visibility="tiers"}}
+                    {{#foreach tags visibility="internal"}}
+                        {{#match slug "~^" "hash-courses-col" }} 
+                            {{#with ..}}
+                                {{#match tiers.length 1 }}
+                                    <span class="hidden first:inline">
+                                        {{{t "This course is for subscribers on the {tiers} tier only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                                    </span>
+                                {{else}}
+                                    <span class="hidden first:inline">
+                                        {{{t "This course is for subscribers on the {tiers} tiers only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                                    </span>
+                                {{/match}}
+                            {{/with}}
+                        {{/match}}
+                        {{#match slug "~^" "hash-lessons-col" }}  
+                            {{#with ..}}
+                                {{#match tiers.length 1 }}
+                                    <span class="hidden first:inline">
+                                        {{{t "This lesson is for subscribers on the {tiers} tier only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                                    </span>
+                                {{else}}
+                                    <span class="hidden first:inline">
+                                        {{{t "This lesson is for subscribers on the {tiers} tiers only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                                    </span>
+                                {{/match}}
+                            {{/with}}
+                        {{/match}}
+                    {{/foreach}}     
+
+                    {{#match tiers.length 1 }}                 
+                        <span class="hidden first:inline">
+                            {{{t "This post is for subscribers on the {tiers} tier only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                        </span>                    
+                    {{else}}                 
+                        <span class="hidden first:inline">
+                            {{{t "This post is for subscribers on the {tiers} tiers only" tiers=(tiers lastSeparator=", " suffix="") }}}
+                        </span>                    
+                    {{/match}}
+                {{/has}}            
+            {{/inline}}
+
+            {{#if isPost}}
+                {{!-- We need this part because {{#is}} does not work for inlined post content inside a page (like the "feed" template),
+                    {{#is}} checks against the root context which is a page, and does not check the current context which is post.
+                 --}}
+                {{> post-text }}
+            {{else}}
+                {{#is "page"}}
+                    {{> page-text }}
+                {{else}}
+                    {{> post-text }}
+                {{/is}}
+            {{/if}}
+
+        </h2>
+
+        {{#if @member}}
+            <button data-portal="account/plans" class="mt-7 px-4 py-2.5 font-semibold text-sm text-center text-accent-contrast bg-primary rounded-full shadow-primary dark:shadow-none dark:drop-shadow-primary-sm hover:opacity-90 transition-opacity duration-200">
+                {{t "Upgrade your account"}}
+            </button>
+        {{else}}
+            <button data-portal="signup" class="mt-7 px-4 py-2.5 font-semibold text-sm text-center text-accent-contrast bg-primary rounded-full shadow-primary dark:shadow-none dark:drop-shadow-primary-sm hover:opacity-90 transition-opacity duration-200">
+                {{t "Subscribe now"}}
+            </button>
+            <p class="mt-5 text-sm">
+                {{t "Already have an account?"}} <button data-portal="signin" class="block sm:inline mx-auto font-medium underline decoration-primary decoration-2 underline-offset-2 hover:text-primary transition-colors duration-200">{{t "Sign in"}}</button>
+            </p>
+        {{/if}}
+    </div>
+</aside>

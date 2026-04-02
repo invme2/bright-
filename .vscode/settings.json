@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        "#tw([\\s\\S]*?)\/tw",
+        ["classList.(?:add|remove|toggle)\\(([^)]*)\\)", "(?:'|\"|`)([^\"'`]*)(?:'|\"|`)"]
+    ],    
+    "tailwindCSS.experimental.configFile": "assets/css/main.css"
+}

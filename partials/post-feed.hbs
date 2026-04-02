@@ -1,0 +1,73 @@
+{{#contentFor "extra-footer-class"}} no-space-top {{/contentFor}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Hero section --}}
+{{> hero hideMedia=true }}
+
+
+{{!-- Content --}}
+<div class="outer xl:outer-xl">
+    <div class="inner">
+        <div class="max-w-5xl mx-auto pb-16 lg:pb-20">
+            <div>
+                {{> card-feed page=../page hideExcerpt=true showDateMeta=true extra-card-class="max-lg:*:first:hidden" }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Next & Prev --}}       
+<div class="outer xl:outer-xl py-5 border-t border-gray-950/5 dark:border-gray-50/5">
+    <div class="inner">
+        <div class="max-w-5xl mx-auto">
+            {{#foreach tags visibility="internal"}}
+                {{#match slug "~^" "hash-feed-col" }}
+                    <div class="hidden first:flex flex-col sm:flex-row sm:space-x-8 js-toc-ignore">
+                        {{#> withThis tagSlug=slug postSlug=../slug postPublishedAt=(date ../published_at format="YYYY-MM-DD HH:mm:ss") }}
+                            {{#get "posts" filter="tags:{{tagSlug}}+slug:-{{postSlug}}+published_at:<='{{postPublishedAt}}'" order="published_at desc" limit="1" fields="title, url" as |posts| }}
+                                {{#if posts}}
+                                    <a data-sx-prev href="{{posts.[0].url}}" class="flex flex-col basis-1/2 min-w-0 no-underline">
+                                        <div class="ps-5 mb-1 text-2xs font-normal text-gray-500 dark:text-gray-400 [:hover>&]:text-gray-700 dark:[:hover>&]:text-gray-300 truncate transition-colors duration-200">
+                                            {{t "Previous"}}
+                                        </div>
+
+                                        <div class="relative w-full flex">
+                                            <div class="ps-5 text-pretty text-xs font-medium text-gray-700 dark:text-gray-300 line-clamp-2">
+                                                {{posts.[0].title}}
+                                            </div>
+                                            {{> icons/chevron-left class="absolute start-0 top-0.5 mt-px w-3.5 h-3.5 flex-none text-gray-500 dark:text-gray-400 [:hover>*>&]:-translate-x-1 transition-transform duration-150" }}
+                                        </div>
+                                    </a> 
+                                {{else}}
+                                    <div class="max-sm:hidden invisible flex flex-col basis-1/2 min-w-0 no-underline"></div>
+                                {{/if}}
+                            {{/get}}
+
+                            {{#get "posts" filter="tags:{{tagSlug}}+slug:-{{postSlug}}+published_at:>'{{postPublishedAt}}'" order="published_at asc" limit="1" fields="title, url" as |posts| }}
+                                {{#if posts}}
+                                    <a data-sx-next href="{{posts.[0].url}}" class="flex flex-col basis-1/2 min-w-0 no-underline text-end mt-8 sm:mt-0 [.invisible~&]:mt-0">
+                                        <div class="pe-5 mb-1 text-2xs font-normal text-gray-500 dark:text-gray-400 [:hover>&]:text-gray-700 dark:[:hover>&]:text-gray-300 truncate transition-colors duration-200">
+                                            {{t "Next"}}
+                                        </div>
+
+                                        <div class="relative w-full flex justify-end">
+                                            <div class="pe-5 text-pretty text-xs font-medium text-gray-700 dark:text-gray-300 line-clamp-2">
+                                                {{posts.[0].title}}
+                                            </div>
+                                            {{> icons/chevron-right class="absolute end-0 top-0.5 mt-px w-3.5 h-3.5 flex-none text-gray-500 dark:text-gray-400 [:hover>*>&]:translate-x-1 transition-transform duration-150" }}
+                                        </div>
+                                    </a>
+                                {{else}}
+                                    <div class="max-sm:hidden invisible flex flex-col basis-1/2 min-w-0 no-underline text-end mt-8 sm:mt-0 [.invisible~&]:mt-0"></div>
+                                {{/if}}
+                            {{/get}}
+                        {{/withThis}}
+                    </div>
+                {{/match}}
+            {{/foreach}}
+        </div>             
+    </div>
+</div>

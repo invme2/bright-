@@ -1,0 +1,185 @@
+{{!-- Remove no-js --}}
+<script>
+    document.documentElement.classList.remove('no-js');
+</script>
+
+{{!-- Support legacy browsers --}}
+<script>
+    (function() {
+        if (!CSS.supports("color: hsl(from white h s l)")) {
+            const preload = document.createElement('link');
+            preload.rel = "preload";
+            preload.as = "style";
+            preload.href= '{{asset "/built/legacy.min.css"}}';
+            document.head.appendChild(preload);
+
+            const link = document.createElement('link');
+            link.rel = "stylesheet"; 
+            link.type = "text/css";
+            link.href= '{{asset "/built/legacy.min.css"}}';
+            document.documentElement.appendChild(link);
+        }
+    })();
+</script>
+
+{{!-- Set globals --}}
+<script>
+    window.Spiritix = window.Spiritix || {};
+
+    // Translation
+    window.Spiritix.t = {
+        "Toggle menu": `{{t "Toggle menu"}}`,
+        "Quick search...": `{{t "Quick search..."}}`,
+        "Clear": `{{t "Clear"}}`,
+        "Close": `{{t "Close"}}`,
+        "No matches found": `{{t "No matches found"}}`,
+        "Something went wrong, please try again.": `{{t "Something went wrong, please try again."}}`,
+        "Authors": `{{t "Authors"}}`,
+        "Tags": `{{t "Tags"}}`,
+        "Posts": `{{t "Posts"}}`,
+    };
+
+    // Error reporting
+    window.Spiritix.safeReportError = (err) => {
+        if ("Sentry" in window) {
+            return window.Sentry.captureException(err);
+        }
+
+        if (typeof window.reportError === "function") {
+            return window.reportError(err);
+        }
+
+        console.error(err);
+    };
+
+    // Color functions
+    window.Spiritix.hexToRgb = (hex) => {
+        hex = hex.replace('#', '');
+        hex = hex.length === 3 ? hex.split().map(c => c + c).join() : hex;
+
+        return [
+            parseInt(hex.substring(0,2), 16),
+            parseInt(hex.substring(2,4), 16),
+            parseInt(hex.substring(4,6), 16),
+        ];
+    };
+
+    window.Spiritix.getContrastColor = (r, g, b) => {
+        const yiq = ((r*299) + (g*587) + (b*114)) / 1000;
+
+        return (yiq >= 138) ? '#000' : '#fff';  
+    };    
+
+    window.Spiritix.rgbToHsl = (r, g, b) => {
+        r /= 255, g /= 255, b /= 255;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const d = max - min;
+        let h, s, l = (max + min) / 2;
+
+        if (max === min) {
+            return [0, 0, l * 100];
+        } 
+        
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+
+        return [h * 360, s * 100, l * 100];
+    }    
+</script>
+
+{{!-- Dark mode setup --}}
+<script>
+    if (localStorage && localStorage["sx-theme"]) {
+        document.documentElement.classList.toggle('dark', localStorage["sx-theme"] === 'dark');
+        document.documentElement.classList.toggle('light', localStorage["sx-theme"] === 'light');
+    } else if ("{{@custom.default_color_scheme}}" === "System") {
+        document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);        
+        document.documentElement.classList.toggle('light', window.matchMedia('(prefers-color-scheme: light)').matches);        
+    }
+</script>
+
+
+{{!-- Set contract color & Set accent color as rgb so we can add alpha to it --}}
+{{#if @site.accent_color}}
+    <script>
+        (function() {
+            const hex = "{{@site.accent_color}}".trim();
+            const [r, g, b] = window.Spiritix.hexToRgb(hex);
+            const [h, s, l] = window.Spiritix.rgbToHsl(r, g, b);
+            const contrastColor = window.Spiritix.getContrastColor(r, g, b);
+
+            document.documentElement.style.setProperty('--ghost-accent-color-light-rgb', `${r} ${g} ${b}`);
+            document.documentElement.style.setProperty('--c-primary-light-hsl', `${h} ${s}% ${l}%`);
+            document.documentElement.style.setProperty('--c-primary-light-hsl-50', `${h} 100% 90%`);
+            document.documentElement.style.setProperty('--c-primary-light-hsl-950', `${h} 80% 10%`);
+            document.documentElement.style.setProperty('--color-contrast-light', contrastColor);
+
+            window.Spiritix.ghostAccentColorLightRgb = `${r} ${g} ${b}`;
+        })();
+    </script>    
+    <style>
+        :root {
+            --color-contrast: var(--color-contrast-light);
+            --ghost-accent-color-rgb: var(--ghost-accent-color-light-rgb);
+            --c-primary-hsl: var(--c-primary-light-hsl);
+            --c-primary-hsl-50: var(--c-primary-light-hsl-50);
+            --c-primary-hsl-950: var(--c-primary-light-hsl-950);
+        }
+    </style>  
+{{/if}}
+
+{{!-- Set dark contract color & Set the dark theme accent color if configured (black is a placeholder) --}}
+{{#if @custom.dark_theme_accent_color}}
+    {{#match @custom.dark_theme_accent_color '!=' '#000000'}}
+        <script>
+            (function() {
+                const hexDark = "{{@custom.dark_theme_accent_color}}".trim();
+                const [r, g, b] = window.Spiritix.hexToRgb(hexDark);
+                const [h, s, l] = window.Spiritix.rgbToHsl(r, g, b);
+                const contrastColor = window.Spiritix.getContrastColor(r, g, b);
+
+                document.documentElement.style.setProperty('--ghost-accent-color-dark-rgb', `${r} ${g} ${b}`);
+                document.documentElement.style.setProperty('--c-primary-dark-hsl', `${h} ${s}% ${l}%`);
+                document.documentElement.style.setProperty('--c-primary-dark-hsl-50', `${h} 100% 97%`);
+                document.documentElement.style.setProperty('--c-primary-dark-hsl-950', `${h} 80% 10%`);                
+                document.documentElement.style.setProperty('--color-contrast-dark', contrastColor);
+
+                window.Spiritix.ghostAccentColorDarkRgb = `${r} ${g} ${b}`;
+            })();
+        </script>    
+
+        <style>
+            :root.dark {
+                --color-contrast: var(--color-contrast-dark);
+                --ghost-accent-color-rgb: var(--ghost-accent-color-dark-rgb);
+                --c-primary-hsl: var(--c-primary-dark-hsl);
+                --c-primary-hsl-50: var(--c-primary-dark-hsl-50);
+                --c-primary-hsl-950: var(--c-primary-dark-hsl-950);                
+                --ghost-accent-color: {{@custom.dark_theme_accent_color}};
+            }
+        </style>               
+    {{/match}}
+{{/if}}
+
+{{!-- Navigation external urls --}}
+<style>
+    a[data-sx-check-external][href]:not(:where(
+        /* exclude hash only links */
+        [href^="#"],
+        /* exclude javascript only links */
+        [href^="javascript:" i],  
+        /* exclude relative but not double slash only links */
+        [href^="/"]:not([href^="//"]),
+        /* domains to exclude */
+        [href^="{{@site.url}}"],
+        [href*="//{{readable_url @site.url}}"]
+    )) svg {
+        display: inline;
+    }    
+</style>

@@ -1,0 +1,76 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-0 start-0 w-full h-70 overflow-hidden pointer-events-none">
+    <div class="absolute -z-10 top-10 end-0 w-full xl:w-2/3 h-70 bg-grid-gray-950 dark:bg-grid-gray-50 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+</div>
+
+{{#tag}}
+<div id="sx-hero" 
+    class="relative outer xl:outer-xl outline-hidden max-w-none py-16 sm:py-20 md:py-28 overflow-hidden
+        {{hero_class}}
+        {{post_class}}        
+    "
+>
+    <div class="inner max-w-6xl grid gap-10 items-center"> 
+        <div class="w-full">
+            {{!-- Heading --}}
+            <h1 class="relative -my-3 max-w-3xl text-4xl text-pretty font-bold tracking-tight leading-tighter">
+                <span class="inline-flex py-3 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                    {{name}}
+                </span>
+
+                <div class="hidden xl:block absolute -top-6 -start-6 w-px h-60 bg-linear-to-b from-white/0 via-gray-900/15 dark:via-white/30 "></div>
+            </h1>     
+
+            <div class="mt-3 hidden xl:block">
+                <div class="-translate-x-1/4 w-1/2 h-px bg-linear-to-r from-white/0 via-gray-900/15 dark:via-white/30 "></div>
+            </div>
+               
+            {{!-- Content --}}
+            {{#if description}}
+                <p class="animate-slide-up max-w-2xl text-lg text-gray-600 dark:text-gray-400 mt-6 text-pretty">
+                    {{description}}
+                </p>            
+            {{/if}}
+         
+            {{!-- Meta --}}
+            <p class="mt-4 text-sm text-gray-500 dark:text-gray-400/80">
+                {{plural ../pagination.total empty=(t 'No posts yet') singular=(t 'A collection of % post') plural=(t 'A collection of % posts')}}              
+            </p>
+        </div>
+    </div>
+</div>
+{{/tag}}
+
+<div class="outer xl:outer-xl">
+    <div class="inner">
+        {{!-- Latest posts --}}
+        <div class="max-w-6xl mx-auto pb-16 lg:pb-20">
+            <div data-sx-pagination-feed class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {{#foreach posts}}
+                    {{^has tag="#landing-col"}}
+                        {{> card-blog page=../page isPaginated=true }}
+                    {{/has}}
+                {{/foreach}}
+            </div>
+        </div>
+
+        {{!-- Pagination --}}
+        {{#if pagination}}
+            <div class="flex justify-center">
+                <button 
+                    hidden="true"
+                    data-sx-pagination-btn
+                    data-sx-pagination-total="{{pagination.pages}}"
+                    class="flex items-center py-4 mb-16 sm:mb-20 text-sm font-medium leading-none text-gray-800 dark:text-gray-200 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                >
+                    {{t "Load more"}}
+
+                    {{> icons/arrow-sm-down class="w-4 h-4 ms-0.5 [.loading>&]:hidden"}}
+                    {{> icons/loader class="w-4 h-4 ms-0.5 hidden [.loading>&]:inline"}}
+                </button>
+            </div>
+        {{/if}}        
+    </div>
+</div>

@@ -1,0 +1,8 @@
+{{#contentFor "extra-header-class"}} has-breadcrumbs border-b lg:border-gray-950/5 lg:dark:border-gray-50/5 {{/contentFor}}
+{{#contentFor "extra-footer-class"}} no-space-top {{/contentFor}}
+
+{{#foreach tags limit="1"}}
+    {{#get "posts" filter="tags:hash-courses-col+tags:{{slug}}" limit="1" include="tags" order="published_at asc" as |posts|}}
+        {{> lesson filterTagPrefix="hash-lessons-col" indexPage=posts.[0] post=../.. }}     
+    {{/get}}    
+{{/foreach}}

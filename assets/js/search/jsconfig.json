@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+		"module": "nodenext",
+		"target": "es2015",
+		"moduleResolution": "nodenext",
+		"strict": true,
+		"noImplicitAny": true,
+		"checkJs": true,
+		"jsx": "react",
+		"jsxFactory": "h",
+		"jsxFragmentFactory": "Fragment",
+    }
+}

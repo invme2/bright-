@@ -1,0 +1,35 @@
+/*----------------------------------------------------------------------------*/
+/* Newsletter timeline */
+
+/* Hide the date if previous post was published on the same month */
+[data-sx-timeline] [data-sx-timeline-month="01"] + [data-sx-timeline-month="01"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="02"] + [data-sx-timeline-month="02"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="03"] + [data-sx-timeline-month="03"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="04"] + [data-sx-timeline-month="04"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="05"] + [data-sx-timeline-month="05"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="06"] + [data-sx-timeline-month="06"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="07"] + [data-sx-timeline-month="07"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="08"] + [data-sx-timeline-month="08"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="09"] + [data-sx-timeline-month="09"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="10"] + [data-sx-timeline-month="10"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="11"] + [data-sx-timeline-month="11"]:not([data-sx-timeline-break]) [data-sx-timeline-meta],
+[data-sx-timeline] [data-sx-timeline-month="12"] + [data-sx-timeline-month="12"]:not([data-sx-timeline-break]) [data-sx-timeline-meta] {
+    display: none;
+}
+
+/* Hide the border for the first post, and if previous post was published on the same month */
+[data-sx-timeline] [data-sx-timeline-month="01"] + [data-sx-timeline-month="01"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="02"] + [data-sx-timeline-month="02"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="03"] + [data-sx-timeline-month="03"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="04"] + [data-sx-timeline-month="04"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="05"] + [data-sx-timeline-month="05"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="06"] + [data-sx-timeline-month="06"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="07"] + [data-sx-timeline-month="07"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="08"] + [data-sx-timeline-month="08"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="09"] + [data-sx-timeline-month="09"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="10"] + [data-sx-timeline-month="10"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="11"] + [data-sx-timeline-month="11"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-month="12"] + [data-sx-timeline-month="12"]:not([data-sx-timeline-break])::before,
+[data-sx-timeline] [data-sx-timeline-post]:first-child::before {
+    display: none;
+}

@@ -1,0 +1,75 @@
+routes:
+  /rss/:
+    template: rss
+    content_type: text/xml
+
+  /contact/:
+    template: contact
+    data: page.contact
+
+  /tags/:
+    template: tags
+    data: page.tags
+
+  /authors/:
+    template: authors
+    data: page.authors
+
+collections:
+  /:
+    permalink: /
+    template: landing
+    filter: "tags:hash-landing-col"
+    order: "published_at asc"
+    rss: false
+    limit: "100"    
+
+  /courses/:
+    permalink: /courses/{slug}/
+    template: courses
+    data: page.courses
+    filter: "tags:hash-courses-col"
+
+  /lessons/:
+    permalink: /courses/{primary_tag}/{slug}/
+    filter: "tags:hash-lessons-col"    
+
+  /blog/:
+    permalink: /blog/{slug}/
+    template: blog
+    data: page.blog
+    filter: "tags:hash-blog-col"
+
+  /newsletter/:
+    permalink: /newsletter/{slug}/
+    template: newsletter
+    data: page.newsletter
+    filter: "tags:hash-newsletter-col"
+
+  /docs/:
+    permalink: /docs/{slug}/
+    template: docs
+    data: page.docs
+    filter: "tags:hash-folders-col"
+    order: "published_at asc"
+    limit: "100"
+
+  /__documents__/:
+    permalink: /docs/{primary_tag}/{slug}/
+    filter: "tags:hash-docs-col"
+
+  /showcase/:
+    permalink: /showcase/{slug}/
+    template: showcase
+    data: page.showcase
+    filter: "tags:hash-showcase-col"
+
+  /feed/:
+    permalink: /feed/{slug}/
+    template: feed
+    data: page.feed
+    filter: "tags:hash-feed-col"
+
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/

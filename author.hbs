@@ -1,0 +1,164 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-0 start-0 w-full h-70 overflow-hidden pointer-events-none">
+    <div class="absolute -z-10 top-10 end-0 w-full xl:w-2/3 h-70 bg-grid-gray-950 dark:bg-grid-gray-50 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+</div>
+
+{{#author}}
+<div id="sx-hero" 
+    class="relative outer xl:outer-xl outline-hidden max-w-none py-16 sm:py-20 md:py-28 overflow-hidden
+        {{hero_class}}
+        {{post_class}}        
+    "
+>
+    <div class="inner max-w-6xl grid gap-10 items-center"> 
+        <div class="w-full">
+            {{!-- Heading --}}
+            <div class="relative flex flex-col sm:flex-row sm:items-center gap-3">
+                {{#if profile_image}}
+                    <figure class="me-auto sm:me-0 flex-none relative p-1.5 bg-gray-100/80 dark:bg-transparent rounded-full ring-1 ring-inset ring-gray-900/5 dark:ring-gray-50/10">
+                        <div class="hidden dark:block absolute inset-0 rounded-inherit bg-linear-to-br from-white/30"></div>
+                        <img
+                            class="w-12 h-12 object-cover !rounded-full "
+                            srcset="{{> srcset feature_image=profile_image }}"
+                            sizes="48px"
+                            src="{{img_url profile_image size="xs"}}"
+                            alt="{{name}}"
+                        />
+                    </figure>
+                {{/if }}
+                <div>
+                    <h1 class="-my-3 max-w-3xl text-4xl text-pretty font-bold tracking-tight leading-tighter">
+                        <span class="inline-flex py-3 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                            {{name}}
+                        </span>
+                    </h1>    
+
+                    {{!-- Meta --}}
+                    <p class="mt-0.5 sm:mt-0 text-sm text-gray-500 dark:text-gray-400/80">
+                        {{plural ../pagination.total empty=(t 'No posts yet') singular=(t '% post published') plural=(t '% posts published') }}              
+                    </p> 
+                </div>
+                <div class="hidden xl:block absolute -top-6 -start-6 w-px h-60 bg-linear-to-b from-white/0 via-gray-900/15 dark:via-white/30 "></div>
+            </div>
+
+            <div class="mt-3 hidden xl:block">
+                <div class="-translate-x-1/4 w-1/2 h-px bg-linear-to-r from-white/0 via-gray-900/15 dark:via-white/30 "></div>
+            </div>
+               
+            {{!-- Content --}}
+            {{#if bio}}
+                <p class="animate-slide-up max-w-2xl text-lg text-gray-600 dark:text-gray-400 mt-6 text-pretty">
+                    {{bio}}
+                </p>            
+            {{/if}}
+
+            <div class="mt-4 inline-flex flex-wrap items-center gap-4">
+                {{#if website}}
+                    <a href="{{website}}" target="_blank" title="{{t "Website"}}" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">                    
+                        {{> icons/world-share class="flex-none w-5 h-5" }}
+                    </a>
+                {{/if}}
+
+                {{#if twitter}}
+                    <a href="{{social_url type="twitter"}}" target="_blank" title="X (Twitter)" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/twitter-x class="flex-none w-4 h-4 "}}
+                    </a>
+                {{/if}}
+
+                {{#if facebook}}
+                    <a href="{{social_url type="facebook"}}" target="_blank" title="Facebook" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/facebook class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if linkedin}}
+                    <a href="{{social_url type="linkedin"}}" target="_blank" title="LinkedIn" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/linkedin class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if bluesky}}
+                    <a href="{{social_url type="bluesky"}}" target="_blank" title="Bluesky" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/bluesky class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if threads}}
+                    <a href="{{social_url type="threads"}}" target="_blank" title="Threads" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/threads class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if mastodon}}
+                    <a href="{{social_url type="mastodon"}}" target="_blank" title="Mastodon" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/mastodon class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if tiktok}}
+                    <a href="{{social_url type="tiktok"}}" target="_blank" title="TikTok" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/tiktok class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if youtube}}
+                    <a href="{{social_url type="youtube"}}" target="_blank" title="Youtube" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/youtube class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if instagram}}
+                    <a href="{{social_url type="instagram"}}" target="_blank" title="Instagram" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{> icons/instagram class="flex-none w-4 h-4" }}
+                    </a>
+                {{/if}}
+
+                {{#if location}}
+                    <div class="hidden sm:block w-px h-4 bg-gray-950/10 dark:bg-gray-50/10"></div>
+
+                    <span class="w-full sm:w-auto inline-flex items-center -ms-0.75 text-gray-500 dark:text-gray-400">
+                        {{> icons/pin class="flex-none me-1 w-4.5 h-4.5 relative -top-px"}}
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400/80 line-clamp-1">
+                            {{location}}
+                        </span>
+                    </span>
+                {{/if}}                
+            </div>                
+        </div>
+    </div>
+</div>
+{{/author}}
+
+<div class="outer xl:outer-xl">
+    <div class="inner">
+        {{!-- Latest posts --}}
+        <div class="max-w-6xl mx-auto pb-16 lg:pb-20">
+            <div data-sx-pagination-feed class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {{#foreach posts}}
+                    {{^has tag="#landing-col"}}
+                        {{> card-blog page=../page isPaginated=true }}
+                    {{/has}}
+                {{/foreach}}
+            </div>
+        </div>
+
+        {{!-- Pagination --}}
+        {{#if pagination}}
+            <div class="flex justify-center">
+                <button 
+                    hidden="true"
+                    data-sx-pagination-btn
+                    data-sx-pagination-total="{{pagination.pages}}"
+                    class="flex items-center py-4 mb-16 sm:mb-20 text-sm font-medium leading-none text-gray-800 dark:text-gray-200 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                >
+                    {{t "Load more"}}
+
+                    {{> icons/arrow-sm-down class="w-4 h-4 ms-0.5 [.loading>&]:hidden"}}
+                    {{> icons/loader class="w-4 h-4 ms-0.5 hidden [.loading>&]:inline"}}
+                </button>
+            </div>
+        {{/if}}        
+    </div>
+</div>

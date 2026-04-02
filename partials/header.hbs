@@ -1,0 +1,146 @@
+{{!-- Site Header --}}
+<header 
+    id="sx-header"
+    class="{{block "extra-header-class"}}
+        sticky z-50 top-0 min-h-16 lg:h-16 flex flex-wrap flex-none items-center border-b border-transparent transition-colors duration-200
+        [&.stuck]:border-gray-950/5 [&.stuck]:bg-background/90
+        dark:[&.stuck]:border-gray-50/10 dark:[&.stuck]:bg-background-dark/70
+    "
+>
+    <nav class="outer xl:outer-xl flex items-center w-full py-1.5">
+        <div class="inner flex items-center min-h-10">
+            {{!-- Brand / Logo --}}
+            <a
+                id="sx-header-brand"
+                class="shrink me-4 xs:me-8 font-bold text-xl text-gray-950 dark:text-gray-50" 
+                href="{{@site.url}}" 
+                aria-label="{{@site.title}}"
+            >
+                {{#if @site.logo}}
+                    {{#if @custom.dark_theme_logo}}
+                        <img class="max-h-9 w-auto hidden dark:block" src="{{@custom.dark_theme_logo}}" alt="{{@site.title}}"/>
+                        <img class="max-h-9 w-auto block dark:hidden" src="{{@site.logo}}" alt="{{@site.title}}"/>
+                    {{else}}
+                        <img class="max-h-9 w-auto" src="{{@site.logo}}" alt="{{@site.title}}"/>
+                    {{/if}}
+                {{else}}
+                    {{@site.title}}
+                {{/if}}
+            </a>
+
+            {{!-- Navigation (Desktop) --}}
+            {{navigation}}
+
+            {{!-- Actions / Buttons --}}
+            <div id="sx-header-buttons" 
+                class="flex flex-row-reverse items-center ms-auto gap-3.5 xs:flex-row lg:me-0 lg:ps-4 lg:pe-0 lg:gap-4 border-gray-950/10 dark:border-gray-50/15 
+                    {{#match @site.navigation.length ">" 0}} me-3.5 xs:pe-3.5 lg:ms-4 xs:border-e lg:border-e-0 lg:border-s {{/match}}
+                "
+            >
+                <button 
+                    data-sx-theme-toggle
+                    title="{{t "Change theme" }}" 
+                    aria-label="{{t "Change theme" }}"
+                    class="flex-none p-1.5 -mx-1.5 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+                >
+                    {{> icons/sun class="dark:hidden w-5 h-5" }}
+                    {{> icons/moon class="hidden dark:block w-5 h-5" stroke-width="1.5" }}
+                </button>
+                
+                <button 
+                    data-ghost-search 
+                    title="{{t "Quick search..." }}" 
+                    aria-label="{{t "Quick search..." }}"
+                    class="flex-none p-1.5 -mx-1.5 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+                >
+                    {{> icons/search class="w-5 h-5" }}
+                </button>
+
+                {{#if @site.members_enabled}}
+                    <button 
+                        {{#if @member }} data-members-signout {{else}} data-portal="signin" {{/if}}                            
+                        class="hidden xs:block py-1.5 font-medium text-sm whitespace-nowrap text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors duration-200"
+                    >
+                        {{#if @member }} {{t "Sign Out"}} {{else}} {{t "Sign In"}} {{/if}}
+                    </button>
+
+                    <button                             
+                        {{#if @member }} data-portal="account" {{else}} data-portal="signup" {{/if}}
+                        class="relative inline-flex justify-center items-center px-4 py-2.5 rounded-full border border-transparent
+                            font-medium text-sm leading-none bg-primary shadow-primary text-primary-contrast hover:opacity-80 transition-opacity duration-200
+                            from-gray-50 from-50% dark:border-gray-50/10 dark:bg-transparent dark:bg-linear-to-br dark:bg-clip-text dark:text-transparent dark:shadow-none dark:hover:opacity-100          
+                        "
+                    >
+                        <span>{{#if @member }} {{t "Account"}} {{else}} {{t "Subscribe"}} {{/if}}</span>
+
+                        {{!-- Border --}}
+                        <span class="hidden dark:block absolute -inset-px -z-10 rounded-full bg-linear-to-br from-white from-0% to-30%"></span>
+                        {{!-- Animated border --}}
+                        <span class="hidden dark:block not-supports-relative-colors:hidden! absolute -inset-px -z-10 rounded-full drop-shadow-white-sm animation-state-paused [:hover>&]:animation-state-running opacity-0 [:hover>&]:opacity-100 transition-opacity duration-500">
+                            <span class="absolute inset-0 rounded-full -z-10 transition-opacity duration-500 bg-conic-white-sm animate-rotate-angle animation-state-inherit"></span>
+                        </span> 
+                        {{!-- Mask --}}
+                        <span class="hidden dark:block absolute inset-0 -z-10 rounded-full bg-background-dark"></span>
+                        {{!-- Gradient bg --}}
+                        <span class="hidden dark:block absolute -inset-px -z-10 rounded-full bg-radial-[90%_90%_at_0%_0%] from-white transition-opacity duration-1000 opacity-25 [:hover>&]:opacity-40"></span>                
+                    </button>
+                {{/if}}
+            </div>
+
+            <button 
+                id="sx-mobile-menu-toggle" 
+                class="lg:hidden p-1.5 -mx-2 flex-none flex items-center justify-center 
+                    {{#match @site.navigation.length 0}} hidden {{/match}}
+                " 
+                title="{{t "Toggle menu"}}" 
+                aria-label="{{t "Toggle menu"}}"                
+            >
+                {{> icons/bars-3-center-left-mini class="w-5 h-5 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 -rotate-180 transition-colors duration-200" }}
+            </button>
+        </div>
+    </nav>
+
+    {{!-- Breadcrumbs menu for small screens --}}
+    <div data-sx-breadcrumbs class="outer xl:outer-xl hidden relative top-px lg:[.has-breadcrumbs>&]:hidden [.has-breadcrumbs>&]:flex items-center w-full h-10 text-2xs border-y border-gray-950/5 dark:border-gray-50/5">
+        <div class="inner flex items-center">
+            <button data-sx-breadcrumbs-button class="flex items-center overflow-hidden min-w-0 w-full" aria-label="{{t "Toggle menu"}}">
+                <span class="flex-none flex items-center justify-center h-8 w-8 -ms-2 me-0.5">
+                    {{> icons/bars-3-center-left-mini class="flex-none h-5 w-5 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"}}
+                </span>
+
+                <span data-sx-breadcrumbs-section hidden class="inline-flex flex-none max-w-1/2 truncate text-gray-500 dark:text-gray-400">
+                    <span data-sx-breadcrumbs-section-text class="truncate"></span>
+                    <span class="mx-2">/</span>
+                </span>
+                <span data-sx-breadcrumbs-current hidden class="truncate font-medium text-gray-950 dark:text-gray-50"></span>
+            </button>
+        </div>
+    </div>        
+
+    {{!-- Backdrop blur --}}
+    <div class="hidden [.stuck>&]:block absolute inset-0 -z-50 backdrop-blur-sm"></div>
+
+    {{!-- Border effect --}}
+    <div class="hidden dark:[.stuck>&]:block outer xl:outer-xl absolute -bottom-px start-0 w-full h-px pointer-events-none">
+        <div class="inner">
+            <div class="w-1/2 xs:w-1/3 md:w-1/4 lg:w-1/8 h-px bg-linear-to-r from-white/0 via-white/30 -translate-x-1/8"></div>
+        </div>        
+    </div>
+</header>
+
+{{!-- Mobile menu --}}
+<nav id="sx-mobile-menu" class="invisible flex lg:hidden fixed inset-0 -z-10 [&.open]:visible [&.open]:z-3999999">
+    <div data-sx-mobile-menu-close class="fixed inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-xs"></div>
+
+    <div class="fixed top-0 end-0 bottom-0 w-full max-w-xs shadow-lg bg-gray-50 dark:bg-gray-950 border-s border-gray-950/5 dark:border-gray-50/5 transition ease-out translate-x-full [.open>&]:translate-x-0 ">
+        <div class="relative ps-9 pe-16 pb-6 pt-14 h-full overflow-y-scroll overflow-x-hidden">
+            <button data-sx-mobile-menu-close aria-label="{{t "Close"}}" class="fixed flex items-center justify-center top-4 end-3 p-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                {{> icons/arrow-bar-to-right class="h-5 w-5" }}
+            </button>
+
+            <div class="grid grid-cols-1 min-h-full">
+                {{navigation isMobile=true }}
+            </div>
+        </div>
+    </div>
+</nav> 

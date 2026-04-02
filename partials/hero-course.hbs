@@ -1,0 +1,181 @@
+<div id="sx-hero"
+    class="relative outer xl:outer-xl outline-hidden max-w-none py-16 sm:py-20 md:py-28
+        {{hero_class}}
+        {{post_class}}          
+    "
+>
+    <div class="inner max-w-6xl grid gap-10 xl:gap-16 items-center 
+                {{#has tag="#temp-video"}} lg:grid-cols-2 {{/has}}                  
+                {{#if feature_image}} 
+                    {{^has tag="#temp-no-media" }} lg:grid-cols-2 {{/has}} 
+                {{/if}}
+        "
+    >   
+        <div class="w-full max-w-3xl mx-auto">
+            {{!-- Primary Tag --}}
+            <div class="inline-flex items-center">
+                {{#foreach tags limit="1" from="2"}} 
+                    <a href="{{url absolute="true"}}" class="badge mb-3 inline-flex no-underline" data-sx-text="{{name}}">
+                        {{name}}
+                    </a> 
+                {{/foreach}}
+
+                {{#if featured}}
+                    <span class="hidden first:inline-flex badge mb-3 no-underline" data-sx-text="{{t "Featured"}}">
+                        {{t "Featured"}}
+                    </span>                 
+                    <span title="{{t "Featured"}}" class="inline-flex items-center ms-2 mb-3 mt-px py-1">
+                        {{> icons/star-four class="inline-flex flex-none w-3.5 h-3.5 text-primary drop-shadow-primary"}}
+                    </span>
+                {{/if}}
+            </div>
+
+            {{!-- Heading --}}
+            <h1 class="animate-slide-down -my-3 max-w-3xl text-4xl xl:text-5xl text-pretty font-bold tracking-tight leading-tighter">
+                <span class="inline-flex py-3 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                    {{title}}
+                </span>
+            </h1>                         
+
+            {{!-- Excerpt --}}
+            {{#if custom_excerpt}}
+                <p class="animate-slide-up mt-4 lg:mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400 text-pretty">
+                    {{custom_excerpt}}
+                </p>            
+            {{/if}}
+
+            {{!-- Metadata --}}
+            <p id="sx-hero-meta" class="invisible mt-4 max-w-3xl text-sm text-gray-500 dark:text-gray-400/80">
+                {{!-- Lessons count --}}
+                <span id="sx-hero-meta-count" data-empty="{{t 'No lessons yet'}}" data-sx-singular="{{t '% Lesson'}}" data-sx-plural="{{ t '% Lessons'}}"></span>
+                <span class="mx-1.5 opacity-80">·</span>
+
+                {{#foreach tags visibility="internal"}}
+                    {{!-- Duration --}}
+                    {{#match slug "~^" "hash-course-duration-" }} 
+                        {{#if description}}
+                            <span>{{description}}</span>
+                            <span class="mx-1.5 opacity-80">·</span>
+                        {{/if}}
+                    {{/match}}
+
+                    {{!-- Level --}}
+                    {{#match slug "~^" "hash-course-level-" }} 
+                        {{#if description}}
+                            <span>{{description}}</span>
+                            <span class="mx-1.5 opacity-80">·</span>
+                        {{/if}}
+                    {{/match}}
+                {{/foreach}}     
+
+                {{!-- Date --}}
+                <time id="sx-hero-meta-time" datetime='{{date updated_at format="YYYY-MM-DD"}}'>
+                    {{{t "Updated on {date}" date=(date updated_at) }}}
+                </time>
+            </p>
+
+            {{!-- CTA Link --}}
+            <a     
+                id="sx-hero-cta" 
+                href="#"                    
+                class="mt-8 lg:mt-10 min-w-60 px-6 py-4 text-lg relative inline-flex justify-center items-center rounded-full border border-transparent
+                    font-medium leading-tighter text-center bg-primary shadow-primary text-primary-contrast hover:opacity-80 transition-opacity duration-200
+                    dark:border-gray-50/10 dark:bg-transparent dark:bg-linear-to-br dark:from-gray-50 dark:from-50% dark:bg-clip-text dark:text-transparent dark:shadow-none dark:hover:opacity-100                                    
+                "          
+            >
+                <span>{{t "Start Course"}}</span>
+
+                {{!-- Shiny Border --}}
+                <span class="hidden dark:block absolute -inset-px -z-10 rounded-full bg-linear-to-br from-white from-0% to-30%"></span>
+
+                {{!-- Animated border --}}
+                <span class="hidden dark:block not-supports-relative-colors:hidden! [:hover>&]:opacity-100 animation-state-paused [:hover>&]:animation-state-running opacity-0 absolute -inset-px rounded-full -z-10 transition-opacity duration-500" 
+                    style="filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.2));"
+                >
+                    <span class="absolute inset-0 rounded-full -z-10 transition-opacity duration-500"
+                        style="
+                            background: conic-gradient(from calc(280deg + var(--angle)) at 50% 50%, transparent 0deg, rgba(255,255,255, 0.4) 20%, transparent 22%);
+                            animation: rotate-angle 2s infinite linear;
+                            animation-play-state: inherit;
+                        "                    
+                    >
+                    </span>
+                </span>       
+
+                {{!-- Mask --}}
+                <span class="hidden dark:block absolute inset-px -z-10 bg-background-dark rounded-full"></span>
+                
+                {{!-- Gradient bg --}}
+                <span class="hidden dark:block absolute -inset-px -z-10 rounded-full bg-radial-[90%_90%_at_0%_0%] from-white transition-opacity duration-1000 opacity-25 [:hover>&]:opacity-40"></span>                
+            </a>               
+        </div>
+
+
+        {{!-- Media (Image, Video, ...) --}}
+        {{^has tag="#temp-no-media" }}
+            <figure id="sx-hero-media" class="hidden w-full max-w-6xl mx-auto animate-slide-up {{#if feature_image_caption}} has-links has-figcaption {{/if}}
+                    {{#has tag="#temp-media-start"}} lg:order-first {{/has}}
+                    {{#has tag="#temp-video"}} !block {{/has}}                  
+                    {{#if feature_image}} !block {{/if}}
+                "
+            >
+                <div class="relative rounded-md lg:rounded-xl overflow-hidden 
+                        {{#has tag="#temp-media-1-1"}} 
+                            aspect-1/1
+                        {{else has tag="#temp-media-3-4"}} 
+                            aspect-3/4
+                        {{else has tag="#temp-media-4-3"}} 
+                            aspect-4/3
+                        {{else has tag="#temp-media-4-5"}} 
+                            aspect-4/5
+                        {{else has tag="#temp-media-5-4"}}
+                            aspect-5/4
+                        {{else has tag="#temp-media-9-16"}}
+                            aspect-9/16
+                        {{else has tag="#temp-media-16-9"}}
+                            aspect-16/9
+                        {{else}}
+                            aspect-5/4
+                        {{/has}}
+                    "
+                >
+                    {{#has tag="#temp-video"}}
+                        <div class="absolute inset-0 w-full h-full object-cover bg-gray-100 dark:bg-gray-50/5"></div>                  
+                    {{else}}
+                        {{#if feature_image}}
+                            <picture>
+                                <source
+                                    type="image/avif"                                
+                                    data-sizes="auto"
+                                    data-srcset="{{> srcset format="avif"}}"
+                                    srcset="{{img_url feature_image size="xxs" format="avif"}}"
+                                    src="{{img_url feature_image size="2xl" format="avif"}}"
+                                />
+                                <source
+                                    type="image/webp"                                
+                                    data-sizes="auto"
+                                    data-srcset="{{> srcset format="webp"}}"
+                                    srcset="{{img_url feature_image size="xxs" format="webp"}}"
+                                    src="{{img_url feature_image size="2xl" format="webp"}}"
+                                />
+                                <img
+                                    class="lazyload absolute inset-0 w-full h-full object-cover bg-gray-100 dark:bg-gray-50/5 [&.lazyloaded]:bg-transparent!"
+                                    data-sizes="auto"
+                                    data-srcset="{{> srcset}}"
+                                    srcset="{{img_url feature_image size="xxs"}}"
+                                    src="{{img_url feature_image size="2xl"}}"
+                                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                />
+                            </picture>
+                        {{/if}}
+                    {{/has}}
+                </div>
+                {{#if feature_image_caption}}
+                    {{^has tag="#temp-video"}}
+                        <figcaption>{{feature_image_caption}}</figcaption>
+                    {{/has}}
+                {{/if}}
+            </figure>          
+        {{/has}}
+    </div>   
+</div>

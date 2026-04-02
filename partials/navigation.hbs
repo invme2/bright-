@@ -1,0 +1,286 @@
+{{#if isSecondary}}
+    {{!-- Footer Nav --}}
+    {{#if flat}}
+        <ul id="sx-nav-footer-flat" data-sx-nav class="flex flex-col xs:flex-row gap-3.5 gap-y-1.5 flex-wrap">
+            {{#foreach navigation}}
+                {{#match label.[0] "!=" "+"}} 
+                    {{#match label.[0] "!=" "-"}} 
+                        <li data-sx-slug="{{slug}}" class="inline-flex">
+                            <a href="{{url absolute="true"}}" class="inline-block text-sm xs:text-xs leading-6 hover:text-gray-950 dark:hover:text-gray-50 transition-colors duration-200">
+                                {{label}}<!--
+                                -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1.5 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                            </a>
+                        </li>                    
+                    {{/match}}
+                {{/match}}
+            {{/foreach}}
+        </ul>
+    {{else}}
+        <nav id="sx-nav-footer" data-sx-nav class="w-full grid gap-10 grid-cols-[repeat(auto-fill,minmax(140px,1fr))] not-has-[li]:hidden">
+            {{#foreach navigation}}
+                {{#match label.[0] "+"}} 
+                    <ul role="list">
+                        <li data-sx-slug="{{slug}}" class="mb-4 text-sm font-medium text-gray-950 dark:text-gray-50">
+                            {{#foreach label from="2"}}{{this}}{{/foreach}}
+                        </li>                                
+
+                        {{#foreach ../navigation from=@number }}
+                            {{#unless @first}}
+                                <li data-sx-slug="{{slug}}" class="mt-2.5 peer peer-[.hidden]:hidden {{#match label.[0] "!=" "-"}} hidden {{else}} flex {{/match}}">
+                                    <a href="{{url absolute="true"}}" class="inline-block text-sm hover:text-gray-950 dark:hover:text-gray-50 transition-colors duration-200">
+                                        {{#foreach label from="2"}}{{this}}{{/foreach}}<!--
+                                        -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                                    </a>
+                                </li>
+                            {{/unless}}
+                        {{/foreach}}
+                    </ul>                        
+                {{/match}}
+            {{/foreach}}
+        </nav>
+    {{/if}}
+{{else if isMobile }}
+    {{!-- Small screens Nav --}}
+    <ul id="sx-nav-sm" data-sx-nav class="flex flex-col space-y-2 -mx-3.5">
+        {{#foreach navigation}}
+            {{#match label.[0] "!=" "-"}} {{!-- Skip dropdown child items (starts with "-") --}}
+                <li data-sx-slug="{{slug}}" data-sx-current="{{current}}">
+                    {{#match label.[0] "=" "+"}} {{!-- Dropdown menu (starts with "+") --}}
+                        <button 
+                            data-sx-dropdown-toggle 
+                            class="peer [&.open]:text-gray-950 dark:[&.open]:text-gray-50 relative px-3 py-2 w-full flex items-center font-medium text-start text-sm text-gray-500 hover:text-gray-950 
+                                dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50
+                            "
+                        >
+                            <span class="me-auto">
+                                {{#foreach label from="2"}}{{this}}{{/foreach}}
+                            </span>
+
+                            {{> icons/chevron-down-micro class="[.open>&]:rotate-180 inline shrink-0 w-3 h-3 ms-0.5 -me-0.5" }}
+                        </button>
+                        <ul data-sx-dropdown="inline" class="ps-3 space-y-1 mt-1 hidden peer-[.open]:block" role="list">
+                            {{#foreach ../navigation from=@number limit="11"}}
+                                {{^if @first}}
+                                    <li class="peer peer-[.hidden]:hidden {{#match label.[0] "!=" "-"}} hidden {{/match}}">
+                                        <a 
+                                            href="{{url absolute="true"}}" 
+                                            class="px-3 py-2 w-full inline-block font-medium text-sm text-gray-500 hover:text-gray-950
+                                                dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50 
+                                                {{^match (url absolute="true") "~^" "#"}} 
+                                                    {{^match (url absolute="true") "~^" (concat @site.url "/#")}} 
+                                                        {{link_class for=(url absolute="true") activeClass="current"}} 
+                                                    {{/match}}
+                                                {{/match}}                                                    
+                                            "
+                                        >
+                                            {{#foreach label from="2"}}{{this}}{{/foreach}}<!--
+                                            -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                                        </a>   
+                                    </li>
+                                {{/if}}
+                            {{/foreach}}
+                        </ul>                    
+                    {{else}} {{!-- Normal menu items --}}
+                        <a 
+                            href="{{url absolute="true"}}" 
+                            data-sx-slug="{{slug}}" 
+                            class="w-full px-3 py-2 inline-block font-medium text-sm text-gray-500 hover:text-gray-950
+                                dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50
+                                {{^match (url absolute="true") "~^" "#"}} 
+                                    {{^match (url absolute="true") "~^" (concat @site.url "/#")}} 
+                                        {{link_class for=(url absolute="true") activeClass="current"}} 
+                                    {{/match}}
+                                {{/match}}                                    
+                            "
+                        >
+                            {{label}}<!--
+                            -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                        </a>
+                    {{/match}}
+                </li>
+            {{/match}}
+        {{/foreach}}            
+
+        {{#if @site.members_enabled}}
+            <li class="mt-auto xs:hidden">
+                <button 
+                    {{#if @member }} data-members-signout {{else}} data-portal="signin" {{/if}}                            
+                    class="px-3 py-2 inline-block font-medium text-sm text-gray-500 hover:text-gray-950
+                        dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50
+                        w-full text-start 
+                    "
+                >
+                    {{#if @member }} {{t "Sign Out"}} {{else}} {{t "Sign In"}} {{/if}}
+                </button>
+            </li>        
+        {{/if}}
+    </ul>
+{{else}}
+    {{#*inline "nav-link-class"}}
+        {{!-- #tw --}}
+        p-2 inline-flex items-center font-medium text-sm whitespace-nowrap transition-colors duration-200
+        text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 from-gray-50 from-50%
+        [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-transparent dark:[&.current-parent]:text-transparent
+        dark:[&.current]:bg-linear-to-br dark:[&.current]:bg-clip-text 
+        dark:[&.current-parent]:bg-linear-to-br dark:[&.current-parent]:bg-clip-text
+        {{!-- /tw --}}
+    {{/inline}}
+
+    {{!-- Large screens Nav --}}
+    <ul id="sx-nav-lg" data-sx-nav class="hidden lg:flex ms-auto gap-2" role="list">
+        {{#foreach navigation }}            
+            {{#match label.[0] "!=" "-"}} {{!-- Skip dropdown child items (starts with "-") --}}
+                {{!-- Only show 7 menu items max (n+8 are hidden) --}}
+                <li class="relative inline-flex nth-[n+8]:hidden max-xl:nth-[n+6]:hidden" data-sx-slug="{{slug}}" data-sx-current="{{current}}">
+                    {{#match label.[0] "+"}} {{!-- Dropdown item (starts with "+") --}}
+                        <button data-sx-dropdown-toggle class="{{> nav-link-class }} peer text-start [&.open]:text-gray-950 dark:[&.open]:text-gray-50 dark:[&.open.current]:text-transparent">
+                            {{#foreach label from="2"}}{{this}}{{/foreach}}
+                            {{> icons/chevron-down-micro class="[.open>&]:rotate-180 dark:[.current>&]:text-gray-50 inline shrink-0 w-3 h-3 ms-0.5 -me-0.5" }}
+                        </button>
+                        <ul data-sx-dropdown 
+                            role="list"
+                            class="hidden peer-[.open]:block absolute z-50 top-14 -end-4 w-60 max-h-[calc(100vh-(--spacing(24)))] 
+                                overflow-y-auto backdrop-blur-sm bg-white/90 ring-1 ring-gray-900/5 shadow-pretty rounded-xl 
+                                dark:bg-background-dark/80 dark:ring-white/5 dark:ring-inset dark:shadow-lg dark:shadow-black/60
+                            " 
+                        >
+                            <li class="py-2 px-3 grid grid-cols-1 gap-1 dark:bg-white/5 rounded-inherit">
+                                {{#foreach ../navigation from=@number limit="11"}}
+                                    {{#unless @first}}
+                                        <div class="peer peer-[.hidden]:hidden {{#match label.[0] "!=" "-"}} hidden {{/match}}">
+                                            <a 
+                                                href="{{url absolute="true"}}" 
+                                                data-sx-slug="{{slug}}" 
+                                                class="px-3 py-2 w-full inline-block font-medium text-sm transition-colors duration-200
+                                                    text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50
+                                                    [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50 
+                                                    {{^match (url absolute="true") "~^" "#"}} 
+                                                        {{^match (url absolute="true") "~^" (concat @site.url "/#")}} 
+                                                            {{link_class for=(url absolute="true") activeClass="current"}} 
+                                                        {{/match}}
+                                                    {{/match}}                                                        
+                                                "
+                                            >
+                                                {{#foreach label from="2"}}{{this}}{{/foreach}}<!--
+                                                -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                                            </a>   
+                                        </div>                                
+                                    {{/unless}}
+                                {{/foreach}}
+                            </li>
+                        </ul>                    
+                    {{else}} {{!-- Normal menu item --}}
+                        <a 
+                            href="{{url absolute="true"}}"
+                            data-sx-slug="{{slug}}"
+                            data-sx-check-external="true"
+                            class="
+                                {{> nav-link-class }} 
+                                {{^match (url absolute="true") "~^" "#"}} 
+                                    {{^match (url absolute="true") "~^" (concat @site.url "/#")}} 
+                                        {{link_class for=(url absolute="true") activeClass="current"}} 
+                                    {{/match}}
+                                {{/match}}
+                            "
+                        >
+                            {{label}}
+
+                            {{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden shrink-0 w-3 h-3 ms-0.5 -me-0.5" }}
+                        </a>
+                    {{/match}}
+                </li>
+            {{/match}}
+        {{/foreach}}
+
+        {{!-- "More" dropdown: visible when nav has at least 7 menu items  --}}
+        <li class="relative inline-flex xl:nth-[-n+8]:hidden max-xl:nth-[-n+6]:hidden">
+            <button 
+                id="sx-nav-more-toggle"
+                data-sx-dropdown-toggle 
+                aria-label="{{t "Toggle menu"}}" 
+                class="peer p-1.5 -ms-0.5 -me-2.5 text-gray-500 hover:text-gray-950 [&.open]:text-gray-950 transition-colors duration-200
+                    dark:text-gray-400 dark:hover:text-gray-50 dark:[&.open]:text-gray-50
+                    [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50
+                "
+            >
+                {{> icons/ellipsis-horizontal class="relative top-px w-6 h-6"}}
+            </button>   
+
+            <ul data-sx-dropdown 
+                role="list"
+                class="hidden peer-[.open]:block absolute z-50 top-14 -end-4 w-60 max-h-[calc(100vh-(--spacing(24)))] 
+                    overflow-y-auto backdrop-blur-sm bg-white/90 ring-1 ring-gray-900/5 shadow-pretty rounded-xl 
+                    dark:bg-background-dark/80 dark:ring-white/5 dark:ring-inset dark:shadow-lg dark:shadow-black/60
+                " 
+            >
+                <li class="py-2 px-3 grid grid-cols-1 gap-1 dark:bg-white/5 rounded-inherit">
+                    {{#foreach navigation}}
+                        {{#match label.[0] "!=" "-"}}
+                            <div class="hidden nth-[n+8]:block max-xl:nth-[n+6]:block" data-sx-slug="{{slug}}" data-sx-current="{{current}}">    
+                                {{#match label.[0] "=" "+"}} {{!-- Dropdown menu (starts with "+") --}}
+                                    <button 
+                                        data-sx-dropdown-toggle 
+                                        class="[&.open]:text-gray-950 dark:[&.open]:text-gray-50 peer relative px-3 py-2 w-full flex items-center font-medium text-start text-sm text-gray-500 hover:text-gray-950 transition-colors duration-200
+                                            dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50
+                                        "
+                                    >
+                                        <span class="me-auto">
+                                            {{#foreach label from="2"}}{{this}}{{/foreach}}
+                                        </span>
+
+                                        {{> icons/chevron-down-micro class="[.open>&]:rotate-180 inline shrink-0 w-3 h-3 ms-0.5 -me-0.5" }}
+                                    </button>        
+
+                                    <ul data-sx-dropdown="inline" class="ps-3 space-y-1 mt-1 hidden peer-[.open]:block" role="list">
+                                        {{#foreach ../navigation from=@number limit="11"}}
+                                            {{^if @first}}
+                                                <li data-sx-slug="{{slug}}" 
+                                                    data-sx-current="{{current}}" 
+                                                    class="peer peer-[.hidden]:hidden {{#match label.[0] "!=" "-"}} hidden {{/match}}"
+                                                >
+                                                    <a 
+                                                        href="{{url absolute="true"}}" 
+                                                        data-sx-slug="{{slug}}" 
+                                                        class="px-3 py-2 w-full inline-block font-medium text-sm text-gray-500 hover:text-gray-950 transition-colors duration-200
+                                                            dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50 
+                                                            {{^match (url absolute="true") "~^" "#"}} 
+                                                                {{^match (url absolute="true") "~^" (concat @site.url "/#")}} 
+                                                                    {{link_class for=(url absolute="true") activeClass="current"}} 
+                                                                {{/match}}
+                                                            {{/match}}                                                            
+                                                        "
+                                                    >
+                                                        {{#foreach label from="2"}}{{this}}{{/foreach}}<!--
+                                                        -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                                                    </a>   
+                                                </li>
+                                            {{/if}}
+                                        {{/foreach}}
+                                    </ul>                             
+                                {{else}}  {{!-- Normal menu items --}}               
+                                    <a 
+                                        href="{{url absolute="true"}}" 
+                                        data-sx-slug="{{slug}}" 
+                                        class="px-3 py-2 w-full inline-block font-medium text-sm text-gray-500 hover:text-gray-950 transition-colors duration-200
+                                            dark:text-gray-400 dark:hover:text-gray-50 [&.current]:text-gray-950 [&.current-parent]:text-gray-950 dark:[&.current]:text-gray-50 dark:[&.current-parent]:text-gray-50
+                                            {{^match (url absolute="true") "~^" "#"}} 
+                                                {{^match (url absolute="true") "~^" (concat @site.url "/#")}} 
+                                                    {{link_class for=(url absolute="true") activeClass="current"}} 
+                                                {{/match}}
+                                            {{/match}}                                            
+                                        "
+                                    >
+                                        {{label}}<!--
+                                        -->{{> icons/arrow-up-right-micro class="[.sx-external>&]:inline hidden relative top-1 shrink-0 w-3 h-3 ms-0.5 -me-0.5 align-top" }}
+                                    </a>   
+                                {{/match}}                                         
+                            </div>
+                        {{/match}}
+                    {{/foreach}}
+                </li>
+            </ul>                     
+        </li>
+    </ul>
+{{/if}}
+
+

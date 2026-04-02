@@ -1,0 +1,21 @@
+{{#if comments}}                
+    <div data-sx-comments="{{id}}" class="invisible flex fixed inset-0 -z-10 not-[&.open]:pointer-events-none [&.open]:visible [&.open]:z-3999999">
+        <div data-sx-comments-close class="fixed inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-xs"></div>
+
+        <div class="fixed top-0 end-0 bottom-0 w-full max-w-md shadow-lg bg-gray-50 dark:bg-gray-950 border-s border-gray-950/5 dark:border-gray-50/5 transition ease-out translate-x-full [.open>&]:translate-x-0">
+            <div class="relative px-outer pb-6 pt-14 h-full overflow-y-scroll overflow-x-hidden">
+                <button data-sx-comments-close aria-label="{{t "Close"}}" class="fixed flex items-center justify-center top-4 end-3 p-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-950 rounded-md">
+                    {{> icons/arrow-bar-to-right class="h-5 w-5" }}
+                </button>
+
+                <div class="dark:hidden grid grid-cols-1 min-h-full text-gray-800 dark:text-gray-400">
+                    {{comments mode="light"}}
+                </div>
+
+                <div class="hidden dark:grid grid-cols-1 min-h-full text-gray-800 dark:text-gray-400">
+                    {{comments mode="dark"}}
+                </div>
+            </div>
+        </div>
+    </div> 
+{{/if}}

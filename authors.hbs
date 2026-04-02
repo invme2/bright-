@@ -1,0 +1,27 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Hero section --}}
+{{#page}}
+    {{> hero showContent=true }}
+{{/page}}
+
+
+<div class="outer xl:outer-xl overflow-hidden">
+    <div class="inner">
+        <div class="max-w-6xl mx-auto py-16 lg:py-20">
+            <div class="pt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+                {{#get "authors" limit="100" filter="visibility:public" include="count.posts" order="count.posts desc"}}
+                    {{#foreach authors}}
+                        {{#match count.posts ">" 0}}
+                            {{> card-author page=../../page }}
+                        {{/match}}
+                    {{/foreach}}
+                {{/get}}                
+            </div>
+        </div>               
+    </div>
+</div>

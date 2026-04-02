@@ -1,0 +1,55 @@
+{{!< default}}
+
+{{!-- Custom styles --}}
+{{#contentFor "head-before"}} 
+    {{!-- Enable smooth scrolling (useful when clicking on an internal hash link) --}}
+    <style> :root { scroll-behavior: smooth; } </style>
+
+    {{!-- Make sure content is visible when js is disabled (remove animations initial effect) --}}
+    <noscript>
+        <style type="text/css">
+            [data-sal|='fade'] { opacity: 1; }
+            [data-sal|='slide'] { opacity: 1; transform: none; }
+            [data-sal='scale-x'] { scale: 1 1; }
+        </style>
+    </noscript>    
+{{/contentFor}}
+
+{{!-- Ghost doesn't do code injection for pages used as data source in routes.yaml, so we do it manually here --}}
+{{#contentFor "head-after"}} 
+    {{#page}} {{#if codeinjection_head}} {{{codeinjection_head}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+{{#contentFor "foot-after"}}
+    {{#page}} {{#if codeinjection_foot}} {{{codeinjection_foot}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+{{!-- Add landing class to body --}}
+{{#contentFor "extra-body-class"}} page-landing {{/contentFor}}
+
+{{!-- Remove top spacing from footer --}}
+{{#contentFor "extra-footer-class"}} no-space-top {{/contentFor}}
+
+
+{{!-- Landing blocks --}}
+<div id="sx-landing">
+    {{#foreach posts}}
+        {{#if @first}}
+
+            {{#has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}}
+                {{> landing-block isHero=true }}
+            {{else}}
+                {{> landing-block isHero=true isCenter=true }}
+            {{/has}}
+
+        {{else}}
+
+            {{#has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}}
+                {{> landing-block }}
+            {{else}}
+                {{> landing-block isCenter=true }}
+            {{/has}}
+
+        {{/if}}
+    {{/foreach}}
+</div>

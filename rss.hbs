@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss 
+    version="2.0"
+    xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+    xmlns:atom="http://www.w3.org/2005/Atom" 
+    xmlns:media="http://search.yahoo.com/mrss/" 
+>
+    <channel>
+        <title><![CDATA[{{@site.title}}]]></title>
+        <description><![CDATA[{{@site.description}}]]></description>
+        <link>{{@site.url}}</link>
+        <image>
+            <url>{{@site.url}}/favicon.png</url>
+            <title>{{@site.title}}</title>
+            <link>{{@site.url}}</link>
+        </image>
+        <generator>Ghost {{#if safeVersion}}{{safeVersion}}{{else}}6{{/if}}</generator>
+        <lastBuildDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</lastBuildDate>
+        <atom:link href="{{@site.url}}" rel="self" type="application/rss+xml"/>
+        <ttl>60</ttl>
+
+        {{#get "posts" limit="30" include="authors,tags" filter="tags:-hash-landing-col"}}
+            {{#foreach posts}}
+                <item>
+                    <title><![CDATA[{{title}}]]></title>
+                    <description><![CDATA[{{#if custom_excerpt}}{{custom_excerpt}}{{else if meta_description}}{{meta_description}}{{else}}{{excerpt}}{{/if}}]]></description>
+                    <link>{{url absolute="true"}}</link>
+                    <guid isPermaLink="false">{{id}}</guid>
+
+                    {{#foreach tags}}
+                        <category><![CDATA[{{name}}]]></category>
+                    {{/foreach}}
+
+                    {{#if primary_author}}
+                        <dc:creator><![CDATA[{{primary_author.name}}]]></dc:creator>
+                    {{/if}}
+
+                    <pubDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</pubDate>
+
+                    {{#if feature_image}}
+                        <media:content url="{{feature_image}}" medium="image"/>
+                    {{/if}}
+
+                    <content:encoded><![CDATA[{{#if feature_image}}<img src="{{img_url feature_image absolute="true"}}" alt="{{title}}"/> {{/if}}{{content}}]]></content:encoded>
+                </item>
+            {{/foreach}}
+        {{/get}}
+    </channel>
+</rss>

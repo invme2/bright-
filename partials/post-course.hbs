@@ -1,0 +1,251 @@
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{#contentFor "extra-footer-class"}} no-space-top {{/contentFor}}
+
+{{!-- Hero section --}}
+{{> hero-course }}
+
+<div class="outer xl:outer-xl relative">
+    <div class="inner">
+        {{!-- Content --}}
+        <article class="max-w-3xl mx-auto">
+            {{!-- Course content --}}
+            <div class="mb-12">
+                <div class="mb-6">
+                    <h2 class="text-2xl tracking-tight leading-tight font-bold text-gray-950 dark:text-gray-50">
+                        {{t "Course content"}}
+                    </h2>
+                </div>
+                <div class="relative rounded-xl sm:rounded-2xl overflow-hidden border border-gray-950/10 dark:border-gray-50/10">
+                    {{!-- Shiny border --}}
+                    <div class="hidden dark:block absolute -z-10 top-0 left-5 w-1/3 h-px bg-linear-to-r from-white/0 to-white/0 via-gray-400/50"></div>
+                    
+                    {{#has tag="#groups-disabled"}} 
+                        {{#get "posts" filter="tags:{{primary_tag.slug}}+tags:hash-lessons-col" include="tags" order="published_at asc" limit="100" as |lessons| }}
+                            {{#if lessons}}
+                                <ol>
+                                    {{#foreach lessons}}
+                                        <li class="border-t first:border-0 border-gray-950/10 dark:border-gray-50/5">
+                                            <a data-sx-lesson href="{{url absolute="true"}}" class="px-4 py-4 sm:px-6 sm:py-3 flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                                {{title}}
+
+                                                <span class="flex-none ms-auto ps-2 text-xs opacity-60">
+                                                    {{#foreach tags visibility="internal"}}
+                                                        {{!-- Duration --}}
+                                                        {{#match slug "~^" "hash-lesson-duration-" }} 
+                                                            {{#if description}}
+                                                                <span class="hidden first:inline">{{description}}</span>
+                                                            {{/if}}
+                                                        {{/match}}
+                                                    {{/foreach}}                                                                  
+                                                </span>
+                                            </a>
+                                        </li>                                                
+                                    {{/foreach}}                                        
+                                </ol>
+                            {{/if}}
+                        {{/get}}                           
+                    {{else}}
+                        <ol>
+                            {{#foreach tags visibility="internal"}}
+                                {{#match slug "~^" "hash-group-" }} 
+                                    <li data-sx-group id="tags-{{slug}}" class="border-t first:border-0 border-gray-950/10 dark:border-gray-50/5 open">
+                                        <div data-sx-open="tags-{{slug}}" class="relative grid grid-cols-[1fr_auto_auto] gap-y-2 px-4 py-4 sm:px-6 cursor-pointer">
+                                            <div class="sm:pe-8 col-span-3 sm:col-span-1">
+                                                <div class="font-medium text-sm text-gray-900 dark:text-gray-100">
+                                                    {{#if feature_image}}
+                                                        <span class="inline-flex w-5 h-5 mask-size-5 me-1 bg-gray-500 dark:bg-gray-400 align-top" style="-webkit-mask-image: url({{feature_image}}); mask-image: url({{feature_image}});"></span>
+                                                    {{/if}}           
+
+                                                    {{description}}
+                                                </div>
+
+                                                {{#if meta_description}}
+                                                    <div class="mt-1.5 max-w-prose leading-normal text-xs text-pretty text-gray-500 dark:text-gray-500">
+                                                        {{meta_description}}
+                                                    </div>
+                                                {{/if}}
+                                            </div>
+                                
+                                            <div class="flex-none inline-flex ms-auto">
+                                                <span data-sx-lessons-count-target class="invisible text-2xs leading-5 text-pretty text-gray-500 dark:text-gray-500">
+                                                    x Lessons
+                                                </span>
+                                            </div>
+
+                                            <button class="relative -end-1 ms-1 flex-none inline-flex w-5 h-5 rounded-sm shrink-0 items-center justify-center [:hover>&]:bg-gray-900/5 dark:[:hover>&]:bg-gray-50/10 transition-colors duration-200" aria-label="{{t "Toggle menu"}}">
+                                                {{> icons/chevron-right class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 [.open>*>*>&]:rotate-90"}}
+                                            </button>
+
+                                            <div class="dark:hidden absolute inset-0 -z-10 bg-white shadow-xs"></div>
+                                            <div class="hidden dark:block absolute -inset-px -z-10 bg-white/5 inset-shadow-md inset-shadow-white/2"></div>
+                                        </div>
+
+                                        {{#>withThis groupTag=. course=.. }}
+                                            {{#get "posts" filter="tags:{{course.primary_tag.slug}}+tags:{{groupTag.slug}}+tags:hash-lessons-col" include="tags" order="published_at asc" limit="100" as |lessons| }}
+                                                {{#if lessons}}
+                                                    <ol class="hidden [.open>&]:block" data-sx-lessons-count="{{plural lessons.length empty=(t 'No lessons yet') singular=(t '% Lesson') plural=(t '% Lessons')}}">
+                                                        {{#foreach lessons}}
+                                                            <li class="border-t border-gray-950/10 dark:border-gray-50/5">
+                                                                <a data-sx-lesson 
+                                                                    data-sx-updated-on="{{date updated_at format="YYYY-MM-DD"}}" 
+                                                                    data-sx-updated-on-text="{{t "Updated on {date}" date=(date updated_at) }}" 
+                                                                    href="{{url absolute="true"}}" 
+                                                                    class="px-4 py-4 sm:px-6 sm:py-3 flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200"
+                                                                >
+                                                                    {{title}}
+
+                                                                    <span class="flex-none ms-auto ps-2 text-xs opacity-60">
+                                                                        {{#foreach tags visibility="internal"}}
+                                                                            {{!-- Duration --}}
+                                                                            {{#match slug "~^" "hash-lesson-duration-" }}
+                                                                                {{#if description}}
+                                                                                    <span class="hidden first:inline">{{description}}</span>
+                                                                                {{/if}}
+                                                                            {{/match}}
+                                                                        {{/foreach}}                                                                  
+                                                                    </span>
+                                                                </a>
+                                                            </li>                                                
+                                                        {{/foreach}}                                        
+                                                    </ol>
+                                                {{/if}}
+                                            {{/get}}    
+                                        {{/withThis}}                                
+                                    </li>
+                                {{/match}}
+                            {{/foreach}}
+                        </ol>
+                    {{/has}}
+
+                    {{!-- Set the "Start course" CTA link's url, lessons count, and updated at --}}
+                    <script>
+                        (() => {
+                            const parent = document.currentScript.parentElement;
+                            const lessons = Array.from(parent.querySelectorAll("[data-sx-lesson]"));
+                            if (lessons.length === 0) return;
+
+                            const hero = document.getElementById("sx-hero");
+                            const btn = document.getElementById('sx-hero-cta');
+                            const meta = document.getElementById("sx-hero-meta");
+                            const count = document.getElementById("sx-hero-meta-count");
+                            const time = document.getElementById("sx-hero-meta-time");
+
+                            // Set the "Start course" CTA link's url
+                            btn.href = lessons[0].href;
+
+                            // Set the lessons count
+                            const countText = lessons.length === 1 ? count.getAttribute('data-sx-singular') : count.getAttribute('data-sx-plural');
+                            count.textContent = countText.replace("%", lessons.length);
+
+                            // Set the latest updated at time
+                            const sorted = lessons.sort((a, b) => {
+                                return b.getAttribute('data-sx-updated-on') < a.getAttribute("data-sx-updated-on") ? -1 : 1;
+                            });
+
+                            if (time.getAttribute("datetime") < sorted[0].getAttribute('data-sx-updated-on')) {
+                                time.textContent = sorted[0].getAttribute('data-sx-updated-on-text');
+                            }
+
+                            meta.classList.remove('invisible');
+                        })();
+                    </script>    
+
+                    {{!-- Set the lessons count for each module --}}
+                    <script>
+                        (() => {
+                            const parent = document.currentScript.parentElement;
+                            const modules = parent.querySelectorAll("[data-sx-group]");
+                            modules.forEach(module => {
+                                const lessonsCount = module.querySelector('[data-sx-lessons-count]');
+                                const targetElement = module.querySelector('[data-sx-lessons-count-target]');
+
+                                targetElement.textContent = lessonsCount?.getAttribute("data-sx-lessons-count") || "";
+                                targetElement.classList.remove('invisible');
+                            });
+                        })();
+                    </script>                  
+                </div> 
+            </div>
+
+            <div class="content has-full has-wide">
+                {{content}}
+            </div>
+
+            {{#has tag="#temp-video"}}
+                <script>
+                    (() => {
+                        const contentElement = document.currentScript.previousElementSibling;
+                        const videoElement = contentElement.querySelector('.kg-video-card');
+                        const heroMediaElement = document.getElementById("sx-hero-media");
+                        videoElement && heroMediaElement.firstElementChild.appendChild(videoElement);
+                    })();
+                </script>  
+            {{/has}}
+
+
+            {{!-- Authors --}}
+            {{> authors-bio }}
+
+            {{!-- Updated on, comments, share, ...  --}}
+            <div>
+                {{> meta-bottom }}       
+
+                {{!-- Set the updated at date from the latest lesson --}}
+                <script>
+                    (() => {
+                        const parentElement = document.currentScript.parentElement;
+                        const metaElement = parentElement.firstElementChild;
+                        let dateElement = metaElement?.firstElementChild;
+
+                        if (!dateElement || !dateElement.hasAttribute('data-sx-updated-on')) {
+                            dateElement = parentElement.querySelector("[data-sx-updated-on]");
+                        }
+
+                        const time = document.getElementById("sx-hero-meta-time");
+                        dateElement.textContent = time.textContent || "";                     
+                    })();
+                </script>                     
+            </div>
+         
+        </article>        
+    </div>
+</div>
+
+<a id="sx-course-link-sticky" 
+    href="#" 
+    class="invisible outer xl:outer-xl bottom-0 z-10 w-full mt-10 py-4 flex items-center border-t border-gray-950/5 dark:border-gray-50/5 
+        text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 bg-white dark:bg-background-dark/70 backdrop-blur-sm transition duration-200 
+        [&.stuck]:animate-slide-up [&.stuck]:sticky
+    " 
+    style="--animation-duration: 300ms"
+>
+    <div class="inner relative max-w-3xl mx-auto flex flex-wrap items-center sm:flex-nowrap gap-4">
+        <span class="font-medium text-pretty text-sm text-gray-950 dark:text-gray-100 line-clamp-2 sm:line-clamp-1">
+            {{title}}
+        </span>
+
+        <span class="ms-auto flex-none inline-flex items-center
+            py-2 px-3 font-semibold text-xs text-center text-primary-contrast bg-primary rounded-full shadow-primary dark:shadow-none dark:drop-shadow-primary-sm hover:opacity-90 transition-opacity duration-200
+        ">
+            {{t "Start Course"}}
+
+            {{> icons/chevron-right class="relative top-px -me-1 w-3.5 h-3.5 [:hover>*>*>&]:translate-x-0.5 transition-transform duration-150"}}
+        </span>
+
+        <span class="hidden dark:block absolute start-0 -top-4 w-full h-10 rounded-full opacity-20" style="background: radial-gradient(50% 100% at 50% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 100%);"></span>                
+    </div>
+
+    {{!-- Set the link's url --}}
+    <script>
+        (() => {
+            const parent = document.currentScript.parentElement;
+            const btn = document.getElementById('sx-hero-cta');
+            parent.href = btn.href;
+            parent.classList.remove('invisible');
+        })();
+    </script>        
+</a>

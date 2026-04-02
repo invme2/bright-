@@ -1,0 +1,67 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Ghost doesn't do code injection for pages used as data source in routes.yaml, so we do it manually here --}}
+{{#contentFor "head-after"}} 
+    {{#page}} {{#if codeinjection_head}} {{{codeinjection_head}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+{{#contentFor "foot-after"}}
+    {{#page}} {{#if codeinjection_foot}} {{{codeinjection_foot}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+
+{{!-- Hero section --}}
+{{#page}}
+    {{> hero showContent=true }}
+{{/page}}
+
+{{!-- Feed --}}
+<div class="outer xl:outer-xl overflow-hidden">
+    <div class="inner">
+        {{!-- Latest posts --}}
+        <div class="max-w-6xl mx-auto py-16 lg:py-20">
+            <div class="[:first-child>&]:hidden relative mb-8">
+                <div class="relative flex items-center text-sm font-normal text-gray-950 dark:text-gray-100">
+                    <span class="text-gray-950 dark:text-gray-50/50 dark:bg-clip-text dark:bg-linear-to-b from-white to-background-dark">
+                        {{t "Latest"}}
+                    </span>
+
+                    <div class="xl:hidden shrink ms-3 w-80 h-px bg-linear-to-r from-gray-900/15 dark:from-white/30"></div>
+                </div>                                        
+
+                <div class="mt-3 hidden xl:block">
+                    <div class="-translate-x-1/4 w-1/2 h-px bg-linear-to-r from-white/0 via-gray-900/15 dark:via-white/30 "></div>
+                </div>        
+
+                <div class="hidden xl:block absolute -top-8 -start-6 w-px h-60 bg-linear-to-b from-white/0 via-gray-900/15 dark:via-white/30 "></div>                                
+            </div>    
+
+            <div data-sx-pagination-feed class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {{#foreach posts}}
+                    {{> card-blog page=../page isPaginated=true }}
+                {{/foreach}}
+            </div>
+        </div>
+
+        {{!-- Pagination --}}
+        {{#if pagination}}
+            <div class="flex justify-center">
+                <button 
+                    hidden="true"
+                    data-sx-pagination-btn
+                    data-sx-pagination-total="{{pagination.pages}}"
+                    class="flex items-center py-4 mb-16 sm:mb-20 text-sm font-medium leading-none text-gray-800 dark:text-gray-200 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                >
+                    {{t "Load more"}}
+
+                    {{> icons/arrow-sm-down class="w-4 h-4 ms-0.5 [.loading>&]:hidden"}}
+                    {{> icons/loader class="w-4 h-4 ms-0.5 hidden [.loading>&]:inline"}}
+                </button>
+            </div>
+        {{/if}}        
+    </div>
+</div>

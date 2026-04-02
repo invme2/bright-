@@ -1,0 +1,85 @@
+/* ---------------------------------------------------------------------------
+* Animations styles for the Sal.js lib                                                      
+*/
+
+
+@keyframes move-bg {
+    0% {
+        background-position: var(--bg-start, -100%);
+    }
+
+    100% {
+        background-position: var(--bg-end, -200%);
+    }
+}
+
+.animate-bg {
+    --bg-start: 120%;
+    --bg-end: -10%;                     
+    background-image: linear-gradient(-45deg, hsla(0, 0%, 100%, 0) 45%, #fff 47.5%, hsla(0, 0%, 100%, 0) 52.5%, hsla(0, 0%, 100%, 0));
+    background-size: 200%;
+    background-position: var(--bg-start);
+    animation: move-bg var(--animation-duration, 2s) ease-in-out;    
+}
+
+@keyframes rotate-full {
+  0% { rotate: 0deg; }
+  100% { rotate: 360deg; }
+}
+
+
+/* Settings */
+
+@media not all and (prefers-reduced-motion) { 
+    .has-animation {
+        --animation-duration: 600ms;
+        --animation-delay: 100ms;
+    }
+}
+
+/* Core */
+
+[data-sal] {
+    transition-duration: var(--animation-duration, 0ms);
+    transition-delay: var(--animation-delay, 0ms);
+    transition-timing-function: var(--animation-easing, ease-out);
+}
+
+/* Slide */
+
+[data-sal|='slide'] {
+    opacity: 0;
+    transition-property: opacity, transform;
+}
+
+[data-sal='slide-up'] {
+    transform: translateY(40px);
+}
+
+[data-sal='slide-down'] {
+    transform: translateY(-40px);
+}
+
+[data-sal='fade'] {
+    opacity: 0;
+}
+
+[data-sal='scale-x'] {
+    scale: 0 1;
+}
+
+[data-sal|='slide'].sal-animate,
+body.sal-disabled [data-sal|='slide'] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-sal|='fade'].sal-animate,
+body.sal-disabled [data-sal|='fade'] {
+  opacity: 1;
+}
+
+[data-sal='scale-x'].sal-animate,
+body.sal-disabled [data-sal='scale-x'] {
+    scale: 1 1;
+}

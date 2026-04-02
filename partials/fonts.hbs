@@ -1,0 +1,40 @@
+{{#*inline "inline-font"}}
+    {{#match @custom.body_font configFontName }}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family={{urlFontName}}:wght@400..900&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --font-body: '{{cssFontName}}';
+            }
+        </style>
+    {{/match}}
+
+    {{#match @custom.headings_font configFontName}}
+        {{!-- Check if font already loaded --}}
+        {{^match @custom.body_font configFontName}}
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family={{urlFontName}}:wght@400..900&display=swap" rel="stylesheet">
+        {{/match}}
+
+        <style>
+            :root {
+                --font-headings: '{{cssFontName}}';
+            }
+        </style>
+    {{/match}}    
+{{/inline}}
+
+{{!---------------------------------------------------------------------------}}
+
+{{> inline-font configFontName="Inter" urlFontName="Inter" cssFontName="Inter"}}
+{{> inline-font configFontName="Roboto" urlFontName="Roboto+Flex" cssFontName="Roboto Flex"}}
+{{> inline-font configFontName="Raleway" urlFontName="Raleway" cssFontName="Raleway"}}
+{{> inline-font configFontName="Montserrat" urlFontName="Montserrat" cssFontName="Montserrat"}}
+{{> inline-font configFontName="Nunito Sans" urlFontName="Nunito+Sans" cssFontName="Nunito Sans"}}
+{{> inline-font configFontName="Work Sans" urlFontName="Work+Sans" cssFontName="Work Sans"}}
+{{> inline-font configFontName="Source Sans" urlFontName="Source+Sans+3" cssFontName="Source Sans 3"}}
+{{> inline-font configFontName="Roboto Serif" urlFontName="Roboto+Serif" cssFontName="Roboto Serif"}}
+{{> inline-font configFontName="Source Serif" urlFontName="Source+Serif+4" cssFontName="Source Serif 4"}}
+{{> inline-font configFontName="Playfair Display" urlFontName="Playfair+Display" cssFontName="Playfair Display"}}

@@ -1,0 +1,86 @@
+<a href="{{url absolute="true"}}" 
+    class="{{class}} {{post_class}} relative p-6 flex flex-col rounded-2xl border border-transparent"
+    data-sx-pagination-post
+>
+    {{!-- Stack effect --}}
+    <div class="dark:hidden absolute -z-10 -top-3 start-8 end-8 h-3 -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-0 bg-white border border-b-0 border-blue-950/10 rounded-inherit rounded-b-none pointer-events-none" 
+        style="
+            box-shadow: inset 0 -2px 4px 1px hsl(214 80% 27% / 4%), 
+                0 8px 40px 4px hsl(221 25% 22% / 8%);                
+        "
+    >
+    </div>
+    <div class="dark:hidden absolute -z-10 top-0 start-4 end-4 h-3 -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-1/2 bg-white border border-b-0 border-blue-950/10 rounded-inherit rounded-b-none pointer-events-none" 
+        style="
+            box-shadow: inset 0 -2px 4px 1px hsl(214 80% 27% / 4%), 
+                0 8px 40px 4px hsl(221 25% 22% / 8%);
+        "
+    >
+    </div>
+
+    <div class="hidden dark:block absolute -z-10 -top-3 start-8 end-8 h-3 -mt-px -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-0 bg-white/1 border border-b-0 border-gray-50/10 rounded-inherit rounded-b-none inset-shadow-md inset-shadow-white/5 pointer-events-none"></div>
+    <div class="hidden dark:block absolute -z-10 top-0 start-4 end-4 h-3 -mt-px -translate-y-full transition-transform origin-top duration-300 [:hover>&]:scale-y-50 [:hover>&]:-translate-y-1/2 bg-white/1 border border-b-0 border-gray-50/15 rounded-inherit rounded-b-none inset-shadow-md inset-shadow-white/10 pointer-events-none"></div>
+   
+    {{!-- Background --}}
+    <div class="dark:hidden absolute -inset-px -z-10 rounded-inherit bg-white shadow-pretty [:hover>&]:shadow-pretty-sm transition-shadow duration-200"></div>
+    <div class="hidden dark:block absolute -inset-px z-10 rounded-inherit bg-linear-to-br from-gray-400/10 to-50% pointer-events-none"></div>
+    <div class="hidden dark:block absolute -inset-px -z-10 rounded-inherit bg-white/1 [:hover>&]:bg-white/5 transition-colors duration-500 inset-shadow-md inset-shadow-white/2"></div>
+
+    {{!-- Border --}}
+    <div class="hidden dark:block absolute -z-10 -inset-0.5 mask-to-b mask-position-to-70% mask-opacity-to-20%">
+        <div class="hidden dark:block absolute -z-10 inset-px rounded-2xl border border-gray-50/10"></div>
+    </div>
+    <div class="hidden dark:block absolute -z-10 -inset-px rounded-inherit border border-gray-50/5 opacity-0 [:hover>&]:opacity-80"></div>
+
+    {{!-- Shiny border --}}
+    <div class="hidden dark:block absolute -z-10 -top-px start-5 w-1/3 h-px bg-linear-to-r from-white/0 to-white/0 via-gray-400/50"></div>
+
+    {{!-- Shiny hover animation --}}
+    <div class="hidden dark:block absolute -inset-px z-10 rounded-inherit overflow-hidden pointer-events-none">
+        <div 
+            class="hidden md:block absolute inset-0 z-10 w-full h-full rounded-inherit opacity-0 bg-linear-to-r from-white/0 from-40% to-white/0 to-60% via-white/20 [:hover>*>&]:animate-shine pointer-events-none" 
+            style="background-size: 200% auto; background-position: 50%;">
+        </div>
+    </div>
+
+    {{#if feature_image}}
+        <figure class="relative flex items-center mb-4 w-full h-40 overflow-hidden pointer-events-none">
+            <div class="relative flex items-center justify-center w-full h-full">
+                <div class="dark:hidden absolute -z-10 inset-0 mask-radial mask-opacity-to-8% mask-position-to-80% bg-grid-gray-950/10 bg-grid-size-7.5"></div>
+                <div class="hidden dark:block absolute -z-10 inset-0 mask-radial mask-opacity-to-8% mask-position-to-80% bg-grid-gray-50/10 bg-grid-size-7.5"></div>
+
+                <div class="absolute z-10 top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-2 items-center h-20">
+                    <div class="opacity-60 w-16 h-16 rounded-lg border dark:border-gray-50/10 border-gray-950/10 bg-gray-950/2 dark:bg-white/1 backdrop-blur-sm"></div>
+                    <div class="opacity-80 w-16 h-16 rounded-lg border dark:border-gray-50/10 border-gray-950/10 bg-gray-950/2 dark:bg-white/1 backdrop-blur-xs"></div>
+                    <div class="invisible mx-2 w-16 h-16 rounded-lg border"></div>
+                    <div class="opacity-80 w-16 h-16 rounded-lg border dark:border-gray-50/10 border-gray-950/10 bg-gray-950/2 dark:bg-white/1 backdrop-blur-xs"></div>
+                    <div class="opacity-60 w-16 h-16 rounded-lg border dark:border-gray-50/10 border-gray-950/10 bg-gray-950/2 dark:bg-white/1 backdrop-blur-sm"></div>
+                </div>
+
+                <div class="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-none items-center justify-center w-20 h-20 rounded-lg border dark:border-gray-50/10 border-gray-950/1 backdrop-blur-[2px]">
+                    <div class="absolute inset-0 bg-gray-950/2 dark:bg-white/1"></div>
+                    <div class="dark:hidden absolute inset-0 shadow-pretty rounded-inherit bg-radial-[60%_60%_at_50%_100%] from-gray-700/10 bg-no-repeat"></div>
+                    <div class="hidden dark:block absolute inset-0 bg-radial-[60%_60%_at_50%_100%] from-white/12 bg-no-repeat"></div>
+                    <div class="absolute -top-px start-1/2 -translate-x-1/2 h-px w-10 bg-primary"></div>
+                    <div class="absolute -top-px start-1/2 -translate-x-1/2 h-[5px] w-10 bg-primary blur-sm opacity-30 dark:opacity-100"></div>
+                    <div class="w-10 h-10 mask-size-10 mx-auto bg-gray-800 dark:bg-gray-200" 
+                        style="-webkit-mask-image: url({{feature_image}}); mask-image: url({{feature_image}});"
+                    ></div>
+                </div>
+            </div>
+
+            <div class="absolute z-20 top-0 start-0 h-full w-5 backdrop-blur-xs blur-xs opacity-80"></div>                        
+            <div class="absolute z-20 top-0 end-0 h-full w-5 backdrop-blur-xs blur-xs opacity-80"></div>                        
+        </figure>           
+    {{/if}}
+
+    <h2 class="font-medium leading-snug tracking-tight text-lg text-gray-950 dark:text-gray-100">
+        {{title}}
+    </h2>    
+
+    {{#if custom_excerpt}}
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            {{custom_excerpt}}
+        </p>
+    {{/if}}      
+</a>

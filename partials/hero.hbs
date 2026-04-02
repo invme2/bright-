@@ -1,0 +1,164 @@
+<div id="sx-hero" 
+    class="relative outer xl:outer-xl outline-hidden max-w-none py-16 sm:py-20 md:py-28
+        {{^has tag="#temp-txt-left, #temp-media-end, #temp-media-start"}} is-txt-center {{/has}}
+        {{#has tag="#temp-animation"}} has-animation {{/has}} 
+        {{hero_class}}
+        {{post_class}}        
+    "
+>
+    <div class="inner max-w-5xl grid gap-10 xl:gap-16 items-center
+            {{#has tag="#temp-media-end, #temp-media-start"}} lg:grid-cols-2 {{/has}}
+            {{^has tag="#temp-txt-left, #temp-media-end, #temp-media-start"}} sm:text-center {{/has}}
+        "
+    > 
+        <div class="w-full">
+            {{!-- Primary Tag (Post) --}}
+            {{#is "post"}}
+                <div class="inline-flex items-center not-has-[*]:hidden">
+                    {{#foreach tags limit="1"}}
+                        <a href="{{url absolute="true"}}" class="badge mb-3 inline-flex no-underline" data-sx-text="{{name}}">
+                            {{name}}
+                        </a> 
+                    {{/foreach}}
+
+                    {{#if featured}}
+                        <span class="hidden first:inline-flex badge mb-3 no-underline" data-sx-text="{{t "Featured"}}">
+                            {{t "Featured"}}
+                        </span>                 
+                        <span title="{{t "Featured"}}" class="inline-flex items-center ml-2 mb-3 mt-px py-1">
+                            {{> icons/star-four class="inline-flex flex-none w-3.5 h-3.5 text-primary drop-shadow-primary"}}
+                        </span>
+                    {{/if}}
+                </div>
+            {{/is}}
+
+            {{!-- Heading --}}
+            <h1 class="animate-slide-down -my-3 max-w-3xl text-4xl xl:text-5xl text-pretty font-bold tracking-tight leading-tighter
+                    {{^has tag="#temp-txt-left, #temp-media-end, #temp-media-start"}} mx-auto {{/has}}
+                    {{#has tag="#temp-no-title"}} hidden {{/has}}
+                    {{#is "page"}} {{^if @page.show_title_and_feature_image}} hidden {{/if}} {{/is}}            
+                "
+            >
+                <span class="inline-flex py-3 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                    {{title}}
+                </span>
+            </h1>     
+
+            {{!-- Content --}}
+            {{#*inline "content-class"}}
+                animate-slide-up max-w-2xl text-lg text-gray-600 dark:text-gray-400
+                {{^has tag="#temp-txt-left, #temp-media-end, #temp-media-start"}} mx-auto {{/has}}
+                {{^has tag="#temp-no-title"}} mt-6 {{/has}}  
+                {{#is "page"}} {{^if @page.show_title_and_feature_image}} !mt-0 {{/if}} {{/is}}     
+            {{/inline}}            
+
+            {{#if showContent}}
+                {{#if html}}
+                    <div class="{{> content-class}} content content-enhanced">
+                        {{{html}}}
+                    </div>
+                {{else if custom_excerpt}}
+                    <p class="{{> content-class}} text-pretty">
+                        {{custom_excerpt}}
+                    </p>                       
+                {{/if}}
+            {{else if custom_excerpt}}
+                <p class="{{> content-class}} text-pretty">
+                    {{custom_excerpt}}
+                </p>            
+            {{/if}}
+         
+            {{!-- Meta --}}
+            {{#is "post"}}
+                <p class="mt-4 text-sm text-gray-500 dark:text-gray-400/80">
+                    <time class="capitalize" datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time>
+                    <span class="mx-1.5 opacity-80 first:hidden last:hidden">·</span>
+
+                    {{#primary_author}}
+                        <a href="{{url absolute="true"}}" title="{{name}}" class="no-underline text-inherit">
+                            {{{t "By {authors}" authors=name }}}
+                        </a>
+                        <span class="mx-1.5 opacity-80 first:hidden last:hidden">·</span>
+                    {{/primary_author}}
+
+                    {{#match (reading_time minute=(t "1 min read") minutes=(t "% min read"))}}
+                        <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                    {{/match}}
+                </p>                
+            {{/is}}
+        </div>
+
+
+        {{!-- Media (Image, Video, ...) --}}
+        <figure class="hidden w-full max-w-5xl mx-auto animate-slide-up {{#if feature_image_caption}} has-links has-figcaption {{/if}}
+                {{#has tag="#temp-media-start"}} lg:order-first {{/has}}
+                {{#has tag="#temp-video"}} !block {{/has}}                  
+                {{#if feature_image}} 
+                    {{^if hideMedia }}
+                        {{#is "page"}} 
+                            {{#if @page.show_title_and_feature_image}} 
+                                {{^has tag="#temp-no-media" }} !block {{/has}} 
+                            {{/if}} 
+                        {{else}}
+                            {{^has tag="#temp-no-media" }} !block {{/has}} 
+                        {{/is}}
+                    {{/if}}
+                {{/if}}
+            "
+        >
+            <div class="relative rounded-xl overflow-hidden 
+                    {{#has tag="#temp-media-1-1"}} 
+                        aspect-1/1
+                    {{else has tag="#temp-media-3-4"}} 
+                        aspect-3/4
+                    {{else has tag="#temp-media-4-3"}} 
+                        aspect-4/3
+                    {{else has tag="#temp-media-4-5"}} 
+                        aspect-4/5
+                    {{else has tag="#temp-media-5-4"}}
+                        aspect-5/4
+                    {{else has tag="#temp-media-9-16"}}
+                        aspect-9/16
+                    {{else}}
+                        aspect-16/9
+                    {{/has}}
+                "
+            >
+                {{#has tag="#temp-video"}}
+                {{else}}
+                    {{#if feature_image}}
+                        {{^has tag="#temp-no-media" }}
+                            <picture>
+                                <source
+                                    type="image/avif"                                
+                                    data-sizes="auto"
+                                    data-srcset="{{> srcset format="avif"}}"
+                                    srcset="{{img_url feature_image size="xxs" format="avif"}}"
+                                    src="{{img_url feature_image size="2xl" format="avif"}}"
+                                />
+                                <source
+                                    type="image/webp"                                
+                                    data-sizes="auto"
+                                    data-srcset="{{> srcset format="webp"}}"
+                                    srcset="{{img_url feature_image size="xxs" format="webp"}}"
+                                    src="{{img_url feature_image size="2xl" format="webp"}}"
+                                />
+                                <img
+                                    class="lazyload absolute inset-0 w-full h-full object-cover bg-gray-100 dark:bg-gray-900 [&.lazyloaded]:bg-transparent!"
+                                    data-sizes="auto"
+                                    data-srcset="{{> srcset}}"
+                                    srcset="{{img_url feature_image size="xxs"}}"
+                                    src="{{img_url feature_image size="2xl"}}"
+                                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                />
+                            </picture>
+                        {{/has}}
+                    {{/if}}
+                {{/has}}
+            </div>
+            {{#if feature_image_caption}}
+                <figcaption>{{feature_image_caption}}</figcaption>
+            {{/if}}
+        </figure>
+    </div>
+</div>

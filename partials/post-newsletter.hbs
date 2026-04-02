@@ -1,0 +1,87 @@
+{{#contentFor "extra-footer-class"}} no-space-top {{/contentFor}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Hero section --}}
+{{> hero-narrow isCenter=true }}
+
+
+<div class="outer xl:outer-xl">
+    <div class="inner">
+
+        <div class="max-w-5xl mx-auto grid gap-0 grid-cols-1 ">
+            <div class="w-full min-w-0 max-w-2xl sm:mx-auto">
+                {{!-- Content --}}
+                <div data-sx-toc-src>
+                    {{!-- Fix for tocbot always having the first link active even if the heading is not yet visible https://github.com/tscanlin/tocbot/issues/217 --}}
+                    <h2 id="___TOCBOT___" class="sr-only m-0">
+                        <span aria-hidden="true">{{title}}</span>
+                    </h2>  
+
+                    <div class="content">
+                        {{content}}
+                    </div>
+                </div>
+
+                {{!-- Authors --}}
+                {{> authors-bio }}            
+
+                {{!-- Updated on, comments, share, ...  --}}
+                {{> meta-bottom }}          
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+            {{!-- Next & Prev --}}       
+            <div class="my-20 lg:mb-5">
+                {{#foreach tags visibility="internal"}}
+                    {{#match slug "~^" "hash-newsletter-col" }}
+                        <div class="hidden first:flex flex-col sm:flex-row sm:space-x-8 js-toc-ignore">
+                            {{#> withThis collectionTagSlug=slug postSlug=../slug postPublishedAt=(date ../published_at format="YYYY-MM-DD HH:mm:ss") }}
+                                {{#get "posts" filter="tags:{{collectionTagSlug}}+slug:-{{postSlug}}+published_at:<='{{postPublishedAt}}'" order="published_at desc" limit="1" fields="title, url" as |posts| }}
+                                    {{#if posts}}
+                                        <a href="{{posts.[0].url}}" class="flex flex-col basis-1/2 min-w-0 no-underline">
+                                            <div class="ps-5 mb-1 text-2xs font-normal text-gray-500 dark:text-gray-400 [:hover>&]:text-gray-700 dark:[:hover>&]:text-gray-300 truncate transition-colors duration-200">
+                                                {{t "Previous"}}
+                                            </div>
+
+                                            <div class="relative w-full flex">
+                                                <div class="ps-5 text-pretty text-xs font-medium text-gray-700 dark:text-gray-300 line-clamp-2">
+                                                    {{posts.[0].title}}
+                                                </div>
+                                                {{> icons/chevron-left class="absolute start-0 top-0.5 mt-px w-3.5 h-3.5 flex-none text-gray-500 dark:text-gray-400 [:hover>*>&]:-translate-x-1 transition-transform duration-150" }}
+                                            </div>
+                                        </a> 
+                                    {{else}}
+                                        <div class="max-sm:hidden invisible flex flex-col basis-1/2 min-w-0 no-underline"></div>
+                                    {{/if}}
+                                {{/get}}
+
+                                {{#get "posts" filter="tags:{{collectionTagSlug}}+slug:-{{postSlug}}+published_at:>'{{postPublishedAt}}'" order="published_at asc" limit="1" fields="title, url" as |posts| }}
+                                    {{#if posts}}
+                                        <a href="{{posts.[0].url}}" class="flex flex-col basis-1/2 min-w-0 no-underline text-end mt-8 sm:mt-0 [.invisible~&]:mt-0">
+                                            <div class="pe-5 mb-1 text-2xs font-normal text-gray-500 dark:text-gray-400 [:hover>&]:text-gray-700 dark:[:hover>&]:text-gray-300 truncate transition-colors duration-200">
+                                                {{t "Next"}}
+                                            </div>
+
+                                            <div class="relative w-full flex justify-end">
+                                                <div class="pe-5 text-pretty text-xs font-medium text-gray-700 dark:text-gray-300 line-clamp-2">
+                                                    {{posts.[0].title}}
+                                                </div>
+                                                {{> icons/chevron-right class="absolute end-0 top-0.5 mt-px w-3.5 h-3.5 flex-none text-gray-500 dark:text-gray-400 [:hover>*>&]:translate-x-1 transition-transform duration-150" }}
+                                            </div>
+                                        </a>
+                                    {{else}}
+                                        <div class="max-sm:hidden invisible flex flex-col basis-1/2 min-w-0 no-underline text-end mt-8 sm:mt-0 [.invisible~&]:mt-0"></div>
+                                    {{/if}}
+                                {{/get}}
+                            {{/withThis}}
+                        </div>
+                    {{/match}}
+                {{/foreach}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html dir="ltr"
+    lang="{{ @site.locale }}" 
+    class="group/html min-h-dvh no-js
+        {{#match @custom.default_color_scheme "Dark"}} dark {{else}} light {{/match}}
+        {{#match @custom.body_font "System serif"}} has-serif-body {{/match}} 
+        {{#match @custom.headings_font "System serif"}} has-serif-headings {{/match}}
+        {{#if @custom.grayscale}} has-grayscale-{{@custom.grayscale}} {{/if}}
+    "
+    data-sx-content-api-url="{{content_api_url}}"
+    data-sx-content-api-key="{{content_api_key}}"
+    data-prismjs-copy="{{t "Copy"}}" 
+    data-prismjs-copy-error="{{t "Error"}}" 
+    data-prismjs-copy-success="{{t "Copied"}}">
+    <head>
+        {{!-- Basic site meta --}}
+        <meta charset="UTF-8">
+        <meta name="HandheldFriendly" content="True" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{meta_title page=(t " (Page %)")}}</title>
+
+
+        {{!-- Preload criticial assets --}}
+        <link rel="preload" as="style" href="{{asset "/built/main.min.css"}}" />
+        <link rel="preload" as="script" href="{{asset "/built/main.min.js"}}" />  
+        {{#if @site.logo}}<link rel="preload" href="{{@site.logo}}" as="image" fetchpriority="high" />{{/if}}
+        {{#if @custom.dark_theme_logo}}<link rel="preload" href="{{@custom.dark_theme_logo}}" as="image" fetchpriority="high" />{{/if}}              
+
+        {{!-- Critical scripts & styles inlined in `head` to avoid FOUC & content shifting --}}
+        {{> head-inlined }}     
+
+        {{!-- Theme fonts --}}
+        {{> fonts }}   
+
+        {{!-- Theme styles --}}
+        <link href="{{asset "/built/main.min.css"}}" rel="stylesheet" type="text/css" />
+
+        {{!-- Theme scripts --}}
+        <script src="{{asset "/built/main.min.js"}}" defer data-manual></script>        
+        <script src="{{asset "/built/search/index.min.js"}}" defer type="module"></script>
+
+        {{!-- This is a slot used to inject page specific styles/scripts if needed (before Ghost head) --}}
+        {{{block "head-before"}}}
+
+        {{!-- This is used by Ghost to output advanced SEO meta, structured data and other important settings --}}
+        {{ghost_head exclude="search"}}
+
+        {{!-- This is a slot used to inject page specific styles/scripts if needed (after Ghost head) --}}
+        {{{block "head-after"}}}        
+    </head>
+    <body class="{{body_class}} {{block "extra-body-class"}} min-h-dvh antialiased overflow-x-hidden text-gray-500 bg-background dark:text-gray-400 dark:bg-background-dark [&.has-modal]:h-dvh [&.has-modal]:overflow-hidden {{#if @member.paid}} is-paid-member {{else if @member}} is-member {{else}} is-not-member {{/if}}">
+        {{!-- Tone --}}
+        <div id="sx-tone" class="{{#match @custom.tone "!=" "Accent"}} hidden {{/match}} fixed z-4999999 inset-0 bg-primary opacity-3 dark:opacity-5 pointer-events-none"></div>
+
+        {{!-- Lights --}}
+        <div id="sx-spotlights" class="absolute z-50 inset-0 overflow-x-hidden pointer-events-none" aria-hidden="true">
+            <div class="absolute z-50 top-0 left-0 -translate-y-1/2 -rotate-45 opacity-30 blur-2xl" aria-hidden="true">
+                <svg class="w-14 h-[1000px] text-gray-700 dark:text-gray-300" width="57" height="876" viewBox="0 0 57 876" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="url(#paint0_linear_1014_869)"  fill-rule="evenodd" clip-rule="evenodd" d="M56.1277 0.221222H0.127686V500.221H0.147339L28.1438 875.221L56.1401 500.221H56.1277V0.221222Z" />
+                    <defs>
+                        <linearGradient id="paint0_linear_1014_869" x1="28.1339" y1="0.221222" x2="28.1339" y2="875.221" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="white"/>
+                            <stop offset="1" stop-color="currentColor"/>
+                        </linearGradient>
+                    </defs>                        
+                </svg>
+            </div>
+            <div class="absolute z-50 top-0 left-16 -translate-y-2/3 -rotate-45 opacity-30 blur-xl" aria-hidden="true">
+                <svg class="w-14 h-[1000px] text-gray-700 dark:text-gray-300" width="57" height="876" viewBox="0 0 57 876" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="url(#paint0_linear_1014_869)"  fill-rule="evenodd" clip-rule="evenodd" d="M56.1277 0.221222H0.127686V500.221H0.147339L28.1438 875.221L56.1401 500.221H56.1277V0.221222Z" />                  
+                </svg>
+            </div>
+            <div class="hidden xs:block absolute z-50 top-0 left-96 -translate-y-1/2 -rotate-45 opacity-30 blur-2xl" aria-hidden="true">
+                <svg class="w-14 h-[1000px] text-gray-700 dark:text-gray-300" width="57" height="876" viewBox="0 0 57 876" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="url(#paint0_linear_1014_869)"  fill-rule="evenodd" clip-rule="evenodd" d="M56.1277 0.221222H0.127686V500.221H0.147339L28.1438 875.221L56.1401 500.221H56.1277V0.221222Z" />                    
+                </svg>
+            </div>  
+        </div>
+
+
+        <div id="sx-viewport" class="min-h-dvh flex flex-col">
+            {{!-- Accessibility enhancement that lets keyboard users and screen readers
+            jumb to the main content without going through other elements (header,...) --}}
+            <a href="#sx-main" class="sr-only focus:not-sr-only focus-within:not-sr-only outline-hidden">
+                <span class="relative flex items-center justify-center w-full h-12 font-semibold text-gray-950 dark:text-gray-50 text-sm ring-3 ring-inset ring-accent">
+                    {{t "Skip to main content"}}
+                </span>
+            </a>       
+
+            {{!-- Site header --}}
+            {{> header }}
+
+            <main id="sx-main" tabindex="-1" class="flex-none outline-hidden">
+                {{!-- This is used by page templates to inject their content here --}}
+                {{{ body }}}
+            </main>
+
+            {{!-- Site footer --}}
+            {{> footer }}
+        </div>
+
+        {{!-- PhotoSwipe (aka Lightbox) --}}
+        {{> pswp }}
+
+        {{!-- This is a slot used to inject page specific styles/scripts if needed (before Ghost foot) --}}
+        {{{block "foot-before"}}}
+
+        {{!-- This is used by Ghost to output important functional scripts --}}
+        {{ghost_foot}}
+
+        {{!-- This is a slot used to inject page specific styles/scripts if needed (after Ghost foot) --}}
+        {{{block "foot-after"}}}     
+
+        {{!-- Lazy loaded script  --}}
+        <div id="sx-lazy-script" data-src="{{asset "/built/lazy.min.js"}}"></div>        
+    </body>
+</html>

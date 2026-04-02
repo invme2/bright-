@@ -1,0 +1,63 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+
+{{!-- Ghost doesn't do code injection for pages used as data in routes.yaml --}}
+{{#contentFor "head-after"}} 
+    {{#page}} {{#if codeinjection_head}} {{{codeinjection_head}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+{{#contentFor "foot-after"}}
+    {{#page}} {{#if codeinjection_foot}} {{{codeinjection_foot}}} {{/if}} {{/page}}
+{{/contentFor }}
+
+
+{{!-- Hero section --}}
+{{#page}}
+    {{> hero showContent=true }}
+{{/page}}
+
+<div class="outer xl:outer-xl">
+    <div class="inner">
+
+        <div class="max-w-6xl mx-auto">            
+            {{#foreach posts limit="1"}}
+                {{#foreach tags visibility="internal"}}
+                    {{#match slug "~^" "hash-folders-col"}}
+                        <div data-ghost-search="{{slug}},hash-docs-col" class="flex items-center w-full h-14 px-6 py-2 rounded-full bg-white shadow-sm ring-1 dark:ring-inset ring-gray-900/5 dark:text-gray-400 dark:bg-white/1 dark:hover:bg-white/5 dark:ring-white/10 dark:shadow-none backdrop-blur-xs transition-colors duration-200 cursor-pointer">                
+                            {{> icons/search class="flex-none w-6 h-6 me-2 text-gray-400 dark:text-gray-500" }}
+                            {{t "Quick search..." }}
+                        </div>
+                    {{/match}}
+                {{/foreach}}
+            {{/foreach}}
+        </div>
+
+        {{!-- Feed --}}
+        <div data-sx-pagination-feed class="max-w-6xl mx-auto py-16 lg:py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+            {{#foreach posts}}
+                {{> card-folder page=../page }}
+            {{/foreach}}
+        </div>
+
+        {{!-- Pagination --}}
+        {{#if pagination}}
+            <div class="flex justify-center">
+                <button 
+                    hidden="true"
+                    data-sx-pagination-btn
+                    data-sx-pagination-total="{{pagination.pages}}"
+                    class="flex items-center py-4 mb-16 sm:mb-20 text-sm font-medium leading-none text-gray-800 dark:text-gray-200 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                >
+                    {{t "Load more"}}
+
+                    {{> icons/arrow-sm-down class="w-4 h-4 ms-0.5 [.loading>&]:hidden"}}
+                    {{> icons/loader class="w-4 h-4 ms-0.5 hidden [.loading>&]:inline"}}
+                </button>
+            </div>
+        {{/if}}             
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{{!< default}}
+
+{{!-- Grid pattern --}}
+<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
+
+
+{{!-- Hero section --}}
+{{#page}}
+    {{> hero }}
+{{/page}}
+
+
+{{#post}}
+<div class="outer xl:outer-xl">
+    <div class="inner">
+        <div class="max-w-5xl mx-auto grid mb-20">
+            <div class="w-full min-w-0 max-w-3xl sm:mx-auto">
+                {{!-- Content --}}
+                <div data-sx-toc-src>
+                    {{!-- Fix for tocbot always having the first link active even if the heading is not yet visible https://github.com/tscanlin/tocbot/issues/217 --}}
+                    <h2 id="___TOCBOT___" class="sr-only m-0">
+                        <span aria-hidden="true">{{title}}</span>
+                    </h2>  
+
+                    <div class="content has-full has-wide">
+                        {{content}}
+                    </div>
+                </div>       
+            </div>
+        </div>
+    </div>
+</div>
+{{/post}}

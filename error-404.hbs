@@ -1,0 +1,25 @@
+{{!< default}}
+
+{{#contentFor "extra-footer-class"}} no-space-top {{/contentFor}}
+
+<section class="page-error-404">
+    <div class="flex flex-col items-center py-10 justify-center min-h-[calc(100dvh-(--spacing(16)))]">
+        <div class="outer xl:outer-xl">
+            <section class="inner text-center">
+                <h1 class="-my-3 font-bold text-4xl sm:text-7xl text-gray-950 dark:text-gray-100">
+                    <span class="py-3 inline-flex text-gray-950 dark:text-gray-50/50 dark:bg-clip-text dark:bg-linear-to-b from-white to-background-dark">
+                        {{statusCode}}
+                    </span>
+                </h1>
+                <p class="mt-2 text-sm sm:text-base text-gray-500 dark:text-gray-400">
+                    {{t "This page could not be found"}}
+                </p>
+            </section>
+        </div>
+        <div class="mt-8 max-w-full overflow-hidden pointer-events-none">
+            <div class="relative sm:start-0.5 -z-10 mx-auto w-full">
+                {{> icons/grid-perspective class="relative start-1/2 -translate-x-1/2 w-auto h-32 sm:w-full sm:h-auto text-gray-950 dark:text-gray-50 opacity-40 mask-radial mask-radial-x-size-40% mask-radial-y-size-50%" }}
+            </div>
+        </div>      
+    </div>
+</section>

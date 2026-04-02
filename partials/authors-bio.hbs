@@ -1,0 +1,103 @@
+<div data-sx-authors-bio class="mt-12">
+    <div class="mb-6">
+        <h2 class="text-2xl tracking-tight leading-tight font-bold text-gray-950 dark:text-gray-50">
+            {{plural authors.length empty='' singular=(t "About the author") plural=(t "About the authors")}}
+        </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4">
+        {{#foreach authors }}
+            <div class="w-full p-4 sm:p-8 rounded-xl sm:rounded-2xl bg-white dark:bg-white/5 ring-1 ring-inset ring-gray-950/10 dark:ring-gray-50/5">
+                <a href="{{url absolute="true"}}" class="mb-4 flex-none flex items-center">
+                    {{#if profile_image}}
+                        <img
+                            class="me-3 w-8 h-8 object-cover rounded-full"
+                            src="{{img_url profile_image size="xs"}}"
+                            alt="{{name}}"
+                            loading="lazy"
+                        />
+                    {{else}}
+                        <div  class="me-3 w-8 h-8 flex items-center justify-center rounded-full font-medium bg-gray-100 dark:bg-white/5 ring-1 ring-inset ring-gray-950/10 dark:ring-gray-50/5" aria-hidden="true">
+                            {{name.[0]}}
+                        </div>
+                    {{/if}}
+
+                    <span class="font-medium text-base text-gray-900 dark:text-gray-50">{{name}}</span>
+                </a>
+
+                {{#if bio}}
+                    <p class="mb-4 has-links text-base text-gray-700 dark:text-gray-400">{{{bio}}}</p>
+                {{/if}}
+
+                <div class="flex flex-wrap items-center gap-3 text-gray-500 dark:text-gray-400">
+                    <a href="{{url absolute="true"}}" class="me-auto flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                        {{t "View profile"}}
+                        {{> icons/chevron-right class="relative top-px ms-0.5 w-3.5 h-3.5 opacity-80 [:hover>&]:translate-x-1 transition-transform duration-150"}}
+                    </a>
+
+                    <div class="inline-flex flex-wrap items-center gap-4">
+                        {{#if website}}
+                            <a href="{{website}}" target="_blank" title="{{t "Website"}}" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">                    
+                                {{> icons/world-share class="flex-none w-5 h-5" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if twitter}}
+                            <a href="{{social_url type="twitter"}}" target="_blank" title="X (Twitter)" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/twitter-x class="flex-none w-4 h-4 "}}
+                            </a>
+                        {{/if}}
+
+                        {{#if facebook}}
+                            <a href="{{social_url type="facebook"}}" target="_blank" title="Facebook" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/facebook class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if linkedin}}
+                            <a href="{{social_url type="linkedin"}}" target="_blank" title="LinkedIn" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/linkedin class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if bluesky}}
+                            <a href="{{social_url type="bluesky"}}" target="_blank" title="Bluesky" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/bluesky class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if threads}}
+                            <a href="{{social_url type="threads"}}" target="_blank" title="Threads" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/threads class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if mastodon}}
+                            <a href="{{social_url type="mastodon"}}" target="_blank" title="Mastodon" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/mastodon class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if tiktok}}
+                            <a href="{{social_url type="tiktok"}}" target="_blank" title="Tiktok" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/tiktok class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if youtube}}
+                            <a href="{{social_url type="youtube"}}" target="_blank" title="Youtube" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/youtube class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+
+                        {{#if instagram}}
+                            <a href="{{social_url type="instagram"}}" target="_blank" title="Instagram" class="flex-none inline-flex items-center text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">
+                                {{> icons/instagram class="flex-none w-4 h-4" }}
+                            </a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/foreach}}
+    </div>
+</div>

@@ -1,0 +1,163 @@
+<div data-sx-pagination-post="sx-feed-{{slug}}" class="{{post_class}} {{extra-card-class}} flex flex-col lg:flex-row lg:scroll-m-16 first:scroll-m-20 lg:first:scroll-m-36">
+    <div class="relative flex-none flex lg:flex-col justify-between lg:w-80 pb-6 pt-20 [:first-child>&]:pt-0 lg:pb-20 lg:pe-8 lg:me-8">
+        <div class="hidden lg:block absolute top-0 end-0 h-full w-0.5">
+            <div class="sticky top-0 h-full w-0.5 bg-gray-950/5 dark:bg-gray-50/5"></div>
+        </div>
+
+        <div class="flex sticky top-[--spacing(32)] z-10 lg:mb-8 lg:pb-8 bg-background dark:bg-background-dark">
+            <div class="hidden lg:block absolute w-full top-0 -end-8">
+                <div class="absolute -z-10 top-0.5 end-0 w-0.5 h-6 bg-primary"></div>
+                <div class="absolute top-0.5 end-px -me-1 w-2 h-6 bg-primary opacity-15 dark:opacity-30 blur-xs pointer-events-none"></div>
+            </div>
+
+            <div class="lg:text-end lg:ms-auto">
+                <time class="date inline-flex items-center gap-0.5 capitalize flex-none -mb-0.5 leading-7 text-xs text-gray-500 dark:text-gray-400" datetime="{{date format="YYYY-MM-DD"}}">
+                    {{#if isPinned}} 
+                        {{> icons/pinned class="relative top-px w-4 h-4" }}
+                    {{/if}}
+                    {{date format="MMMM DD, YYYY"}}
+                </time>
+                <h2 class="text-pretty">
+                    <a class="font-medium leading-snug tracking-tight text-lg text-gray-950 dark:text-gray-100 hover:opacity-80 transition-opacity duration-200" 
+                        href="{{url absolute="true"}}"
+                    >
+                        {{title}}
+                    </a>
+                </h2>
+
+                <div class="flex flex-wrap lg:justify-end gap-2 {{#match tags.length ">" 1}} mt-2 {{/match}} {{#if featured}} mt-2 {{/if}}">
+                    {{#if featured}}
+                        <span title="{{t "Featured"}}" class="inline-flex items-center mt-1 py-1">
+                            {{> icons/star-four class="inline-flex flex-none w-3.5 h-3.5 text-primary drop-shadow-primary"}}
+                        </span>
+                        <span class="hidden last:inline-flex badge items-center mt-1 no-underline" data-sx-text="{{t "Featured"}}">
+                            {{t "Featured"}}
+                        </span>
+                    {{/if}}
+
+                    {{#primary_tag}}
+                        <a href="{{url absolute="true"}}" class="badge inline-flex items-center mt-1 hover:opacity-80 transition-opacity duration-200" data-sx-text="{{name}}">
+                            {{name}}
+                        </a>
+                    {{/primary_tag}}
+                    
+                    {{#foreach tags}}
+                        {{#match slug "!=" ../primary_tag.slug}}
+                            <a href="{{url absolute="true"}}" 
+                                class="relative inline-flex items-center px-2 py-0.5 mt-1 rounded-full transition-colors duration-200
+                                    text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-400 text-xs font-medium bg-white shadow-pretty dark:bg-transparent dark:shadow-none
+                                "
+                            >
+                                <div class="absolute -inset-px -z-10 dark:bg-white/5 dark:[:hover>&]:bg-white/10 rounded-full border border-gray-950/5 dark:border-gray-50/5 transition-colors duration-200"></div>
+
+                                <span class="w-1.5 h-1.5 me-1.5 rounded-full bg-gray-500" style="{{#if accent_color}}background-color: {{accent_color}}{{/if}}"></span>
+                                <span>{{name}}</span>
+                            </a>
+                        {{/match}}
+                    {{/foreach}}
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-none flex justify-end sticky bottom-10 z-0 ps-4 pt-2 lg:ps-0 lg:pt-4">
+            <span class="inline-flex flex-col justify-between lg:flex-row gap-1 lg:h-6 lg:py-px items-center">
+                <a data-sx-feed-prev title="{{t "Previous"}}" href="#" class="opacity-50 pointer-events-none inline-flex w-4 h-full lg:h-4 rounded-sm lg:shrink-0 items-center justify-center bg-gray-950/10 dark:bg-gray-50/10 hover:bg-gray-900/8 dark:hover:bg-gray-50/8 transition-colors duration-200">
+                    {{> icons/chevron-up class="flex-none w-3 h-3 text-gray-500 dark:text-gray-400"}}
+                </a>
+                <a data-sx-feed-next title="{{t "Next"}}" href="#" class="opacity-50 pointer-events-none inline-flex w-4 h-full lg:h-4 rounded-sm lg:shrink-0 items-center justify-center bg-gray-950/10 dark:bg-gray-50/10 hover:bg-gray-900/8 dark:hover:bg-gray-50/8 transition-colors duration-200">
+                    {{> icons/chevron-down class="flex-none w-3 h-3 text-gray-500 dark:text-gray-400"}}
+                </a>
+            </span>
+        </div>                            
+    </div>
+
+    <div class="lg:w-full py-20 max-lg:pt-0 [:first-child>&]:pt-0 max-w-none border-b [:last-child>&]:border-none border-gray-950/5 dark:border-gray-50/5">
+        {{#if custom_excerpt}}
+            {{^if hideExcerpt}}
+                <p class="mb-5 text-lg leading-7 text-gray-600 dark:text-gray-400 text-pretty">
+                    {{custom_excerpt}}
+                </p>
+            {{/if}}
+        {{/if}}   
+                        
+        {{#if feature_image}}
+            <figure class="mb-8 has-links w-full {{#if feature_image_caption}} has-figcaption {{/if}} ">
+                <div class="relative rounded-xl overflow-hidden
+                        {{#with ./page}}
+                            {{#has tag="#temp-cards-media-1-1"}} 
+                                aspect-1/1
+                            {{else has tag="#temp-cards-media-3-4"}} 
+                                aspect-3/4
+                            {{else has tag="#temp-cards-media-4-3"}} 
+                                aspect-4/3
+                            {{else has tag="#temp-cards-media-4-5"}} 
+                                aspect-4/5
+                            {{else has tag="#temp-cards-media-5-4"}}
+                                aspect-5/4
+                            {{else has tag="#temp-cards-media-9-16"}}
+                                aspect-9/16
+                            {{else}}
+                                aspect-16/9
+                            {{/has}}  
+                        {{else}}
+                            aspect-16/9
+                        {{/with}}                  
+                    "
+                >
+                    <picture>
+                        <source
+                            type="image/avif"                                
+                            data-sizes="auto"
+                            data-srcset="{{> srcset format="avif"}}"
+                            srcset="{{img_url feature_image size="xxs" format="avif"}}"
+                            data-src="{{img_url feature_image size="xl" format="avif"}}"
+                        />
+                        <source
+                            type="image/webp"                                
+                            data-sizes="auto"
+                            data-srcset="{{> srcset format="webp"}}"
+                            srcset="{{img_url feature_image size="xxs" format="webp"}}"
+                            data-src="{{img_url feature_image size="xl" format="webp"}}"
+                        />
+                        <img
+                            class="sx-has-zoom lazyload absolute inset-0 w-full h-full object-cover bg-gray-100 dark:bg-gray-900 [&.lazyloaded]:bg-transparent!"
+                            data-sizes="auto"
+                            data-srcset="{{> srcset }}"
+                            srcset="{{img_url feature_image size="xxs"}}"
+                            src="{{img_url feature_image size="xl"}}"
+                            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                            loading="lazy"
+                        />                   
+                    </picture>
+                </div>
+                {{#if feature_image_caption}}
+                    <figcaption>{{feature_image_caption}}</figcaption>
+                {{/if}}                                    
+            </figure>                              
+        {{/if}}                          
+        
+        <div class="content">
+            {{#if access}}
+                {{{content}}}
+            {{else}}
+                {{> content-cta isPost=true }}
+            {{/if}}
+        </div>
+
+        {{#if showDateMeta}}
+            {{> meta-bottom }}
+        {{else}}
+            {{> meta-bottom hideDateMeta=true showAuthorMeta=true }}
+        {{/if}}
+    </div>
+
+    {{> comments-sidebar }}
+
+    {{#if isPinned}}
+        <style>
+            [data-sx-pagination-post="sx-feed-{{slug}}"] ~ [data-sx-pagination-post="sx-feed-{{slug}}"].featured {
+                display: none;
+            }
+        </style>    
+    {{/if}}
+</div>     
