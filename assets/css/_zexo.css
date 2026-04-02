@@ -488,6 +488,40 @@ a span {
 
 /* === Animations === */
 
+/* Perspective grid — fly-into-screen animation */
+.landing-pattern {
+  perspective: 500px;
+  overflow: hidden !important;
+}
+
+.landing-pattern > div {
+  animation: zx-fly-forward 20s linear infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes zx-fly-forward {
+  0% {
+    transform: scale3d(1.25, 1, 1) translateZ(0px) translateY(0%);
+  }
+  100% {
+    transform: scale3d(1.25, 1, 1) translateZ(80px) translateY(-15%);
+  }
+}
+
+/* Pulse opacity for depth feel */
+.landing-pattern svg {
+  animation: zx-grid-pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes zx-grid-pulse {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
 @keyframes zx-fade-up {
   from {
     opacity: 0;

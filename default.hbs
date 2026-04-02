@@ -142,6 +142,15 @@
             .zx-btn-glow{position:absolute;inset:0;border-radius:12px;background:radial-gradient(90% 90% at 0% 0%,rgba(75,0,255,0.15),transparent);opacity:0;transition:opacity .5s;pointer-events:none}
             .zx-btn-wrap:hover .zx-btn-glow{opacity:1}
             @keyframes zx-rotate-border{to{transform:rotate(360deg)}}
+            /* Grid fly-forward animation */
+            .landing-pattern{perspective:500px;overflow:hidden!important}
+            .landing-pattern>div{animation:zx-fly-forward 20s linear infinite;transform-origin:center bottom}
+            @keyframes zx-fly-forward{
+                0%{transform:scale3d(1.25,1,1) translateZ(0px) translateY(0%)}
+                100%{transform:scale3d(1.25,1,1) translateZ(80px) translateY(-15%)}
+            }
+            .landing-pattern svg{animation:zx-grid-pulse 4s ease-in-out infinite alternate}
+            @keyframes zx-grid-pulse{0%{opacity:.3}100%{opacity:.6}}
             /* Secondary nav buttons */
             [data-portal="signin"],[data-members-signout]{color:#6a6a6d!important;font-size:14px}
             [data-portal="signin"]:hover,[data-members-signout]:hover{color:#fff!important}
