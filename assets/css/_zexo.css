@@ -493,12 +493,14 @@ a span {
    ============================================ */
 
 .zx-grid-wrapper {
-  position: relative;
-  width: 100%;
-  height: 280px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
   overflow: hidden;
   pointer-events: none;
-  margin-top: -20px;
+  z-index: 0;
 }
 
 .zx-grid-scene {
@@ -587,46 +589,52 @@ a span {
   filter: blur(2px);
 }
 
-/* Fade edges — mask */
+/* Landing content stays above grid */
+.landing-hero > .inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Fade edges — mask (sides + bottom only, no top fade blocking content) */
 .zx-grid-fade {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
     radial-gradient(
-      ellipse 60% 100% at 50% 100%,
+      ellipse 50% 80% at 50% 100%,
       transparent 0%,
-      transparent 40%,
-      #06060c 75%
+      transparent 30%,
+      #06060c 70%
     );
 }
 
-/* Fade top */
+/* Soft top blend */
 .zx-grid-fade::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 40%;
+  height: 30%;
   background: linear-gradient(to bottom, #06060c, transparent);
 }
 
-/* Fade bottom */
+/* Bottom fade */
 .zx-grid-fade::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 20%;
+  height: 15%;
   background: linear-gradient(to top, #06060c, transparent);
 }
 
 /* Responsive */
 @media (max-width: 640px) {
   .zx-grid-wrapper {
-    height: 160px;
+    height: 50%;
   }
 }
 
