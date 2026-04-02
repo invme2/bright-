@@ -81,11 +81,13 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: -0.02em;
 }
 
-/* Hero H1 — clean white, no gradient */
-#sx-hero h1 {
-  font-weight: 700;
+/* Hero H1 — Aevo style: 64px, light weight, tight leading */
+#sx-hero h1,
+.landing-content h1 {
+  font-weight: 400;
   font-size: clamp(36px, 7.5vw, 64px);
-  letter-spacing: -0.03em;
+  line-height: 72px;
+  letter-spacing: 0;
 }
 
 /* Kill gradient text on hero title */
@@ -98,9 +100,10 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1 {
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(36px, 7.5vw, 64px);
-  letter-spacing: -0.03em;
+  line-height: 1.125;
+  letter-spacing: 0;
 }
 
 h2 {
