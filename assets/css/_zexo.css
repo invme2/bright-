@@ -270,6 +270,13 @@ a span {
 
 /* === Button Overrides === */
 
+/* Ghost content buttons (kg-btn) — rounded corners like Aevo */
+.content .kg-button-card .kg-btn {
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
 /* Leave theme portal buttons (Subscribe, Sign In, Account) untouched —
    they have complex dark-mode gradient/border effects that should not be overridden */
 
