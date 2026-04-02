@@ -695,23 +695,29 @@ html.has-serif-body .content .kg-toggle-card .kg-toggle-heading-text {
     padding-top: --spacing(2);
     padding-bottom: --spacing(2);
     line-height: var(--leading-snug);
-    border-radius: var(--radius-3xl);
+    border-radius: 12px;
     opacity: 1;
-    box-shadow: var(--shadow-primary);
-    @apply transition-opacity;  
-}
-    
-.dark .content .kg-button-card .kg-btn {
-    filter: drop-shadow(var(--drop-shadow-primary-sm));
     box-shadow: none;
-}    
-    
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    @apply transition-opacity;
+}
+
+.dark .content .kg-button-card .kg-btn {
+    filter: none;
+    box-shadow: none;
+    background: transparent;
+}
+
 .content .kg-button-card .kg-btn:hover {
-    opacity: 90%;
-} 
+    opacity: 1;
+    border-color: rgba(255,255,255,0.25);
+}
 
 .content .kg-button-card a.kg-btn-accent {
-    color: var(--color-contrast, #fff);
+    color: #fff;
+    background: transparent;
 }
 
 /* Videos */

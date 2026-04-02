@@ -115,13 +115,19 @@
             .kg-bookmark-description{color:#a5a5a8!important;font-size:14px}
             .kg-bookmark-metadata{color:#424246!important;font-size:12px}
             /* Ghost content buttons — Aevo style */
-            .content .kg-button-card .kg-btn{
+            .content .kg-button-card .kg-btn,
+            .content .kg-button-card a.kg-btn-accent{
                 border-radius:12px!important;box-shadow:none!important;filter:none!important;
-                position:relative;overflow:hidden;background:transparent!important;
+                position:relative;overflow:hidden;
+                background:transparent!important;background-color:transparent!important;
                 border:1px solid rgba(255,255,255,0.1)!important;color:#fff!important;
                 padding:14px 32px!important;font-weight:500;font-size:14px;transition:border-color .3s;
             }
-            .content .kg-button-card .kg-btn:hover{border-color:rgba(255,255,255,0.25)!important;opacity:1!important}
+            .content .kg-button-card .kg-btn:hover,
+            .content .kg-button-card a.kg-btn-accent:hover{
+                border-color:rgba(255,255,255,0.25)!important;opacity:1!important;
+                background:transparent!important;background-color:transparent!important;
+            }
             /* Animated border wrapper */
             .zx-btn-wrap{position:relative;display:inline-flex;border-radius:12px}
             .zx-btn-border{position:absolute;inset:-1px;border-radius:12px;opacity:0;overflow:hidden;transition:opacity .4s;pointer-events:none}

@@ -271,13 +271,15 @@ a span {
 /* === Button Overrides === */
 
 /* Ghost content buttons (kg-btn) — Aevo style with animated border */
-.content .kg-button-card .kg-btn {
+.content .kg-button-card .kg-btn,
+.content .kg-button-card a.kg-btn-accent {
   border-radius: 12px !important;
   box-shadow: none !important;
   filter: none !important;
   position: relative;
   overflow: hidden;
   background: transparent !important;
+  background-color: transparent !important;
   border: 1px solid rgba(255,255,255,0.1) !important;
   color: #ffffff !important;
   padding: 14px 32px !important;
@@ -286,9 +288,12 @@ a span {
   transition: border-color 0.3s;
 }
 
-.content .kg-button-card .kg-btn:hover {
+.content .kg-button-card .kg-btn:hover,
+.content .kg-button-card a.kg-btn-accent:hover {
   border-color: rgba(255,255,255,0.25) !important;
   opacity: 1 !important;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 /* Animated border glow wrapper (injected by JS) */
