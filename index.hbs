@@ -1,9 +1,5 @@
 {{!< default}}
 
-{{!-- Grid pattern --}}
-<div class="absolute -z-10 top-10 start-0 w-full h-70 bg-grid-gray-950 dark:bg-grid-gray-50 bg-grid-size-10 dark:bg-grid-size-10 lg:bg-grid-size-15 dark:lg:bg-grid-size-15 mask-radial mask-position-to-80% opacity-5 dark:opacity-10 pointer-events-none"></div>
-
-
 {{!-- Ghost doesn't do code injection for pages used as data source in routes.yaml, so we do it manually here --}}
 {{#contentFor "head-after"}} 
     {{#page}} {{#if codeinjection_head}} {{{codeinjection_head}}} {{/if}} {{/page}}

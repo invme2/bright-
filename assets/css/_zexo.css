@@ -1,0 +1,367 @@
+/* ---------------------------------------------------------------------------
+ * ZEXO Design System Overrides
+ * DeFi frontend aggregator on Solana
+ * Always dark mode, Aevo-inspired monochrome style
+ */
+
+/* === Force Dark Background === */
+
+:root,
+html,
+html.dark,
+html.light {
+  color-scheme: dark !important;
+}
+
+body,
+html.light body,
+html.dark body {
+  background-color: #08080c !important;
+  color: #999999 !important;
+}
+
+/* === ZEXO Color Tokens === */
+
+:root,
+html.dark,
+html.light {
+  --zx-bg: #08080c;
+  --zx-surface: #12121a;
+  --zx-surface-hover: #15151e;
+  --zx-border: rgba(255,255,255,0.05);
+  --zx-divider: rgba(255,255,255,0.04);
+  --zx-text-bright: #ffffff;
+  --zx-text-body: #999999;
+  --zx-text-dim: #555555;
+  --zx-accent-purple: #4b00ff;
+  --zx-accent-blue: #49ceea;
+
+  /* Override theme background */
+  --color-background: #08080c;
+  --color-background-dark: #08080c;
+  --color-gray-950: #08080c;
+  --color-gray-900: #0e0e14;
+  --color-gray-800: #12121a;
+  --color-gray-700: #1a1a24;
+  --color-gray-600: #333340;
+  --color-gray-500: #555555;
+  --color-gray-400: #777777;
+  --color-gray-300: #999999;
+  --color-gray-200: rgba(255,255,255,0.1);
+  --color-gray-100: #cccccc;
+  --color-gray-50: #ffffff;
+}
+
+/* === Typography === */
+
+html,
+html.has-serif-body,
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4, h5, h6,
+.has-headings-font {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+/* Monospace for labels, numbers, code */
+code,
+pre,
+.font-mono,
+kbd,
+samp {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+}
+
+/* === Links — No Underlines === */
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+a span {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* === Hide Decorative Elements === */
+
+/* Spotlights */
+#sx-spotlights {
+  display: none !important;
+}
+
+/* Tone overlay */
+#sx-tone {
+  display: none !important;
+}
+
+/* Grid pattern backgrounds on pages */
+.bg-grid-gray-950,
+.bg-grid-gray-50 {
+  background: none !important;
+}
+
+/* === Header Overrides === */
+
+#sx-header {
+  background-color: transparent;
+  border-bottom-color: transparent;
+}
+
+#sx-header.stuck {
+  background-color: rgba(8, 8, 12, 0.9) !important;
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--zx-border) !important;
+}
+
+#sx-header-brand {
+  color: #ffffff !important;
+}
+
+/* Nav links */
+#sx-header nav a {
+  color: #999999 !important;
+  transition: color 0.15s;
+}
+
+#sx-header nav a:hover {
+  color: #ffffff !important;
+}
+
+/* === Footer Overrides === */
+
+#sx-footer {
+  border-top-color: var(--zx-border);
+}
+
+#sx-footer-brand {
+  color: #ffffff !important;
+}
+
+#sx-footer-description {
+  color: #999999;
+}
+
+#sx-footer-copy {
+  color: #555555;
+}
+
+#sx-footer-copy a {
+  color: #555555 !important;
+}
+
+#sx-footer-copy a:hover {
+  color: #ffffff !important;
+}
+
+/* === Card Styles (for Ghost content) === */
+
+.kg-card,
+.kg-image-card,
+.kg-gallery-card,
+.kg-bookmark-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.kg-bookmark-card .kg-bookmark-container {
+  background: #12121a !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+
+.kg-bookmark-card .kg-bookmark-container:hover {
+  background: #15151e !important;
+}
+
+.kg-bookmark-card .kg-bookmark-title {
+  color: #ffffff !important;
+}
+
+.kg-bookmark-card .kg-bookmark-description {
+  color: #999999 !important;
+}
+
+.kg-bookmark-card .kg-bookmark-metadata {
+  color: #555555 !important;
+}
+
+/* === Button Overrides === */
+
+/* Primary buttons - white bg, black text */
+[data-portal="signup"],
+.gh-portal-btn-main,
+button.bg-primary,
+a.bg-primary {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
+
+[data-portal="signup"]:hover,
+.gh-portal-btn-main:hover,
+button.bg-primary:hover,
+a.bg-primary:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Secondary buttons */
+[data-portal="signin"],
+[data-members-signout] {
+  color: #999999 !important;
+}
+
+[data-portal="signin"]:hover,
+[data-members-signout]:hover {
+  color: #ffffff !important;
+}
+
+/* === Search Button === */
+
+[data-ghost-search] {
+  color: #555555 !important;
+}
+
+[data-ghost-search]:hover {
+  color: #ffffff !important;
+}
+
+/* === Content Typography === */
+
+.content {
+  color: #999999;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  color: #ffffff;
+}
+
+.content a {
+  color: #ffffff !important;
+  transition: opacity 0.15s;
+}
+
+.content a:hover {
+  opacity: 0.8;
+}
+
+.content blockquote {
+  border-left-color: rgba(255,255,255,0.1);
+  color: #cccccc;
+}
+
+.content hr {
+  border-color: var(--zx-divider);
+}
+
+.content figcaption {
+  color: #555555;
+}
+
+/* === Mobile Menu === */
+
+#sx-mobile-menu > div:last-child {
+  background-color: #0e0e14 !important;
+  border-color: var(--zx-border) !important;
+}
+
+/* === Blog Cards === */
+
+[class*="card-blog"],
+.post-card {
+  border-radius: 12px;
+}
+
+/* === Scroll Animations — keep fade-up only === */
+
+@keyframes zx-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zx-line-reveal {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* === Misc Overrides === */
+
+/* Remove rounded pill buttons (use 8px radius) */
+.rounded-full:where(button, [role="button"], a[href]) {
+  border-radius: 8px;
+}
+
+/* Keep pill shapes for tags/badges */
+.rounded-full:not(button, [role="button"], a[href]) {
+  border-radius: 9999px;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(75, 0, 255, 0.3);
+  color: #ffffff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08080c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a24;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333340;
+}
+
+/* Dark backdrop for modals */
+.has-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+}

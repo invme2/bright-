@@ -93,15 +93,10 @@
     }    
 </script>
 
-{{!-- Dark mode setup --}}
+{{!-- ZEXO: Always dark mode --}}
 <script>
-    if (localStorage && localStorage["sx-theme"]) {
-        document.documentElement.classList.toggle('dark', localStorage["sx-theme"] === 'dark');
-        document.documentElement.classList.toggle('light', localStorage["sx-theme"] === 'light');
-    } else if ("{{@custom.default_color_scheme}}" === "System") {
-        document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);        
-        document.documentElement.classList.toggle('light', window.matchMedia('(prefers-color-scheme: light)').matches);        
-    }
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
 </script>
 
 

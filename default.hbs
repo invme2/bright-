@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html dir="ltr"
     lang="{{ @site.locale }}" 
-    class="group/html min-h-dvh no-js
-        {{#match @custom.default_color_scheme "Dark"}} dark {{else}} light {{/match}}
-        {{#match @custom.body_font "System serif"}} has-serif-body {{/match}} 
-        {{#match @custom.headings_font "System serif"}} has-serif-headings {{/match}}
-        {{#if @custom.grayscale}} has-grayscale-{{@custom.grayscale}} {{/if}}
-    "
+    class="group/html min-h-dvh no-js dark"
     data-sx-content-api-url="{{content_api_url}}"
     data-sx-content-api-key="{{content_api_key}}"
     data-prismjs-copy="{{t "Copy"}}" 
@@ -30,11 +25,118 @@
         {{!-- Critical scripts & styles inlined in `head` to avoid FOUC & content shifting --}}
         {{> head-inlined }}     
 
-        {{!-- Theme fonts --}}
-        {{> fonts }}   
+        {{!-- ZEXO Fonts: Outfit + JetBrains Mono --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --font-body: 'Outfit';
+                --font-headings: 'Outfit';
+            }
+        </style>   
 
         {{!-- Theme styles --}}
         <link href="{{asset "/built/main.min.css"}}" rel="stylesheet" type="text/css" />
+
+        {{!-- ZEXO Design System Overrides (inline for immediate effect) --}}
+        <style>
+            /* Force dark mode */
+            :root, html, html.dark, html.light {
+                color-scheme: dark !important;
+            }
+            body, html.light body, html.dark body {
+                background-color: #08080c !important;
+                color: #999 !important;
+                font-family: 'Outfit', -apple-system, sans-serif !important;
+                font-weight: 300;
+                line-height: 1.75;
+            }
+            /* Color tokens */
+            :root, html.dark, html.light {
+                --color-background: #08080c;
+                --color-background-dark: #08080c;
+                --color-gray-950: #08080c;
+                --color-gray-900: #0e0e14;
+                --color-gray-800: #12121a;
+                --color-gray-700: #1a1a24;
+                --color-gray-600: #333340;
+                --color-gray-500: #555;
+                --color-gray-400: #777;
+                --color-gray-300: #999;
+                --color-gray-200: rgba(255,255,255,0.1);
+                --color-gray-100: #ccc;
+                --color-gray-50: #fff;
+            }
+            /* Typography */
+            h1,h2,h3,h4,h5,h6,.has-headings-font {
+                font-family: 'Outfit', -apple-system, sans-serif !important;
+                color: #fff;
+                letter-spacing: -0.025em;
+            }
+            h1 { font-weight: 800; letter-spacing: -0.04em; }
+            h2 { font-weight: 700; }
+            h3 { font-weight: 600; }
+            code, pre, .font-mono, kbd, samp {
+                font-family: 'JetBrains Mono', monospace !important;
+            }
+            /* No underlines on links */
+            a, a:link, a:visited, a:hover, a:active, a span {
+                text-decoration: none !important;
+                border-bottom: none !important;
+                box-shadow: none !important;
+                background-image: none !important;
+            }
+            /* Hide spotlights and tone */
+            #sx-spotlights, #sx-tone { display: none !important; }
+            /* Hide grid backgrounds */
+            [class*="bg-grid-"] { background: none !important; }
+            /* Header */
+            #sx-header.stuck {
+                background-color: rgba(8,8,12,0.9) !important;
+                border-bottom-color: rgba(255,255,255,0.05) !important;
+            }
+            /* Mobile menu */
+            #sx-mobile-menu > div:last-child {
+                background-color: #0e0e14 !important;
+            }
+            /* Content */
+            .content { color: #999; }
+            .content h1,.content h2,.content h3,.content h4 { color: #fff; }
+            .content a { color: #fff !important; }
+            .content a:hover { opacity: 0.8; }
+            .content blockquote { border-left-color: rgba(255,255,255,0.1); color: #ccc; }
+            .content hr { border-color: rgba(255,255,255,0.04); }
+            .content figcaption { color: #555; }
+            /* Bookmark cards */
+            .kg-bookmark-container {
+                background: #12121a !important;
+                border: 1px solid rgba(255,255,255,0.05) !important;
+                box-shadow: none !important;
+            }
+            .kg-bookmark-container:hover { background: #15151e !important; }
+            .kg-bookmark-title { color: #fff !important; }
+            .kg-bookmark-description { color: #999 !important; }
+            .kg-bookmark-metadata { color: #555 !important; }
+            /* Buttons */
+            button.bg-primary, a.bg-primary, [data-portal="signup"] span:last-child {
+                border-radius: 8px !important;
+            }
+            /* Search */
+            [data-ghost-search] { color: #555 !important; }
+            [data-ghost-search]:hover { color: #fff !important; }
+            /* Selection */
+            ::selection { background-color: rgba(75,0,255,0.3); color: #fff; }
+            /* Scrollbar */
+            ::-webkit-scrollbar { width: 6px; }
+            ::-webkit-scrollbar-track { background: #08080c; }
+            ::-webkit-scrollbar-thumb { background: #1a1a24; border-radius: 3px; }
+            ::-webkit-scrollbar-thumb:hover { background: #333340; }
+            /* Footer */
+            #sx-footer-copy { color: #555; }
+            #sx-footer-copy a { color: #555 !important; }
+            #sx-footer-copy a:hover { color: #fff !important; }
+        </style>
 
         {{!-- Theme scripts --}}
         <script src="{{asset "/built/main.min.js"}}" defer data-manual></script>        
@@ -50,33 +152,6 @@
         {{{block "head-after"}}}        
     </head>
     <body class="{{body_class}} {{block "extra-body-class"}} min-h-dvh antialiased overflow-x-hidden text-gray-500 bg-background dark:text-gray-400 dark:bg-background-dark [&.has-modal]:h-dvh [&.has-modal]:overflow-hidden {{#if @member.paid}} is-paid-member {{else if @member}} is-member {{else}} is-not-member {{/if}}">
-        {{!-- Tone --}}
-        <div id="sx-tone" class="{{#match @custom.tone "!=" "Accent"}} hidden {{/match}} fixed z-4999999 inset-0 bg-primary opacity-3 dark:opacity-5 pointer-events-none"></div>
-
-        {{!-- Lights --}}
-        <div id="sx-spotlights" class="absolute z-50 inset-0 overflow-x-hidden pointer-events-none" aria-hidden="true">
-            <div class="absolute z-50 top-0 left-0 -translate-y-1/2 -rotate-45 opacity-30 blur-2xl" aria-hidden="true">
-                <svg class="w-14 h-[1000px] text-gray-700 dark:text-gray-300" width="57" height="876" viewBox="0 0 57 876" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="url(#paint0_linear_1014_869)"  fill-rule="evenodd" clip-rule="evenodd" d="M56.1277 0.221222H0.127686V500.221H0.147339L28.1438 875.221L56.1401 500.221H56.1277V0.221222Z" />
-                    <defs>
-                        <linearGradient id="paint0_linear_1014_869" x1="28.1339" y1="0.221222" x2="28.1339" y2="875.221" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="white"/>
-                            <stop offset="1" stop-color="currentColor"/>
-                        </linearGradient>
-                    </defs>                        
-                </svg>
-            </div>
-            <div class="absolute z-50 top-0 left-16 -translate-y-2/3 -rotate-45 opacity-30 blur-xl" aria-hidden="true">
-                <svg class="w-14 h-[1000px] text-gray-700 dark:text-gray-300" width="57" height="876" viewBox="0 0 57 876" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="url(#paint0_linear_1014_869)"  fill-rule="evenodd" clip-rule="evenodd" d="M56.1277 0.221222H0.127686V500.221H0.147339L28.1438 875.221L56.1401 500.221H56.1277V0.221222Z" />                  
-                </svg>
-            </div>
-            <div class="hidden xs:block absolute z-50 top-0 left-96 -translate-y-1/2 -rotate-45 opacity-30 blur-2xl" aria-hidden="true">
-                <svg class="w-14 h-[1000px] text-gray-700 dark:text-gray-300" width="57" height="876" viewBox="0 0 57 876" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="url(#paint0_linear_1014_869)"  fill-rule="evenodd" clip-rule="evenodd" d="M56.1277 0.221222H0.127686V500.221H0.147339L28.1438 875.221L56.1401 500.221H56.1277V0.221222Z" />                    
-                </svg>
-            </div>  
-        </div>
 
 
         <div id="sx-viewport" class="min-h-dvh flex flex-col">
