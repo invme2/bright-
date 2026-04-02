@@ -1,16 +1,16 @@
 <div id="{{slug}}"
     tabindex="-1"
     data-sx-landing="{{@number}}"
-    class="landing landing-{{@number}} relative outer xl:outer-xl outline-hidden 
-        {{#has tag="#landing-no-space"}} 
-            last:pb-16 sm:last:pb-20 scroll-m-16 
-        {{else has tag="#landing-space-sm"}} 
+    class="landing landing-{{@number}} relative outer xl:outer-xl outline-hidden
+        {{#has tag="#landing-no-space"}}
+            last:pb-16 sm:last:pb-20 scroll-m-16
+        {{else has tag="#landing-space-sm"}}
             py-4 sm:py-6 scroll-m-12 sm:scroll-m-10
-        {{else has tag="#landing-space-md"}} 
+        {{else has tag="#landing-space-md"}}
             py-8 sm:py-14 scroll-m-8 sm:scroll-m-2
-        {{else}} 
-            py-16 sm:py-20 {{#if isHero}} md:py-28 pb-52 sm:pb-56 md:pb-72 {{/if}}
-        {{/has}}          
+        {{else}}
+            py-16 sm:py-20 {{#if isHero}} md:py-28 {{/if}}
+        {{/has}}
 
         {{#has tag="#landing-no-space-top"}} pt-0! scroll-m-16! {{/has}}
         {{#has tag="#landing-no-space-bottom"}} pb-0! {{/has}}
@@ -20,6 +20,7 @@
 
         {{post_class}}
     "
+    {{#if isHero}}style="padding-bottom:250px"{{/if}}
 >
     {{!-- Backgrounds --}}
     {{#has tag="#landing-bg-accent" }} 
