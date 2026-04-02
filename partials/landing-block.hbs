@@ -98,7 +98,7 @@
         {{/has}} 
     {{/if}}   
 
-    <div class="inner max-w-6xl grid gap-10 xl:gap-16 items-center
+    <div class="inner max-w-6xl grid gap-10 xl:gap-16 items-center relative z-2
             {{#has tag="#landing-media-end, #landing-media-start"}} lg:grid-cols-2 {{/has}}
             {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} sm:text-center {{/has}}
         "
@@ -342,14 +342,21 @@
 
     {{!-- Perspective Grid (fly-forward) --}}
     {{#if isHero}}
-        <div class="zx-grid-wrapper">
-            <div class="zx-grid-scene">
-                <div class="zx-grid-plane">
-                    <div class="zx-grid-surface zx-grid-surface-1"></div>
-                    <div class="zx-grid-surface zx-grid-surface-2"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:300px;overflow:hidden;pointer-events:none;z-index:0;">
+            <div style="position:absolute;inset:0;perspective:300px;perspective-origin:50% 30%;overflow:hidden;">
+                <div style="position:absolute;left:-50%;right:-50%;bottom:-60%;height:200%;transform:rotateX(60deg);transform-origin:center top;">
+                    <div style="position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.08) 1px,transparent 1px);background-size:80px 80px;animation:zx-grid-scroll 3s linear infinite;"></div>
+                    <div style="position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:160px 160px;animation:zx-grid-scroll 3s linear infinite;animation-delay:-1.5s;opacity:0.5;"></div>
+                    <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:linear-gradient(to bottom,rgba(75,0,255,0.3),rgba(75,0,255,0.05) 40%,transparent 70%);transform:translateX(-50%);"></div>
+                    <div style="position:absolute;top:-2px;left:0;right:0;height:4px;background:linear-gradient(to right,transparent 20%,rgba(75,0,255,0.2) 40%,rgba(75,0,255,0.4) 50%,rgba(75,0,255,0.2) 60%,transparent 80%);filter:blur(2px);"></div>
                 </div>
             </div>
-            <div class="zx-grid-fade"></div>
+            <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 80% at 50% 100%,transparent 0%,transparent 30%,#06060c 70%);"></div>
+            <div style="position:absolute;top:0;left:0;right:0;height:30%;background:linear-gradient(to bottom,#06060c,transparent);"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:15%;background:linear-gradient(to top,#06060c,transparent);"></div>
         </div>
+        <style>
+            @keyframes zx-grid-scroll{0%{transform:translateY(-80px)}100%{transform:translateY(0px)}}
+        </style>
     {{/if}}
 </div>
