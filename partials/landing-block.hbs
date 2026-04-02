@@ -139,28 +139,28 @@
             {{!-- Heading --}}
             {{^has tag="#landing-no-title"}}
                 {{#if isHero}}
-                    <h1 class="animate-fade -my-3 max-w-4xl text-balance text-4xl md:text-5xl lg:text-6xl tracking-tighter leading-tighter font-extrabold                             
+                    <h1 class="animate-fade -my-3 max-w-4xl text-balance text-4xl md:text-5xl lg:text-6xl tracking-tighter leading-tighter font-bold
                             {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} mx-auto {{/has}}
                         "
-                    >  
+                    >
                         <span class="relative inline-flex py-3 px-2 -mx-2">
                             {{!-- Placeholder title --}}
                             <span aria-hidden="true" class="invisible">{{title}}</span>
                             {{!-- Visible title --}}
-                            <span class="absolute py-3 px-2 inset-0 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                            <span class="absolute py-3 px-2 inset-0 text-white">
                                 {{title}}
-                            </span>                            
+                            </span>
                             {{!-- Shine effect --}}
-                            <span aria-hidden="true" class="animate-bg hidden dark:block absolute py-3 px-2 inset-0 text-transparent bg-clip-text">{{title}}</span>                
+                            <span aria-hidden="true" class="animate-bg hidden dark:block absolute py-3 px-2 inset-0 text-transparent bg-clip-text">{{title}}</span>
                         </span>
                     </h1>   
                 {{else}}
                     <h2 data-sal="fade"
-                        class="relative max-w-3xl text-balance text-4xl xl:text-5xl font-bold tracking-tight leading-tighter text-gray-950 dark:text-gray-100
+                        class="relative max-w-3xl text-balance text-4xl xl:text-5xl font-semibold tracking-tight leading-tighter text-white
                             {{^has tag="#landing-txt-start, #landing-media-end, #landing-media-start"}} mx-auto {{/has}}
                         "
                     >
-                        <span class="text-gray-950 dark:text-gray-50/50 dark:bg-clip-text dark:bg-linear-to-b from-white to-background-dark">
+                        <span class="text-white">
                             {{title}}
                         </span>
                     </h2>
