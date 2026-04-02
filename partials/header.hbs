@@ -37,17 +37,7 @@
                     {{#match @site.navigation.length ">" 0}} me-3.5 xs:pe-3.5 lg:ms-4 xs:border-e lg:border-e-0 lg:border-s {{/match}}
                 "
             >
-                <button 
-                    data-sx-theme-toggle
-                    title="{{t "Change theme" }}" 
-                    aria-label="{{t "Change theme" }}"
-                    class="flex-none p-1.5 -mx-1.5 text-gray-500 hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
-                >
-                    {{> icons/sun class="dark:hidden w-5 h-5" }}
-                    {{> icons/moon class="hidden dark:block w-5 h-5" stroke-width="1.5" }}
-                </button>
-                
-                <button 
+                <button
                     data-ghost-search 
                     title="{{t "Quick search..." }}" 
                     aria-label="{{t "Quick search..." }}"

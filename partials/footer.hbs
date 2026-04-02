@@ -73,10 +73,6 @@
                                 &copy; {{date format="YYYY"}}
                             </span>
                         {{/if}}
-                        <span id="sx-footer-published-with">
-                            <span class="mx-1">·</span>
-                            {{{t "Published with {ghost-link} and {theme-link}" ghost-link="<a class='font-medium hover:text-gray-950 dark:hover:text-gray-50 transition-colors' href='https://ghost.org/' target='_blank' rel='noopener'>Ghost</a>" theme-link="<a class='font-medium hover:text-gray-950 dark:hover:text-gray-50 transition-colors' href='https://spiritix.co/themes/bright' target='_blank' rel='noopener'>Spiritix</a>" }}}
-                        </span>
                     </div>
 
                     <span class="sm:max-lg:row-start-1 sm:max-lg:col-start-1 sm:max-lg:col-span-2 inline-flex flex-wrap items-center gap-2 md:gap-4 -ms-1 -my-1 md:ms-0 md:my-0 md:py-1 md:pe-4 lg:ms-auto lg:border-e border-gray-950/10 dark:border-white/10 text-gray-400 not-has-[a]:hidden">
@@ -87,14 +83,6 @@
                         }}                        
                     </span>
 
-                    <button data-sx-theme-toggle class="max-sm:order-first sm:max-lg:col-start-2 me-auto sm:ms-auto sm:me-0 lg:-ms-0.5 inline-flex flex-none items-center h-6 max-w-fit rounded-full text-gray-400 ring-1 ring-gray-950/10 dark:ring-white/10 bg-gray-100 hover:bg-gray-950/5 dark:bg-transparent dark:hover:bg-white/5 transition-colors duration-200" title="{{t "Change theme"}}" aria-label="{{t "Change theme"}}">
-                        <span class="inline-flex flex-none items-center justify-center w-6 h-6 rounded-full ring-1 ring-gray-950/10 dark:ring-transparent bg-white dark:bg-transparent shadow-xs dark:shadow-none">
-                            {{> icons/sun class="w-4 h-4 text-gray-950 dark:text-gray-400" }}
-                        </span>
-                        <span class="inline-flex flex-none items-center justify-center w-6 h-6 rounded-full ring-1 ring-transparent dark:ring-white/10 dark:bg-white/10">
-                            {{> icons/moon class="w-4 h-4 dark:text-gray-50" }}
-                        </span>
-                    </button>                    
                 </div>        
             </div>
         </div>
