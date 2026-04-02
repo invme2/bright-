@@ -57,22 +57,22 @@
                     <button                             
                         {{#if @member }} data-portal="account" {{else}} data-portal="signup" {{/if}}
                         class="relative inline-flex justify-center items-center px-4 py-2.5 rounded-full border border-transparent
-                            font-medium text-sm leading-none bg-primary shadow-primary text-primary-contrast hover:opacity-80 transition-opacity duration-200
-                            from-gray-50 from-50% dark:border-gray-50/10 dark:bg-transparent dark:bg-linear-to-br dark:bg-clip-text dark:text-transparent dark:shadow-none dark:hover:opacity-100          
+                            font-medium text-sm leading-none bg-transparent shadow-none text-white hover:opacity-100 transition-opacity duration-200
+                            dark:border-gray-50/10 dark:bg-transparent dark:shadow-none dark:hover:opacity-100
                         "
                     >
                         <span>{{#if @member }} {{t "Account"}} {{else}} {{t "Subscribe"}} {{/if}}</span>
 
                         {{!-- Border --}}
-                        <span class="hidden dark:block absolute -inset-px -z-10 rounded-full bg-linear-to-br from-white from-0% to-30%"></span>
+                        <span class="hidden dark:block absolute -inset-px -z-10 rounded-full" style="background:linear-gradient(to bottom right, rgba(75,0,255,0.4) 0%, transparent 30%)"></span>
                         {{!-- Animated border --}}
                         <span class="hidden dark:block not-supports-relative-colors:hidden! absolute -inset-px -z-10 rounded-full drop-shadow-white-sm animation-state-paused [:hover>&]:animation-state-running opacity-0 [:hover>&]:opacity-100 transition-opacity duration-500">
                             <span class="absolute inset-0 rounded-full -z-10 transition-opacity duration-500 bg-conic-white-sm animate-rotate-angle animation-state-inherit"></span>
-                        </span> 
+                        </span>
                         {{!-- Mask --}}
                         <span class="hidden dark:block absolute inset-0 -z-10 rounded-full bg-background-dark"></span>
                         {{!-- Gradient bg --}}
-                        <span class="hidden dark:block absolute -inset-px -z-10 rounded-full bg-radial-[90%_90%_at_0%_0%] from-white transition-opacity duration-1000 opacity-25 [:hover>&]:opacity-40"></span>                
+                        <span class="hidden dark:block absolute -inset-px -z-10 rounded-full transition-opacity duration-1000 opacity-25 [:hover>&]:opacity-40" style="background:radial-gradient(90% 90% at 0% 0%, rgba(75,0,255,0.3), transparent)"></span>                
                     </button>
                 {{/if}}
             </div>

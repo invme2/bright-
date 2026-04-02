@@ -364,11 +364,11 @@
 }
 
 @utility drop-shadow-white-sm {
-  filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.2));
+  filter: drop-shadow(0px 0px 8px rgba(75, 0, 255, 0.4));
 }
 
 @utility bg-conic-white-sm {
-  background: conic-gradient(from calc(280deg + var(--angle)) at 50% 50%, transparent 0deg, rgba(255,255,255, 0.4) 20%, transparent 22%);
+  background: conic-gradient(from calc(280deg + var(--angle)) at 50% 50%, transparent 0deg, rgba(75, 0, 255, 0.7) 20%, transparent 22%);
 }
 
 @layer base {
