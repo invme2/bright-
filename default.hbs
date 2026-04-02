@@ -239,22 +239,55 @@
                 wrap.className = 'zx-btn-wrap';
                 btn.parentNode.insertBefore(wrap, btn);
                 wrap.appendChild(btn);
-                // Animated border layer
                 var border = document.createElement('div');
                 border.className = 'zx-btn-border';
                 wrap.insertBefore(border, btn);
-                // Mask (covers inside so only edge glows)
                 var mask = document.createElement('div');
                 mask.className = 'zx-btn-mask';
                 wrap.insertBefore(mask, btn);
-                // Subtle glow
                 var glow = document.createElement('div');
                 glow.className = 'zx-btn-glow';
                 wrap.insertBefore(glow, btn);
-                // Remove old border from btn since wrapper handles it
                 btn.style.border = 'none';
             });
         });
+
+        // ZEXO: Style Ghost Portal popup (dark theme)
+        (function(){
+            var portalCSS = 'div.gh-portal-popup-container{background:#12121a!important;color:#a5a5a8!important}' +
+                '.gh-portal-content{background:#12121a!important}' +
+                '.gh-portal-input{background:#0e0e14!important;border-color:rgba(255,255,255,0.08)!important;color:#fff!important}' +
+                '.gh-portal-input-label{color:#6a6a6d!important}' +
+                '.gh-portal-main-title{color:#fff!important}' +
+                '.gh-portal-signup-header{background:#12121a!important}' +
+                '.gh-portal-btn-main{border-radius:12px!important}' +
+                '.gh-portal-btn-link span{color:#a5a5a8!important}' +
+                '.gh-portal-signup-message div{color:#6a6a6d!important}' +
+                '.gh-portal-closeicon{color:#6a6a6d!important}' +
+                '.gh-portal-back-sitetitle button{color:#6a6a6d!important}' +
+                'section.gh-portal-signup{background:#12121a!important}';
+
+            function stylePortal(){
+                var frames = document.querySelectorAll('iframe[title*="portal"],iframe[data-testid="portal-popup-frame"],iframe.gh-portal-popup-iframe');
+                frames.forEach(function(frame){
+                    try {
+                        var doc = frame.contentDocument || frame.contentWindow.document;
+                        if(doc && !doc.getElementById('zx-portal-style')){
+                            var s = doc.createElement('style');
+                            s.id = 'zx-portal-style';
+                            s.textContent = portalCSS;
+                            doc.head.appendChild(s);
+                        }
+                    } catch(e){}
+                });
+            }
+
+            var obs = new MutationObserver(function(){
+                stylePortal();
+            });
+            obs.observe(document.body, {childList:true, subtree:true});
+            setInterval(stylePortal, 500);
+        })();
         </script>
     </body>
 </html>
