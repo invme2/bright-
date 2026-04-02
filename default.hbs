@@ -114,8 +114,28 @@
             .kg-bookmark-title{color:#fff!important;font-size:16px;font-weight:600}
             .kg-bookmark-description{color:#a5a5a8!important;font-size:14px}
             .kg-bookmark-metadata{color:#424246!important;font-size:12px}
-            /* Ghost content buttons — 12px radius */
-            .content .kg-button-card .kg-btn{border-radius:12px!important;box-shadow:none!important;filter:none!important}
+            /* Ghost content buttons — Aevo style */
+            .content .kg-button-card .kg-btn{
+                border-radius:12px!important;box-shadow:none!important;filter:none!important;
+                position:relative;overflow:hidden;background:transparent!important;
+                border:1px solid rgba(255,255,255,0.1)!important;color:#fff!important;
+                padding:14px 32px!important;font-weight:500;font-size:14px;transition:border-color .3s;
+            }
+            .content .kg-button-card .kg-btn:hover{border-color:rgba(255,255,255,0.25)!important;opacity:1!important}
+            /* Animated border wrapper */
+            .zx-btn-wrap{position:relative;display:inline-flex;border-radius:12px}
+            .zx-btn-border{position:absolute;inset:-1px;border-radius:12px;opacity:0;overflow:hidden;transition:opacity .4s;pointer-events:none}
+            .zx-btn-wrap:hover .zx-btn-border{opacity:1}
+            .zx-btn-border::before{
+                content:'';position:absolute;inset:0;border-radius:12px;
+                background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,rgba(255,255,255,0.4) 20deg,transparent 22deg);
+                animation:zx-rotate-border 2s linear infinite;animation-play-state:paused;
+            }
+            .zx-btn-wrap:hover .zx-btn-border::before{animation-play-state:running}
+            .zx-btn-mask{position:absolute;inset:1px;border-radius:11px;background:#06060c;pointer-events:none}
+            .zx-btn-glow{position:absolute;inset:0;border-radius:12px;background:radial-gradient(90% 90% at 0% 0%,rgba(255,255,255,0.06),transparent);opacity:0;transition:opacity .5s;pointer-events:none}
+            .zx-btn-wrap:hover .zx-btn-glow{opacity:1}
+            @keyframes zx-rotate-border{to{transform:rotate(360deg)}}
             /* Secondary nav buttons */
             [data-portal="signin"],[data-members-signout]{color:#6a6a6d!important;font-size:14px}
             [data-portal="signin"]:hover,[data-members-signout]:hover{color:#fff!important}
@@ -188,6 +208,32 @@
         {{{block "foot-after"}}}     
 
         {{!-- Lazy loaded script  --}}
-        <div id="sx-lazy-script" data-src="{{asset "/built/lazy.min.js"}}"></div>        
+        <div id="sx-lazy-script" data-src="{{asset "/built/lazy.min.js"}}"></div>
+
+        {{!-- ZEXO: Animated border on content buttons --}}
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.content .kg-button-card .kg-btn').forEach(function(btn) {
+                var wrap = document.createElement('div');
+                wrap.className = 'zx-btn-wrap';
+                btn.parentNode.insertBefore(wrap, btn);
+                wrap.appendChild(btn);
+                // Animated border layer
+                var border = document.createElement('div');
+                border.className = 'zx-btn-border';
+                wrap.insertBefore(border, btn);
+                // Mask (covers inside so only edge glows)
+                var mask = document.createElement('div');
+                mask.className = 'zx-btn-mask';
+                wrap.insertBefore(mask, btn);
+                // Subtle glow
+                var glow = document.createElement('div');
+                glow.className = 'zx-btn-glow';
+                wrap.insertBefore(glow, btn);
+                // Remove old border from btn since wrapper handles it
+                btn.style.border = 'none';
+            });
+        });
+        </script>
     </body>
 </html>
