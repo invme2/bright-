@@ -246,30 +246,10 @@ a span {
 
 /* === Button Overrides === */
 
-/* Primary buttons - white bg, black text (Aevo style) */
-[data-portal="signup"],
-.gh-portal-btn-main,
-button.bg-primary,
-a.bg-primary {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  border-radius: 12px !important;
-  font-weight: 500;
-  font-size: 14px;
-  transition: opacity 0.2s, transform 0.2s;
-}
+/* Leave theme portal buttons (Subscribe, Sign In, Account) untouched —
+   they have complex dark-mode gradient/border effects that should not be overridden */
 
-[data-portal="signup"]:hover,
-.gh-portal-btn-main:hover,
-button.bg-primary:hover,
-a.bg-primary:hover {
-  opacity: 0.85;
-  transform: translateY(-1px);
-}
-
-/* Secondary buttons */
+/* Secondary nav buttons */
 [data-portal="signin"],
 [data-members-signout] {
   color: #6a6a6d !important;
@@ -381,16 +361,7 @@ a.bg-primary:hover {
 }
 
 /* === Border Radius (Aevo: 12px, 16px) === */
-
-/* Buttons and interactive elements: 12px */
-.rounded-full:where(button, [role="button"], a[href]) {
-  border-radius: 12px;
-}
-
-/* Keep pill shapes for tags/badges only */
-.rounded-full:not(button, [role="button"], a[href]) {
-  border-radius: 9999px;
-}
+/* Don't override .rounded-full — theme buttons rely on it for gradient border effects */
 
 /* === Animations === */
 
