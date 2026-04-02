@@ -375,13 +375,13 @@
                 var btnCenter=btnRect.top+btnRect.height/2-heroRect.top;
                 grid.style.top=btnCenter+'px';
             }
-            if(document.readyState==='loading'){
-                document.addEventListener('DOMContentLoaded',alignGrid);
-            } else {
-                alignGrid();
-            }
+            alignGrid();
+            document.addEventListener('DOMContentLoaded',alignGrid);
             window.addEventListener('resize',alignGrid);
             window.addEventListener('load',alignGrid);
+            setTimeout(alignGrid,100);
+            setTimeout(alignGrid,500);
+            setTimeout(alignGrid,1000);
         })();
         </script>
     {{/if}}
