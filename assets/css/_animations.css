@@ -30,8 +30,9 @@
 
 /* Settings */
 
-@media not all and (prefers-reduced-motion) { 
-    .has-animation {
+@media not all and (prefers-reduced-motion) {
+    .has-animation,
+    #sx-hero {
         --animation-duration: 600ms;
         --animation-delay: 100ms;
     }
