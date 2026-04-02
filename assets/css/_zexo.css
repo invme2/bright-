@@ -488,37 +488,145 @@ a span {
 
 /* === Animations === */
 
-/* Perspective grid — fly-into-screen animation */
-.landing-pattern {
-  perspective: 500px;
-  overflow: hidden !important;
+/* ============================================
+   Perspective Grid — fly-into-screen effect
+   ============================================ */
+
+.zx-grid-wrapper {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  pointer-events: none;
+  margin-top: -20px;
 }
 
-.landing-pattern > div {
-  animation: zx-fly-forward 20s linear infinite;
-  transform-origin: center bottom;
+.zx-grid-scene {
+  position: absolute;
+  inset: 0;
+  perspective: 300px;
+  perspective-origin: 50% 30%;
+  overflow: hidden;
 }
 
-@keyframes zx-fly-forward {
+.zx-grid-plane {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -60%;
+  height: 200%;
+  transform: rotateX(60deg);
+  transform-origin: center top;
+}
+
+/* Grid surface — repeating lines */
+.zx-grid-surface {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* First surface — scrolls continuously */
+.zx-grid-surface-1 {
+  animation: zx-grid-scroll 3s linear infinite;
+}
+
+/* Second surface — offset for seamless loop */
+.zx-grid-surface-2 {
+  animation: zx-grid-scroll 3s linear infinite;
+  animation-delay: -1.5s;
+  opacity: 0.5;
+  background-size: 160px 160px;
+}
+
+@keyframes zx-grid-scroll {
   0% {
-    transform: scale3d(1.25, 1, 1) translateZ(0px) translateY(0%);
+    transform: translateY(-80px);
   }
   100% {
-    transform: scale3d(1.25, 1, 1) translateZ(80px) translateY(-15%);
+    transform: translateY(0px);
   }
 }
 
-/* Pulse opacity for depth feel */
-.landing-pattern svg {
-  animation: zx-grid-pulse 4s ease-in-out infinite alternate;
+/* Center glow line */
+.zx-grid-plane::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(75, 0, 255, 0.3),
+    rgba(75, 0, 255, 0.05) 40%,
+    transparent 70%
+  );
+  transform: translateX(-50%);
 }
 
-@keyframes zx-grid-pulse {
-  0% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.6;
+/* Horizon glow */
+.zx-grid-plane::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    transparent 20%,
+    rgba(75, 0, 255, 0.2) 40%,
+    rgba(75, 0, 255, 0.4) 50%,
+    rgba(75, 0, 255, 0.2) 60%,
+    transparent 80%
+  );
+  filter: blur(2px);
+}
+
+/* Fade edges — mask */
+.zx-grid-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 60% 100% at 50% 100%,
+      transparent 0%,
+      transparent 40%,
+      #06060c 75%
+    );
+}
+
+/* Fade top */
+.zx-grid-fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, #06060c, transparent);
+}
+
+/* Fade bottom */
+.zx-grid-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20%;
+  background: linear-gradient(to top, #06060c, transparent);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .zx-grid-wrapper {
+    height: 160px;
   }
 }
 

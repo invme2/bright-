@@ -340,12 +340,16 @@
         </figure>             
     </div>
 
-    {{!-- Patterns --}}
+    {{!-- Perspective Grid (fly-forward) --}}
     {{#if isHero}}
-        <div class="landing-pattern -mx-outer sm:mx-0 animate-fade overflow-hidden pointer-events-none">
-            <div class="relative sm:start-0.5 -z-10 mx-auto w-full sm:scale-x-125">
-                {{> icons/grid-perspective class="relative start-1/2 -translate-x-1/2 w-auto h-32 sm:w-full sm:h-auto text-gray-950/50 dark:text-gray-50/50 mask-radial mask-radial-x-size-40% mask-radial-y-size-50%" }}
+        <div class="zx-grid-wrapper">
+            <div class="zx-grid-scene">
+                <div class="zx-grid-plane">
+                    <div class="zx-grid-surface zx-grid-surface-1"></div>
+                    <div class="zx-grid-surface zx-grid-surface-2"></div>
+                </div>
             </div>
+            <div class="zx-grid-fade"></div>
         </div>
     {{/if}}
 </div>
