@@ -342,9 +342,8 @@
 
     {{!-- Perspective Grid (fly-forward, Version A) --}}
     {{#if isHero}}
-        <div class="zx-grid-container" style="position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;pointer-events:none;z-index:0;">
-            {{!-- Grid positioned so horizon aligns with button area --}}
-            <div class="zx-grid-inner" style="position:absolute;left:0;right:0;bottom:0;top:62%;">
+        <div id="zx-grid-container" style="position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;pointer-events:none;z-index:0;">
+            <div id="zx-grid-inner" style="position:absolute;left:0;right:0;bottom:0;top:50%;">
                 {{!-- Purple glow behind horizon --}}
                 <div style="position:absolute;top:-40px;left:20%;right:20%;height:80px;background:radial-gradient(ellipse at center,rgba(75,0,255,0.15) 0%,transparent 70%);z-index:1;"></div>
                 {{!-- Horizon line --}}
@@ -362,9 +361,28 @@
         </div>
         <style>
             @keyframes zx-grid-a{0%{transform:translateY(0)}100%{transform:translateY(60px)}}
-            @media(max-width:640px){
-                .zx-grid-inner{top:58%!important;}
-            }
         </style>
+        <script>
+        (function(){
+            function alignGrid(){
+                var btn=document.querySelector('.landing-hero .kg-button-card');
+                if(!btn) btn=document.querySelector('.landing-hero .kg-btn');
+                var hero=document.querySelector('.landing-hero');
+                var grid=document.getElementById('zx-grid-inner');
+                if(!btn||!hero||!grid) return;
+                var heroRect=hero.getBoundingClientRect();
+                var btnRect=btn.getBoundingClientRect();
+                var btnCenter=btnRect.top+btnRect.height/2-heroRect.top;
+                grid.style.top=btnCenter+'px';
+            }
+            if(document.readyState==='loading'){
+                document.addEventListener('DOMContentLoaded',alignGrid);
+            } else {
+                alignGrid();
+            }
+            window.addEventListener('resize',alignGrid);
+            window.addEventListener('load',alignGrid);
+        })();
+        </script>
     {{/if}}
 </div>
