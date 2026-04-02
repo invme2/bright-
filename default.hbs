@@ -62,11 +62,18 @@
             /* Typography */
             h1,h2,h3,h4,h5,h6,.has-headings-font{
                 font-family:'Outfit',-apple-system,sans-serif!important;
-                color:#fff;letter-spacing:-0.025em;
+                color:#fff!important;letter-spacing:-0.02em;
             }
-            h1{font-weight:800;font-size:clamp(36px,7.5vw,64px);letter-spacing:-0.04em}
-            h2{font-weight:700;font-size:clamp(22px,3.5vw,36px)}
+            h1{font-weight:700;font-size:clamp(36px,7.5vw,64px);letter-spacing:-0.03em}
+            h2{font-weight:600;font-size:clamp(22px,3.5vw,36px)}
             h3{font-weight:600;font-size:18px}
+            /* Hero title — pure white, no gradient */
+            #sx-hero h1 span{
+                background:none!important;-webkit-background-clip:unset!important;
+                background-clip:unset!important;-webkit-text-fill-color:unset!important;
+                color:#fff!important;
+            }
+            #sx-hero .content,#sx-hero p{color:#a5a5a8!important;font-weight:300;font-size:16px}
             code,pre,.font-mono,kbd,samp{font-family:'JetBrains Mono',monospace!important}
             /* No underlines */
             a,a:link,a:visited,a:hover,a:active,a span{
@@ -85,7 +92,7 @@
                 background-color:rgba(6,6,12,0.92)!important;
                 border-bottom-color:rgba(255,255,255,0.05)!important;
             }
-            #sx-header nav a{color:#6a6a6d!important;font-size:14px;transition:color .15s}
+            #sx-header nav a{color:#a5a5a8!important;font-size:14px;font-weight:400;transition:color .15s}
             #sx-header nav a:hover{color:#fff!important}
             /* Mobile menu */
             #sx-mobile-menu>div:last-child{background-color:#0e0e14!important}

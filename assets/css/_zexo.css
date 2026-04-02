@@ -77,24 +77,48 @@ body {
 h1, h2, h3, h4, h5, h6,
 .has-headings-font {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  color: #ffffff;
-  letter-spacing: -0.025em;
+  color: #ffffff !important;
+  letter-spacing: -0.02em;
+}
+
+/* Hero H1 — clean white, no gradient */
+#sx-hero h1 {
+  font-weight: 700;
+  font-size: clamp(36px, 7.5vw, 64px);
+  letter-spacing: -0.03em;
+}
+
+/* Kill gradient text on hero title */
+#sx-hero h1 span {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  color: #ffffff !important;
 }
 
 h1 {
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(36px, 7.5vw, 64px);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
 h2 {
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(22px, 3.5vw, 36px);
 }
 
 h3 {
   font-weight: 600;
   font-size: 18px;
+}
+
+/* Hero description text */
+#sx-hero .content,
+#sx-hero p {
+  color: #a5a5a8 !important;
+  font-weight: 300;
+  font-size: 16px;
 }
 
 /* Monospace for labels, numbers, code */
@@ -158,7 +182,7 @@ a span {
 
 /* Nav links */
 #sx-header nav a {
-  color: #6a6a6d !important;
+  color: #a5a5a8 !important;
   font-size: 14px;
   font-weight: 400;
   transition: color 0.15s;

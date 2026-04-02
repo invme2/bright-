@@ -39,14 +39,14 @@
                     {{#is "page"}} {{^if @page.show_title_and_feature_image}} hidden {{/if}} {{/is}}            
                 "
             >
-                <span class="inline-flex py-3 text-gray-950 dark:bg-linear-to-br from-gray-100 from-50% to-background-dark dark:bg-clip-text dark:text-transparent">
+                <span class="inline-flex py-3 text-white">
                     {{title}}
                 </span>
             </h1>     
 
             {{!-- Content --}}
             {{#*inline "content-class"}}
-                animate-slide-up max-w-2xl text-lg text-gray-600 dark:text-gray-400
+                animate-slide-up max-w-2xl text-lg text-gray-400
                 {{^has tag="#temp-txt-left, #temp-media-end, #temp-media-start"}} mx-auto {{/has}}
                 {{^has tag="#temp-no-title"}} mt-6 {{/has}}  
                 {{#is "page"}} {{^if @page.show_title_and_feature_image}} !mt-0 {{/if}} {{/is}}     
