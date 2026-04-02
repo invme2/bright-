@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
  * ZEXO Design System Overrides
- * DeFi frontend aggregator on Solana
- * Always dark mode, Aevo-inspired monochrome style
+ * Exact Aevo color palette extracted from aevo.xyz
+ * Always dark mode, monochrome style
  */
 
 /* === Force Dark Background === */
@@ -16,39 +16,50 @@ html.light {
 body,
 html.light body,
 html.dark body {
-  background-color: #08080c !important;
-  color: #999999 !important;
+  background-color: #06060c !important;
+  color: #a5a5a8 !important;
 }
 
-/* === ZEXO Color Tokens === */
+/* === ZEXO Color Tokens (matched to Aevo) === */
 
 :root,
 html.dark,
 html.light {
-  --zx-bg: #08080c;
-  --zx-surface: #12121a;
-  --zx-surface-hover: #15151e;
+  /* Backgrounds */
+  --zx-bg: #06060c;                        /* rgb(6,6,12) — main background */
+  --zx-bg-elevated: #0e0e14;               /* rgb(14,14,20) — elevated bg */
+  --zx-surface: #12121a;                   /* rgb(18,18,26) — cards/surfaces */
+  --zx-surface-alt: #131319;               /* rgb(19,19,25) — alt surface */
+  --zx-surface-hover: #18181e;             /* rgb(24,24,30) — card hover */
+  --zx-bg-header: rgba(6,6,12,0.92);      /* header stuck bg */
+
+  /* Borders */
   --zx-border: rgba(255,255,255,0.05);
   --zx-divider: rgba(255,255,255,0.04);
-  --zx-text-bright: #ffffff;
-  --zx-text-body: #999999;
-  --zx-text-dim: #555555;
-  --zx-accent-purple: #4b00ff;
-  --zx-accent-blue: #49ceea;
 
-  /* Override theme background */
-  --color-background: #08080c;
-  --color-background-dark: #08080c;
-  --color-gray-950: #08080c;
+  /* Text */
+  --zx-text-bright: #ffffff;               /* rgb(255,255,255) */
+  --zx-text-body: #a5a5a8;                 /* rgb(165,165,168) — body text */
+  --zx-text-muted: #6a6a6d;               /* rgb(106,106,109) — muted */
+  --zx-text-dim: #424246;                  /* rgb(66,66,70) — very dim */
+
+  /* Accent */
+  --zx-accent-purple: #4b00ff;             /* rgb(75,0,255) */
+  --zx-accent-purple-64: rgba(75,0,255,0.64);
+
+  /* Override Tailwind/theme gray scale */
+  --color-background: #06060c;
+  --color-background-dark: #06060c;
+  --color-gray-950: #06060c;
   --color-gray-900: #0e0e14;
   --color-gray-800: #12121a;
-  --color-gray-700: #1a1a24;
-  --color-gray-600: #333340;
-  --color-gray-500: #555555;
-  --color-gray-400: #777777;
-  --color-gray-300: #999999;
-  --color-gray-200: rgba(255,255,255,0.1);
-  --color-gray-100: #cccccc;
+  --color-gray-700: #18181e;
+  --color-gray-600: #424246;
+  --color-gray-500: #6a6a6d;
+  --color-gray-400: #a5a5a8;
+  --color-gray-300: #a5a5a8;
+  --color-gray-200: rgba(255,255,255,0.08);
+  --color-gray-100: #d0d0d2;
   --color-gray-50: #ffffff;
 }
 
@@ -60,6 +71,7 @@ body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-weight: 300;
   line-height: 1.75;
+  font-size: 16px;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -71,15 +83,18 @@ h1, h2, h3, h4, h5, h6,
 
 h1 {
   font-weight: 800;
+  font-size: clamp(36px, 7.5vw, 64px);
   letter-spacing: -0.04em;
 }
 
 h2 {
   font-weight: 700;
+  font-size: clamp(22px, 3.5vw, 36px);
 }
 
 h3 {
   font-weight: 600;
+  font-size: 18px;
 }
 
 /* Monospace for labels, numbers, code */
@@ -90,6 +105,8 @@ kbd,
 samp {
   font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
 }
+
+/* Aevo font-size scale: 11, 12, 14, 16, 18, 22, 36, 64, 80 */
 
 /* === Links — No Underlines === */
 
@@ -107,19 +124,16 @@ a span {
 
 /* === Hide Decorative Elements === */
 
-/* Spotlights */
 #sx-spotlights {
   display: none !important;
 }
 
-/* Tone overlay */
 #sx-tone {
   display: none !important;
 }
 
-/* Grid pattern backgrounds on pages */
-.bg-grid-gray-950,
-.bg-grid-gray-50 {
+/* Grid pattern backgrounds */
+[class*="bg-grid-"] {
   background: none !important;
 }
 
@@ -131,18 +145,22 @@ a span {
 }
 
 #sx-header.stuck {
-  background-color: rgba(8, 8, 12, 0.9) !important;
+  background-color: var(--zx-bg-header) !important;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom-color: var(--zx-border) !important;
 }
 
 #sx-header-brand {
   color: #ffffff !important;
+  font-weight: 700;
 }
 
 /* Nav links */
 #sx-header nav a {
-  color: #999999 !important;
+  color: #6a6a6d !important;
+  font-size: 14px;
+  font-weight: 400;
   transition: color 0.15s;
 }
 
@@ -161,22 +179,34 @@ a span {
 }
 
 #sx-footer-description {
-  color: #999999;
+  color: #6a6a6d;
 }
 
 #sx-footer-copy {
-  color: #555555;
+  color: #424246;
+  font-size: 12px;
 }
 
 #sx-footer-copy a {
-  color: #555555 !important;
+  color: #424246 !important;
 }
 
 #sx-footer-copy a:hover {
   color: #ffffff !important;
 }
 
-/* === Card Styles (for Ghost content) === */
+/* Footer nav links */
+#sx-footer a {
+  color: #6a6a6d !important;
+  font-size: 14px;
+  transition: color 0.15s;
+}
+
+#sx-footer a:hover {
+  color: #ffffff !important;
+}
+
+/* === Card Styles === */
 
 .kg-card,
 .kg-image-card,
@@ -187,31 +217,36 @@ a span {
 }
 
 .kg-bookmark-card .kg-bookmark-container {
-  background: #12121a !important;
-  border: 1px solid rgba(255,255,255,0.05) !important;
+  background: var(--zx-surface) !important;
+  border: 1px solid var(--zx-border) !important;
   border-radius: 12px;
   box-shadow: none !important;
+  transition: background 0.2s;
 }
 
 .kg-bookmark-card .kg-bookmark-container:hover {
-  background: #15151e !important;
+  background: var(--zx-surface-hover) !important;
 }
 
 .kg-bookmark-card .kg-bookmark-title {
   color: #ffffff !important;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .kg-bookmark-card .kg-bookmark-description {
-  color: #999999 !important;
+  color: #a5a5a8 !important;
+  font-size: 14px;
 }
 
 .kg-bookmark-card .kg-bookmark-metadata {
-  color: #555555 !important;
+  color: #424246 !important;
+  font-size: 12px;
 }
 
 /* === Button Overrides === */
 
-/* Primary buttons - white bg, black text */
+/* Primary buttons - white bg, black text (Aevo style) */
 [data-portal="signup"],
 .gh-portal-btn-main,
 button.bg-primary,
@@ -220,7 +255,10 @@ a.bg-primary {
   color: #000000 !important;
   border-color: transparent !important;
   box-shadow: none !important;
-  border-radius: 8px !important;
+  border-radius: 12px !important;
+  font-weight: 500;
+  font-size: 14px;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 [data-portal="signup"]:hover,
@@ -234,7 +272,8 @@ a.bg-primary:hover {
 /* Secondary buttons */
 [data-portal="signin"],
 [data-members-signout] {
-  color: #999999 !important;
+  color: #6a6a6d !important;
+  font-size: 14px;
 }
 
 [data-portal="signin"]:hover,
@@ -245,7 +284,7 @@ a.bg-primary:hover {
 /* === Search Button === */
 
 [data-ghost-search] {
-  color: #555555 !important;
+  color: #424246 !important;
 }
 
 [data-ghost-search]:hover {
@@ -255,7 +294,9 @@ a.bg-primary:hover {
 /* === Content Typography === */
 
 .content {
-  color: #999999;
+  color: #a5a5a8;
+  font-size: 16px;
+  line-height: 1.75;
 }
 
 .content h1,
@@ -276,9 +317,14 @@ a.bg-primary:hover {
   opacity: 0.8;
 }
 
+.content strong {
+  color: #ffffff;
+  font-weight: 500;
+}
+
 .content blockquote {
-  border-left-color: rgba(255,255,255,0.1);
-  color: #cccccc;
+  border-left-color: rgba(255,255,255,0.08);
+  color: #d0d0d2;
 }
 
 .content hr {
@@ -286,24 +332,67 @@ a.bg-primary:hover {
 }
 
 .content figcaption {
-  color: #555555;
+  color: #424246;
+  font-size: 12px;
+}
+
+.content code {
+  background: var(--zx-surface) !important;
+  border: 1px solid var(--zx-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 14px;
+  color: #a5a5a8;
+}
+
+.content pre {
+  background: var(--zx-surface) !important;
+  border: 1px solid var(--zx-border);
+  border-radius: 12px;
+}
+
+.content pre code {
+  border: none;
+  padding: 0;
+  background: transparent !important;
 }
 
 /* === Mobile Menu === */
 
 #sx-mobile-menu > div:last-child {
-  background-color: #0e0e14 !important;
+  background-color: var(--zx-bg-elevated) !important;
   border-color: var(--zx-border) !important;
 }
 
-/* === Blog Cards === */
+#sx-mobile-menu a {
+  color: #6a6a6d !important;
+  font-size: 16px;
+}
+
+#sx-mobile-menu a:hover {
+  color: #ffffff !important;
+}
+
+/* === Blog / Post Cards === */
 
 [class*="card-blog"],
 .post-card {
   border-radius: 12px;
 }
 
-/* === Scroll Animations — keep fade-up only === */
+/* === Border Radius (Aevo: 12px, 16px) === */
+
+/* Buttons and interactive elements: 12px */
+.rounded-full:where(button, [role="button"], a[href]) {
+  border-radius: 12px;
+}
+
+/* Keep pill shapes for tags/badges only */
+.rounded-full:not(button, [role="button"], a[href]) {
+  border-radius: 9999px;
+}
+
+/* === Animations === */
 
 @keyframes zx-fade-up {
   from {
@@ -325,43 +414,46 @@ a.bg-primary:hover {
   }
 }
 
-/* === Misc Overrides === */
+/* === Selection === */
 
-/* Remove rounded pill buttons (use 8px radius) */
-.rounded-full:where(button, [role="button"], a[href]) {
-  border-radius: 8px;
-}
-
-/* Keep pill shapes for tags/badges */
-.rounded-full:not(button, [role="button"], a[href]) {
-  border-radius: 9999px;
-}
-
-/* Selection color */
 ::selection {
   background-color: rgba(75, 0, 255, 0.3);
   color: #ffffff;
 }
 
-/* Scrollbar */
+/* === Scrollbar === */
+
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #08080c;
+  background: #06060c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a1a24;
+  background: #18181e;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333340;
+  background: #424246;
 }
 
-/* Dark backdrop for modals */
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #18181e #06060c;
+}
+
+/* === Modals === */
+
 .has-modal {
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* === Ghost Portal Overrides === */
+
+.gh-portal-popup-wrapper {
+  background-color: rgba(6, 6, 12, 0.85) !important;
 }

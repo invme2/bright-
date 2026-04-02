@@ -65,9 +65,13 @@
 
                 <div class="grid sm:grid-cols-[1fr_auto] gap-4 lg:flex lg:gap-5 mt-3.5 max-sm:mt-6">
                     <div class="max-sm:order-last text-xs sm:leading-6 me-auto">
-                        <span id="sx-footer-copy">
-                            &copy; {{date format="YYYY"}} ZEXO
-                        </span>
+                        {{#if @custom.footer_copyright}}
+                            <span id="sx-footer-copy">{{{@custom.footer_copyright}}}</span>
+                        {{else}}
+                            <span id="sx-footer-copy">
+                                &copy; {{date format="YYYY"}} ZEXO
+                            </span>
+                        {{/if}}
                     </div>
 
                     <span class="sm:max-lg:row-start-1 sm:max-lg:col-start-1 sm:max-lg:col-span-2 inline-flex flex-wrap items-center gap-2 md:gap-4 -ms-1 -my-1 md:ms-0 md:my-0 md:py-1 md:pe-4 lg:ms-auto lg:border-e border-gray-950/10 dark:border-white/10 text-gray-400 not-has-[a]:hidden">
